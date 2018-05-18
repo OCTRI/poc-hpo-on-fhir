@@ -1,0 +1,20 @@
+body{
+	padding-top:50px;
+}
+
+footer{
+    margin-top:60px;
+}
+
+textarea{
+	padding:5px;
+}
+
+.vertical-space {
+	margin-top: 15px;
+	margin-bottom: 15px;
+}
+
+.error-text {
+	color:#a94442;
+}

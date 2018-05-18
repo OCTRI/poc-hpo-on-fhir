@@ -1,0 +1,62 @@
+{{>layout/header}}
+
+	<div class="container vertical-space">
+		<form role="form" class="form form-inline" method="GET" enctype="multipart/form-data"
+				action="{{req.contextPath}}/search/">
+			<h1>Search For Patient</h1>
+			<div class="vertical-space">
+				<div class="form-group">
+					<label for="last_name">Last Name</label>
+					<input id="last_name" class='form-control' type="text" name="last_name"/>
+				</div>
+				<button type="submit" class="btn btn-default">Submit</button>
+				<a href="{{req.contextPath}}/" class="btn btn-link">Clear</a>
+			</div>
+		</form>
+	</div>
+	
+	<div class="container">
+		<ul id="patient_list">			
+		</ul>
+		<p id="no-results" hidden="true">No Results Found</p>
+	</div>
+
+<script type="text/javascript" src="{{req.contextPath}}/webjars/jquery/1.12.4/jquery.min.js"></script>
+<script type="text/javascript" src="{{req.contextPath}}/js/fhir-client.js"></script>
+<script type="text/javascript">
+	var demo = {
+		serviceUrl : "https://sb-fhir-stu3.smarthealthit.org/smartstu3/open"
+	};
+
+	// Create a FHIR client
+	var smart = FHIR.client(demo);
+	$(".form").submit(function(event) {
+		event.preventDefault();
+		let lastName = $("#last_name").val();
+		if (lastName.length > 1) {
+			$("#patient_list").html("");
+			smart.api.search({type : "Patient", query: {family: lastName}}).then(function(bundle) {
+				if (bundle.data.total > 0) {
+					$("#no-results").attr("hidden", true);
+					let patients = bundle.data.entry.map(e => { 
+						return {id: e.resource.id, name: e.resource.name[0].given[0] + " " + e.resource.name[0].family};
+					});
+					patients.forEach(pt => {
+						let id = pt.id;
+						document.getElementById("patient_list").innerHTML += 
+							"<li><a id=\"" + id + "\" href=\"labs?patient_id=" + id + "\" onclick=\"displayLabs('" + id + "')\">" + pt.name + "</a></li>";
+					});
+				} else {
+					$("#no-results").attr("hidden", false);
+				}
+			});
+		}
+	});
+	
+	function displayLabs(id) {
+		
+		console.log(id);
+	}
+	
+</script>
+{{>layout/footer}}

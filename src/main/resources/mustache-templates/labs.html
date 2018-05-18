@@ -1,0 +1,106 @@
+{{>layout/header}}
+
+<div class="container vertical-space">
+	<h1>
+		Patient
+	</h1>
+	<ul>
+		<li>Name: <span id="patient_name">...</span></li>
+		<li>Id: <span id="patient_id">{{patient_id}}</span></li>
+	</ul>
+	<h2>Labs</h2>
+	<ul id="lab_list"></ul>
+	<a id="next" hidden="true">Next</a>
+</div>
+
+
+<script type="text/javascript" src="{{req.contextPath}}/webjars/jquery/1.12.4/jquery.min.js"></script>
+<script type="text/javascript" src="{{req.contextPath}}/js/fhir-client.js"></script>
+<script type="text/javascript">
+	$("#next").click( function(event) {
+		event.preventDefault();
+		let url = $("#next").attr("href");
+		$.getJSON(url, function(bundle) {
+			parseObservationData(bundle);
+		});
+		
+	});
+	
+	var patientId = $("#patient_id").html();
+
+	var demo = {
+		serviceUrl : "https://sb-fhir-stu3.smarthealthit.org/smartstu3/open",
+		patientId : patientId
+	};
+
+	// Create a FHIR client (server URL, patient id in `demo`)
+	var smart = FHIR.client(demo);
+	var pt = smart.patient;
+
+	// Create a patient banner by fetching + rendering demographics
+ 	smart.patient.read().then(function(pt) {
+		displayPatient(pt);
+	});
+ 
+/*  	// For offline
+	$.getJSON("{{req.contextPath}}/patient-bundle.json", function(pt) {
+		displayPatient(pt);
+	});
+ */
+	// Search for observations on patient; querying to only get category laboratory is very slow
+	// so we filter afterward
+  	smart.patient.api.search({
+		type : "Observation"
+	}).then(function(bundle) {
+		parseObservationData(bundle.data);
+	});
+
+	function displayPatient(pt) {
+		document.getElementById('patient_name').innerHTML = getPatientName(pt);
+	}
+
+	function getPatientName(pt) {
+		if (pt.name) {
+			var names = pt.name.map(function(name) {
+				return name.given.join(" ") + " " + name.family;
+			});
+			return names.join(" / ")
+		} else {
+			return "anonymous";
+		}
+	}
+	
+	function parseObservationData(data) {
+
+		$("#lab_list").html("");
+		data.entry.forEach(function(lab) {
+				$.post( "/convert", {resource: JSON.stringify(lab.resource)}, function(json) {
+					//console.log(json);
+					displayLab(lab.resource, json);
+				});
+		});
+		let nextArray = data.link.filter(l => l.relation == "next");
+		if (nextArray.length == 1) {
+			let url = nextArray[0].url;
+			$("#next").attr("href", url);
+			$("#next").attr("hidden", false);
+		} else {
+			$("#next").attr("hidden", true);
+		}
+	}
+
+	function displayLab(resource, json) {
+		
+		let coding = resource.code.coding[0];
+		let interpretation = resource.interpretation;
+		if (interpretation != null) {
+			console.log(interpretation);
+		}
+		document.getElementById('lab_list').innerHTML += 
+			"<li> " + coding.display + " (" + coding.system + " | " + coding.code + ") HPO Term: " + json.hpoTerm + "</li>";
+	}
+	
+</script>
+
+
+{{>layout/footer}}

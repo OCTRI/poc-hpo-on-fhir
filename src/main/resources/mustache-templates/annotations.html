@@ -1,0 +1,11 @@
+{{>layout/header}}
+
+<div class="container vertical-space">
+	<ul>
+		{{#loincMap}}
+			<li><a href="/hpo?loinc_id={{key}}">{{key}}</a></li>
+		{{/loincMap}}
+	</ul>
+</div>
+
+{{>layout/footer}}

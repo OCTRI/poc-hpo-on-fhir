@@ -1,0 +1,19 @@
+	<div class="container">
+		<footer>
+			<p class="pull-right"><small>HPO on FHIR</small></p>
+		</footer>
+	</div>
+
+	<script type="text/javascript" src="{{req.contextPath}}/webjars/jquery/1.12.4/jquery.min.js"></script>
+	<script type="text/javascript" src="{{req.contextPath}}/webjars/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+	<!--/* Set the active navigation */-->
+	<script type="text/javascript">
+		$(function() {
+			var pathname = window.location.pathname;
+			$('.nav a[href$="' + pathname + '"]').parent().addClass('active');
+		});
+	</script>
+		
+	</body>
+</html>
