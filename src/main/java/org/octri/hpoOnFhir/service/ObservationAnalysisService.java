@@ -18,7 +18,7 @@ import org.monarchinitiative.loinc2hpo.loinc.LOINC2HpoAnnotationImpl;
 import org.monarchinitiative.loinc2hpo.loinc.LoincId;
 import org.monarchinitiative.loinc2hpo.testresult.BasicLabTestOutcome;
 import org.monarchinitiative.loinc2hpo.testresult.LabTestOutcome;
-import org.monarchinitiative.phenol.formats.hpo.HpoTerm;
+import org.monarchinitiative.phenol.ontology.data.Term;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -31,7 +31,7 @@ public class ObservationAnalysisService {
 	// TODO: Should this really return a list of terms? Technically, an
 	// observation can have multiple codings,
 	// but I doubt this could ever be more than one LOINC
-	public HpoTerm analyzeObservation(Observation observation) throws InterruptedException {
+	public Term analyzeObservation(Observation observation) throws InterruptedException {
 
 		// TODO: The analyzer should not need a static declaration of the
 		// observation. This is not thread-safe.
@@ -66,7 +66,7 @@ public class ObservationAnalysisService {
 	// made some improvements to the ObservationAnalysis implementations for convenience - in general those
 	// impls could use some refactoring to only provide the minimum for analysis and any calls to get additional
 	// info about the patient should be avoided within the impls. Those are a different concern.
-	public HpoTerm analyzeObservationThreadsafe(Observation observation) {
+	public Term analyzeObservationThreadsafe(Observation observation) {
 		try {
 			LoincId loincId = getLoincIdOfObservation(observation);
 			LOINC2HpoAnnotationImpl annotations= annotationService.getAnnotations().get(loincId);

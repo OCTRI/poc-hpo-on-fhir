@@ -10,7 +10,7 @@ import org.monarchinitiative.loinc2hpo.io.LoincAnnotationSerializationFactory.Se
 import org.monarchinitiative.loinc2hpo.loinc.LOINC2HpoAnnotationImpl;
 import org.monarchinitiative.loinc2hpo.loinc.LoincId;
 import org.monarchinitiative.phenol.formats.hpo.HpoOntology;
-import org.monarchinitiative.phenol.formats.hpo.HpoTerm;
+import org.monarchinitiative.phenol.ontology.data.Term;
 import org.monarchinitiative.phenol.ontology.data.TermId;
 import org.springframework.stereotype.Service;
 
@@ -30,16 +30,16 @@ public class AnnotationService {
 	public AnnotationService() throws Exception {
 		HPOParser hpoOboParser = new HPOParser("/Users/yateam/Documents/LOINC2HPO/hp.obo");
         HpoOntology ontology = hpoOboParser.getHPO();
-        ImmutableMap.Builder<TermId,HpoTerm> termmapBuilder = new ImmutableMap.Builder<>();
+        ImmutableMap.Builder<TermId,Term> termmapBuilder = new ImmutableMap.Builder<>();
         // for some reason there is a bug here...issue #34 on ontolib tracker
         // here is a workaround to remove duplicate entries
-        List<HpoTerm> res = ontology.getTermMap().values().stream().distinct()
+        List<Term> res = ontology.getTermMap().values().stream().distinct()
                 .collect(Collectors.toList());
 
         res.forEach( term -> termmapBuilder.put(term.getId(), term));
-        ImmutableMap<TermId, HpoTerm> termmap = termmapBuilder.build();
+        ImmutableMap<TermId, Term> termmap = termmapBuilder.build();
 
-        this.loincMap = LoincAnnotationSerializationFactory.parseFromFile("/Users/yateam/Documents/LOINC2HPO/Data/Session/TSVSingleFile/annotations.tsv", termmap, SerializationFormat.TSVSingleFile);
+        this.loincMap = LoincAnnotationSerializationFactory.parseFromFile("/Users/yateam/Git/loinc2hpoAnnotation/Data/TSVSingleFile/annotations.tsv", termmap, SerializationFormat.TSVSingleFile);
 	}
 	
 	public Map<LoincId, LOINC2HpoAnnotationImpl> getAnnotations() {
