@@ -1,4 +1,4 @@
-package org.octri.hpoOnFhir.controller;
+package org.octri.hpoonfhir.controller;
 
 import java.util.Map;
 

@@ -1,4 +1,4 @@
-package org.octri.hpoOnFhir.service;
+package org.octri.hpoonfhir.service;
 
 import org.hl7.fhir.dstu3.model.Coding;
 import org.hl7.fhir.dstu3.model.Observation;

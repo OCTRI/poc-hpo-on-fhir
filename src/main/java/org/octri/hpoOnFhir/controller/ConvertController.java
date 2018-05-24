@@ -1,11 +1,11 @@
-package org.octri.hpoOnFhir.controller;
+package org.octri.hpoonfhir.controller;
 
 import java.util.HashMap;
 import java.util.Map;
 
 import org.hl7.fhir.dstu3.model.Observation;
 import org.monarchinitiative.fhir2hpo.hpo.HpoTermWithNegation;
-import org.octri.hpoOnFhir.service.ObservationAnalysisService;
+import org.octri.hpoonfhir.service.ObservationAnalysisService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
