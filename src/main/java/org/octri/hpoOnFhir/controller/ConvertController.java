@@ -2,6 +2,8 @@ package org.octri.hpoonfhir.controller;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import org.hl7.fhir.dstu3.model.Observation;
 import org.monarchinitiative.fhir2hpo.hpo.HpoTermWithNegation;
@@ -18,7 +20,7 @@ public class ConvertController {
 	
 	@Autowired
 	ObservationAnalysisService observationAnalysisService;
-	private IParser jsonParser;
+	private final IParser jsonParser;
 	
 	public ConvertController() {
 		jsonParser = FhirContext.forDstu3().newJsonParser();	
@@ -29,8 +31,9 @@ public class ConvertController {
 		Map<String, Object> out = new HashMap<>();	
 		
 		Observation observation = (Observation) jsonParser.parseResource(resource);
-		HpoTermWithNegation term = observationAnalysisService.analyzeObservation(observation);
-		out.put("hpoTerm", term == null ? "Not Found" : term.getHpoTerm().getName() + ":" + term.isNegated());
+		Set<HpoTermWithNegation> terms = observationAnalysisService.analyzeObservation(observation);
+		String result = terms.size() == 0 ? "Not Found": terms.stream().map(term -> term.toString()).collect(Collectors.joining(","));
+		out.put("hpoTerm", result);
 		return out;
 	}
 
