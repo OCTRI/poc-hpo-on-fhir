@@ -36,8 +36,8 @@ public class ObservationAnalysisService {
 			// Some exception occurred (e.g. term was not found)
 			e.printStackTrace();
 		}
-        
-        return new HashSet<>();
+
+    return new HashSet<>();
 	}
 
 }
