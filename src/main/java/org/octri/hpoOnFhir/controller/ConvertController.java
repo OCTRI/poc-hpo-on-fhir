@@ -1,13 +1,13 @@
 package org.octri.hpoonfhir.controller;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 import org.hl7.fhir.dstu3.model.Observation;
-import org.monarchinitiative.fhir2hpo.hpo.HpoTermWithNegation;
-import org.octri.hpoonfhir.service.ObservationAnalysisService;
+import org.monarchinitiative.fhir2hpo.hpo.HpoConversionResult;
+import org.monarchinitiative.fhir2hpo.service.ObservationAnalysisService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -31,8 +31,8 @@ public class ConvertController {
 		Map<String, Object> out = new HashMap<>();	
 		
 		Observation observation = (Observation) jsonParser.parseResource(resource);
-		Set<HpoTermWithNegation> terms = observationAnalysisService.analyzeObservation(observation);
-		String result = terms.size() == 0 ? "Not Found": terms.stream().map(term -> term.toString()).collect(Collectors.joining(","));
+		List<HpoConversionResult> successes = observationAnalysisService.analyzeObservation(observation).stream().filter(result -> result.hasSuccess()).collect(Collectors.toList());
+		String result = successes.size() == 0 ? "Not Found": successes.stream().flatMap(success -> success.getHpoTerms().stream().map(term -> term.toString())).collect(Collectors.joining(","));
 		out.put("hpoTerm", result);
 		return out;
 	}
