@@ -20,3 +20,5 @@ As a spring-boot app:
 ```mvn spring-boot:run```
 
 You can also set up the Eclipse Spring Tool Suite with all the projects and run using the Boot dashboard. This is best for development as it will track changes in the underlying library so you don't have to rerun maven each time.
+
+Note: Most of the patients in the R3 sandbox do not have observations with Interpretations or Reference Ranges, meaning they cannot be converted. Search for Frank Taylor. He's an exception.
