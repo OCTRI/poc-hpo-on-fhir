@@ -7,7 +7,6 @@ Running the app will require the following:
 - Install Maven for building code. Run `mvn clean install` on the following libraries to get them into your local repository. Run these in order:
 - The phenol library: https://github.com/monarch-initiative/phenol
 - The fhir2hpo library: https://github.com/OCTRI/fhir2hpo
-- This application
 
 You can run this several ways.
 
