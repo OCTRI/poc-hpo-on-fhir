@@ -9,7 +9,18 @@
 		<li>Id: <span id="patient_id">{{patient_id}}</span></li>
 	</ul>
 	<h2>Labs</h2>
-	<ul id="lab_list"></ul>
+	<table>
+		<thead>
+			<tr>
+				<th>Observation</th>
+				<th>LOINC</th>
+				<th>Value</th>
+				<th>HPO Term with Negation</th>
+			</tr>
+		</thead>
+		<tbody id="lab_list">
+		</tbody>
+	</table>
 	<a id="next" hidden="true">Next</a>
 </div>
 
@@ -29,7 +40,7 @@
 	var patientId = $("#patient_id").html();
 
 	var demo = {
-		serviceUrl : "https://sb-fhir-stu3.smarthealthit.org/smartstu3/open",
+		serviceUrl : "https://r3.smarthealthit.org",
 		patientId : patientId
 	};
 
@@ -92,12 +103,9 @@
 	function displayLab(resource, json) {
 		
 		let coding = resource.code.coding[0];
-		let interpretation = resource.interpretation;
-		if (interpretation != null) {
-			console.log(interpretation);
-		}
+		let value = resource.valueQuantity.value + " " + resource.valueQuantity.unit;
 		document.getElementById('lab_list').innerHTML += 
-			"<li> " + coding.display + " (" + coding.system + " | " + coding.code + ") HPO Term: " + json.hpoTerm + "</li>";
+			"<tr><td>" + coding.display + "</td><td>" + coding.code + "</td><td>" + value + "</td><td>" + json.hpoTerm + "</td></tr>";
 	}
 	
 </script>
