@@ -9,7 +9,17 @@
 		<li>Id: <span id="patient_id">{{patient_id}}</span></li>
 	</ul>
 	<h2>Labs</h2>
-	<table id="lab_list">
+	<table>
+		<thead>
+			<tr>
+				<th>Observation</th>
+				<th>LOINC</th>
+				<th>Value</th>
+				<th>HPO Term with Negation</th>
+			</tr>
+		</thead>
+		<tbody id="lab_list">
+		</tbody>
 	</table>
 	<a id="next" hidden="true">Next</a>
 </div>
@@ -74,8 +84,6 @@
 	function parseObservationData(data) {
 
 		$("#lab_list").html("");
-		document.getElementById('lab_list').innerHTML += 
-			"<tr><th>Observation</th><th>LOINC</th><th>Value</th><th>HPO Term with Negation</th></tr>";
 		data.entry.forEach(function(lab) {
 				$.post( "/convert", {resource: JSON.stringify(lab.resource)}, function(json) {
 					//console.log(json);
