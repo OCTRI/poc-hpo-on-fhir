@@ -1,33 +1,37 @@
-	<footer class="page-footer font-small mdb-color lighten-3 pt-4">
-		<div class="container">
-		    <div class="row">
-				<div class="col-sm-6 footer-copyright py-3">© 2018:
-					<a href="https://github.com/OCTRI/poc-hpo-on-fhir"> HPO on FHIR</a>
+
+<footer class="page-footer font-small mdb-color lighten-3 pt-4">
+	<div class="container">
+		<div class="row">
+			<div class="col-sm-6 footer-copyright py-3">
+				© 2018: <a href="https://github.com/OCTRI/poc-hpo-on-fhir"> HPO
+					on FHIR</a>
+			</div>
+			<div class="col-sm-6">
+				<div class="float-right">
+					<a href="http://www.ohsu.edu/xd/research/centers-institutes/octri/">
+						<img src="/images/octri.gif" height="30" class="d-inline-block"
+						alt="">
+					</a> <a href="https://www.jax.org"> <img src="/images/jax.png"
+						height="30" class="d-inline-block" alt="">
+					</a>
 				</div>
-		    	<div class="col-sm-6">
-		    		<div class="float-right">
-						<a href="http://www.ohsu.edu/xd/research/centers-institutes/octri/">
-							<img src="/images/octri.gif" height="30" class="d-inline-block" alt="">
-						</a>
-						<a href="https://www.jax.org">
-							<img src="/images/jax.png" height="30" class="d-inline-block" alt="">
-						</a>
-					</div>
-				</div>
-			</div>	
+			</div>
 		</div>
-	</footer>
+	</div>
+</footer>
 
-	<script type="text/javascript" src="{{req.contextPath}}/webjars/jquery/1.12.4/jquery.min.js"></script>
-	<script type="text/javascript" src="{{req.contextPath}}/webjars/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<script type="text/javascript"
+	src="{{req.contextPath}}/webjars/jquery/1.12.4/jquery.min.js"></script>
+<script type="text/javascript"
+	src="{{req.contextPath}}/webjars/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 
-	<!--/* Set the active navigation */-->
-	<script type="text/javascript">
-		$(function() {
-			var pathname = window.location.pathname;
-			$('.nav a[href$="' + pathname + '"]').parent().addClass('active');
-		});
-	</script>
-		
-	</body>
+<!--/* Set the active navigation */-->
+<script type="text/javascript">
+	$(function() {
+		var pathname = window.location.pathname;
+		$('.nav a[href$="' + pathname + '"]').parent().addClass('active');
+	});
+</script>
+
+</body>
 </html>

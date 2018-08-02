@@ -1,13 +1,13 @@
-body{
-	padding-top:60px;
+body {
+	padding-top: 60px;
 }
 
-footer{
-    margin-top:60px;
+footer {
+	margin-top: 60px;
 }
 
-textarea{
-	padding:5px;
+textarea {
+	padding: 5px;
 }
 
 .vertical-space {
@@ -16,17 +16,17 @@ textarea{
 }
 
 .error-text {
-	color:#a94442;
+	color: #a94442;
 }
 
 table, th, td {
 	width: 80%;
-    border: 1px solid black;
-    border-collapse: collapse;
-    border-spacing: 5px;
-    padding: 15px;
+	border: 1px solid black;
+	border-collapse: collapse;
+	border-spacing: 5px;
+	padding: 15px;
 }
 
 .navbar {
-    background-color: #bcd0ef;
+	background-color: #bcd0ef;
 }
