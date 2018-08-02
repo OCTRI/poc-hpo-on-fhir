@@ -1,25 +1,40 @@
 {{>layout/header}}
 
-	<div class="container vertical-space">
-		<form role="form" class="form form-inline" method="GET" enctype="multipart/form-data"
-				action="{{req.contextPath}}/search/">
-			<h1>Search For Patient</h1>
-			<div class="vertical-space">
-				<div class="form-group">
-					<label for="last_name">Last Name</label>
-					<input id="last_name" class='form-control' type="text" name="last_name"/>
-				</div>
-				<button type="submit" class="btn btn-default">Submit</button>
+	
+<div class="container vertical-space">
+	<h4>Patient Search</h4>
+	<small class="text-muted">Search the EHR system for a patient. Click on the patient to see their labs and HPO terms.</small>
+	<form role="form" class="form" method="GET" enctype="multipart/form-data"
+			action="{{req.contextPath}}/search/">
+		<div class="form-group row vertical-space">
+			<label for="first_name" class="col-sm-2 col-form-label">First Name</label>
+			<div class="col-sm-4">
+				<input id="first_name" class="form-control" type="text" name="first_name"/>
+			</div>
+			<div class="col-sm-6"></div>
+		</div>
+		<div class="form-group row">
+			<label for="last_name" class="col-sm-2 col-form-label">Last Name</label>
+			<div class="col-sm-4">
+				<input id="last_name" class="form-control" type="text" name="last_name"/>
+			</div>
+			<div class="col-sm-6"></div>
+		</div>
+		<div class="form-group row vertical-space">
+			<div class="col-sm-6">
+				<button type="submit" class="btn btn-primary">Submit</button>
 				<a href="{{req.contextPath}}/" class="btn btn-link">Clear</a>
 			</div>
-		</form>
-	</div>
+			<div class="col-sm-6"></div>
+		</div>
+	</form>
+</div>
 	
-	<div class="container">
-		<ul id="patient_list">			
-		</ul>
-		<p id="no-results" hidden="true">No Results Found</p>
-	</div>
+<div class="container">
+	<ul id="patient_list">			
+	</ul>
+	<p id="no-results" hidden="true">No Results Found</p>
+</div>
 
 <script type="text/javascript" src="{{req.contextPath}}/webjars/jquery/1.12.4/jquery.min.js"></script>
 <script type="text/javascript" src="{{req.contextPath}}/js/fhir-client.js"></script>
