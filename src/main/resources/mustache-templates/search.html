@@ -2,29 +2,25 @@
 
 
 <div class="container vertical-space">
-	<h4>Patient Search</h4>
-	<small class="text-muted">Search the EHR system for a patient.
-		Click on the patient to see their labs and HPO terms.</small>
-	<form role="form" class="form" method="GET"
-		enctype="multipart/form-data" action="{{req.contextPath}}/search/">
+	<h3>Patient Search</h3>
+	<small class="text-muted">Search the EHR system for a patient.</small>
+	<form method="POST" action="{{req.contextPath}}/search">
+		{{#patientSearchForm}}
 		<div class="form-group row vertical-space">
-			<label for="first_name" class="col-sm-2 col-form-label">First
-				Name</label>
+			<label for="firstName" class="col-sm-2 col-form-label">First Name</label>
 			<div class="col-sm-4">
-				<input id="first_name" class="form-control" type="text"
-					name="first_name" />
+				<input class="form-control" type="text" name="firstName" value="{{#firstName}}{{.}}{{/firstName}}" />
 			</div>
 			<div class="col-sm-6"></div>
 		</div>
 		<div class="form-group row">
-			<label for="last_name" class="col-sm-2 col-form-label">Last
-				Name</label>
+			<label for="lastName" class="col-sm-2 col-form-label">Last Name</label>
 			<div class="col-sm-4">
-				<input id="last_name" class="form-control" type="text"
-					name="last_name" />
+				<input class="form-control" type="text" name="lastName" value="{{#lastName}}{{.}}{{/lastName}}" />
 			</div>
 			<div class="col-sm-6"></div>
 		</div>
+		{{/patientSearchForm}}
 		<div class="form-group row vertical-space">
 			<div class="col-sm-6">
 				<button type="submit" class="btn btn-primary">Submit</button>
@@ -36,49 +32,23 @@
 </div>
 
 <div class="container">
-	<ul id="patient_list">
-	</ul>
-	<p id="no-results" hidden="true">No Results Found</p>
+	{{#results}}
+		<h3>Search Results</h3>
+		<small class="text-muted">
+		Click on the patient to see their labs and HPO terms.</small>
+		<div class="vertical-space">
+			{{^patients}}
+				<p>No Results Found</p>
+			{{/patients}}
+			<ul>
+			{{#patients}}
+			<li>
+				<a href="{{req.contextPath}}/labs?patient_id={{id}}">{{firstName}} {{lastName}} ({{id}})</a>
+			</li>
+			{{/patients}}
+			</ul>
+		</div>
+	{{/results}}	
 </div>
 
-<script type="text/javascript"
-	src="{{req.contextPath}}/webjars/jquery/1.12.4/jquery.min.js"></script>
-<script type="text/javascript"
-	src="{{req.contextPath}}/js/fhir-client.js"></script>
-<script type="text/javascript">
-	var demo = {
-		serviceUrl : "https://r3.smarthealthit.org"
-	};
-
-	// Create a FHIR client
-	var smart = FHIR.client(demo);
-	$(".form").submit(function(event) {
-		event.preventDefault();
-		let lastName = $("#last_name").val();
-		if (lastName.length > 1) {
-			$("#patient_list").html("");
-			smart.api.search({type : "Patient", query: {family: lastName}}).then(function(bundle) {
-				if (bundle.data.total > 0) {
-					$("#no-results").attr("hidden", true);
-					let patients = bundle.data.entry.map(e => { 
-						return {id: e.resource.id, name: e.resource.name[0].given[0] + " " + e.resource.name[0].family};
-					});
-					patients.forEach(pt => {
-						let id = pt.id;
-						document.getElementById("patient_list").innerHTML += 
-							"<li><a id=\"" + id + "\" href=\"labs?patient_id=" + id + "\" onclick=\"displayLabs('" + id + "')\">" + pt.name + "</a></li>";
-					});
-				} else {
-					$("#no-results").attr("hidden", false);
-				}
-			});
-		}
-	});
-	
-	function displayLabs(id) {
-		
-		console.log(id);
-	}
-	
-</script>
 {{>layout/footer}}
