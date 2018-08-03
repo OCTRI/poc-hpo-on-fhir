@@ -56,13 +56,11 @@ public class MainController {
 		model.put("patientSearchForm", form);
 		try {
 			List<Patient> patients = fhirService.findPatientsByFullName(form.getFirstName(), form.getLastName());
-			List<PatientModel> patientModels = patients.stream().map(fhirPatient -> {
-				PatientModel patientModel = new PatientModel();
-				patientModel.setFirstName(fhirPatient.getNameFirstRep().getGivenAsSingleString());
-				patientModel.setLastName(fhirPatient.getNameFirstRep().getFamily());
-				patientModel.setId(fhirPatient.getIdElement().getIdPart());
-				return patientModel;
-			}).collect(Collectors.toList());
+			List<PatientModel> patientModels = patients.stream().map(fhirPatient -> 
+				new PatientModel(fhirPatient.getIdElement().getIdPart(),
+						fhirPatient.getNameFirstRep().getGivenAsSingleString(), 
+						fhirPatient.getNameFirstRep().getFamily())
+			).collect(Collectors.toList());
 			model.put("patients", patientModels);
 			model.put("results", true);
 		} catch (FHIRException e) {

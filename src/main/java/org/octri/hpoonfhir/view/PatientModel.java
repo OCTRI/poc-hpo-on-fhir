@@ -13,6 +13,16 @@ public class PatientModel {
 	private String firstName;
 	private String lastName;
 	
+	public PatientModel() {
+		
+	}
+	
+	public PatientModel(String id, String firstName, String lastName) {
+		this.id = id;
+		this.firstName = firstName;
+		this.lastName = lastName;
+	}
+	
 	public String getId() {
 		return id;
 	}
