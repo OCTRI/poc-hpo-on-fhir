@@ -19,11 +19,10 @@ import ca.uhn.fhir.context.FhirContext;
  * @author yateam
  *
  */
-public class Stu2FhirService extends FhirService {
+public class Stu2FhirService extends AbstractFhirService {
 	
-	// This is expensive, so make it static so it's only done once
 	private static final FhirContext ctx = FhirContext.forDstu2Hl7Org();
-	private VersionConvertor_10_30 converter = new VersionConvertor_10_30(new NullVersionConverterAdvisor30());
+	private final VersionConvertor_10_30 converter = new VersionConvertor_10_30(new NullVersionConverterAdvisor30());
 
 	public Stu2FhirService(String url) {
 		super(url);
@@ -35,35 +34,24 @@ public class Stu2FhirService extends FhirService {
 	}
 	
 	@Override
-	public List<Patient> findPatientsByLastName(String lastName) throws FHIRException {
-		
-		List<Patient> stu3Patients = new ArrayList<>();
-		org.hl7.fhir.instance.model.Bundle patientBundle = getClient().search().forResource(org.hl7.fhir.instance.model.Patient.class).where(Patient.FAMILY.matches().value(lastName)).returnBundle(org.hl7.fhir.instance.model.Bundle.class).execute();
-		System.out.println(ctx.newJsonParser().encodeResourceToString(patientBundle));
-		
-		for (org.hl7.fhir.instance.model.Bundle.BundleEntryComponent bundleEntryComponent: patientBundle.getEntry()) {
-			org.hl7.fhir.instance.model.Patient stu2Patient = (org.hl7.fhir.instance.model.Patient) bundleEntryComponent.getResource();
-			Patient stu3Patient = (Patient) converter.convertPatient(stu2Patient);
-			stu3Patients.add(stu3Patient);
-		}
-
-		return stu3Patients;
-	}
-
-	@Override
 	public List<Patient> findPatientsByFullName(String firstName, String lastName) throws FHIRException {
-		List<Patient> stu3Patients = new ArrayList<>();
-		// TODO: Try a traditional search not by url
-		org.hl7.fhir.instance.model.Bundle patientBundle = getClient().search().byUrl("Patient?family=" + lastName + "&given=" + firstName).returnBundle(org.hl7.fhir.instance.model.Bundle.class).execute();
-		System.out.println(ctx.newJsonParser().encodeResourceToString(patientBundle));
+		org.hl7.fhir.instance.model.Bundle patientBundle = getClient().search().forResource(org.hl7.fhir.instance.model.Patient.class).where(Patient.FAMILY.matches().value(lastName)).and(Patient.GIVEN.matches().value(firstName)).returnBundle(org.hl7.fhir.instance.model.Bundle.class).execute();
+		//System.out.println(ctx.newJsonParser().encodeResourceToString(patientBundle));
+		return processPatientBundle(patientBundle);
 		
-		for (org.hl7.fhir.instance.model.Bundle.BundleEntryComponent bundleEntryComponent: patientBundle.getEntry()) {
-			org.hl7.fhir.instance.model.Patient stu2Patient = (org.hl7.fhir.instance.model.Patient) bundleEntryComponent.getResource();
-			Patient stu3Patient = (Patient) converter.convertPatient(stu2Patient);
-			stu3Patients.add(stu3Patient);
+	}
+	
+	private List<Patient> processPatientBundle(org.hl7.fhir.instance.model.Bundle patientBundle) throws FHIRException {
+		List<Patient> stu3Patients = new ArrayList<>();
+		if (!patientBundle.hasTotal() || patientBundle.getTotal() > 0) {
+			for (org.hl7.fhir.instance.model.Bundle.BundleEntryComponent bundleEntryComponent: patientBundle.getEntry()) {
+				org.hl7.fhir.instance.model.Patient stu2Patient = (org.hl7.fhir.instance.model.Patient) bundleEntryComponent.getResource();
+				Patient stu3Patient = (Patient) converter.convertPatient(stu2Patient);
+				stu3Patients.add(stu3Patient);
+			}
 		}
 
-		return stu3Patients;
+		return stu3Patients;		
 	}
 
 

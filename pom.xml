@@ -103,9 +103,14 @@
 			</exclusions>
 		</dependency>
 		<dependency>
-		    <groupId>ca.uhn.hapi.fhir</groupId>
-		    <artifactId>hapi-fhir-converter</artifactId>
-		    <version>3.4.0</version>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-lang3</artifactId>
+			<version>3.7</version>
+		</dependency>
+		<dependency>
+			<groupId>ca.uhn.hapi.fhir</groupId>
+			<artifactId>hapi-fhir-converter</artifactId>
+			<version>3.4.0</version>
 		</dependency>
 		<!-- Required to work with LogManager in fhir2hpo dependency -->
 		<dependency>

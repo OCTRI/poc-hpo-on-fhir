@@ -1,5 +1,6 @@
 package org.octri.hpoonfhir.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -16,9 +17,8 @@ import ca.uhn.fhir.context.FhirContext;
  * @author yateam
  *
  */
-public class Stu3FhirService extends FhirService {
+public class Stu3FhirService extends AbstractFhirService {
 	
-	// This is expensive, so make it static so it's only done once
 	private static final FhirContext ctx = FhirContext.forDstu3();
 
 	public Stu3FhirService(String url) {
@@ -31,15 +31,17 @@ public class Stu3FhirService extends FhirService {
 	}
 	
 	@Override
-	public List<Patient> findPatientsByLastName(String lastName) throws FHIRException {
-		Bundle patientBundle = getClient().search().forResource(Patient.class).where(Patient.FAMILY.matches().value(lastName)).returnBundle(Bundle.class).execute();
-		return patientBundle.getEntry().stream().map(bundleEntryComponent -> (Patient) bundleEntryComponent.getResource()).collect(Collectors.toList());
-	}
-
-	@Override
 	public List<Patient> findPatientsByFullName(String firstName, String lastName) throws FHIRException {
 		Bundle patientBundle = getClient().search().forResource(Patient.class).where(Patient.FAMILY.matches().value(lastName)).and(Patient.GIVEN.matches().value(firstName)).returnBundle(Bundle.class).execute();
-		return patientBundle.getEntry().stream().map(bundleEntryComponent -> (Patient) bundleEntryComponent.getResource()).collect(Collectors.toList());
+		return processPatientBundle(patientBundle);
+	}
+	
+	private List<Patient> processPatientBundle(Bundle patientBundle) {
+		if (!patientBundle.hasTotal() || patientBundle.getTotal() > 0) {
+			return patientBundle.getEntry().stream().map(bundleEntryComponent -> (Patient) bundleEntryComponent.getResource()).collect(Collectors.toList());
+		}
+		
+		return new ArrayList<>();
 	}
 
 }
