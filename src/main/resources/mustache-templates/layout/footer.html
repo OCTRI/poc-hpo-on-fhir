@@ -3,8 +3,7 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-sm-6 footer-copyright py-3">
-				© 2018: <a href="https://github.com/OCTRI/poc-hpo-on-fhir"> HPO
-					on FHIR</a>
+				© {{currentYear}}: <a href="https://github.com/OCTRI/poc-hpo-on-fhir"> {{displayName}}</a>  {{appVersion}}
 			</div>
 			<div class="col-sm-6">
 				<div class="float-right">
@@ -21,9 +20,9 @@
 </footer>
 
 <script type="text/javascript"
-	src="{{req.contextPath}}/webjars/jquery/1.12.4/jquery.min.js"></script>
+	src="{{req.contextPath}}/webjars/jquery/jquery.min.js"></script>
 <script type="text/javascript"
-	src="{{req.contextPath}}/webjars/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+	src="{{req.contextPath}}/webjars/bootstrap/js/bootstrap.min.js"></script>
 
 <!--/* Set the active navigation */-->
 <script type="text/javascript">

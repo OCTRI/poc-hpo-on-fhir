@@ -1,18 +1,14 @@
 body {
-	padding-top: 60px;
+	padding-top: 4rem;
 }
 
 footer {
-	margin-top: 60px;
-}
-
-textarea {
-	padding: 5px;
+	margin-top: 1.5rem;
 }
 
 .vertical-space {
-	padding-top: 15px;
-	padding-bottom: 15px;
+	padding-top: .5rem;
+	padding-bottom: .5rem;
 }
 
 .error-text {
@@ -23,8 +19,8 @@ table, th, td {
 	width: 80%;
 	border: 1px solid black;
 	border-collapse: collapse;
-	border-spacing: 5px;
-	padding: 15px;
+	border-spacing: .2rem;
+	padding: .5rem;
 }
 
 .navbar {
