@@ -1,28 +1,28 @@
-body{
-	padding-top:50px;
+body {
+	padding-top: 4rem;
 }
 
-footer{
-    margin-top:60px;
-}
-
-textarea{
-	padding:5px;
+footer {
+	margin-top: 1.5rem;
 }
 
 .vertical-space {
-	margin-top: 15px;
-	margin-bottom: 15px;
+	padding-top: .5rem;
+	padding-bottom: .5rem;
 }
 
 .error-text {
-	color:#a94442;
+	color: #a94442;
 }
 
 table, th, td {
 	width: 80%;
-    border: 1px solid black;
-    border-collapse: collapse;
-    border-spacing: 5px;
-    padding: 15px;
+	border: 1px solid black;
+	border-collapse: collapse;
+	border-spacing: .2rem;
+	padding: .5rem;
+}
+
+.navbar {
+	background-color: #bcd0ef;
 }

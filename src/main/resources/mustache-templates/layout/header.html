@@ -3,27 +3,34 @@
 
 <title>HPO on FHIR</title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-
-<link rel="stylesheet" type="text/css" href="{{req.contextPath}}/webjars/bootstrap/3.3.7/css/bootstrap.min.css" />
+<link rel="stylesheet" type="text/css"
+	href="{{req.contextPath}}/webjars/bootstrap/css/bootstrap.min.css" />
 <link rel="stylesheet" href="{{req.contextPath}}/css/main.css" />
 
 </head>
 <body>
 
-<nav class="navbar navbar-inverse navbar-fixed-top">
-	<div class="container">
-		<div class="navbar-header">
-			<a class="navbar-brand" href="/">HPO on FHIR</a>
-		</div>
-		<div id="navbar ">
-			<ul class="nav navbar-nav">
-				<li><a href="{{req.contextPath}}/">Search</a></li>
-				<li><a href="{{req.contextPath}}/annotations/">View Annotations</a></li>
+	<nav class="navbar navbar-expand-md fixed-top navbar-light">
+		<a class="navbar-brand" href="/">{{displayName}}</a>
+		<button class="navbar-toggler" type="button" data-toggle="collapse"
+			data-target="#collapsibleNavbar">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+		<div class="collapse navbar-collapse" id="collapsibleNavbar">
+			<ul class="navbar-nav mr-auto">
+				<li class="nav-item active"><a class="nav-link"
+					href="{{req.contextPath}}/">Search</a></li>
+				<li class="nav-item"><a class="nav-link"
+					href="{{req.contextPath}}/annotations/">View Annotations</a></li>
 			</ul>
-			<ul class="nav navbar-nav navbar-right">
-				<li class="navbar-text">Logged in as (No Authentication Yet)</li>
-				<li class="navbar-text">Logout</li>
+			<ul class="navbar-nav navbar-right">
+				<li><a class="nav-link" href="https://hpo.jax.org/app/"> <img
+						src="/images/hpo.png" height="30" class="d-inline-block" alt="HPO logo">
+				</a></li>
+				<li><a class="nav-link"
+					href="https://www.hl7.org/fhir/overview.html"> <img
+						src="/images/fhir.png" height="30" class="d-inline-block" alt="FHIR logo">
+				</a></li>
 			</ul>
 		</div>
-	</div>
-</nav>
+	</nav>
