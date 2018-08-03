@@ -1,4 +1,4 @@
-package org.octri.hpoonfhir;
+package org.octri.hpoonfhir.config;
 
 import org.springframework.boot.autoconfigure.mustache.MustacheAutoConfiguration;
 import org.springframework.boot.autoconfigure.mustache.MustacheProperties;
