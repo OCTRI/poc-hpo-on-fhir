@@ -7,16 +7,16 @@
 	<form method="POST" action="{{req.contextPath}}/search">
 		{{#patientSearchForm}}
 		<div class="form-group row vertical-space">
-			<label for="first_name" class="col-sm-2 col-form-label">First Name</label>
+			<label for="firstName" class="col-sm-2 col-form-label">First Name</label>
 			<div class="col-sm-4">
-				<input class='form-control' type='text' name='firstName' value='{{#firstName}}{{.}}{{/firstName}}' />
+				<input class="form-control" type="text" name="firstName" value="{{#firstName}}{{.}}{{/firstName}}" />
 			</div>
 			<div class="col-sm-6"></div>
 		</div>
 		<div class="form-group row">
-			<label for="last_name" class="col-sm-2 col-form-label">Last Name</label>
+			<label for="lastName" class="col-sm-2 col-form-label">Last Name</label>
 			<div class="col-sm-4">
-				<input class='form-control' type='text' name='lastName' value='{{#lastName}}{{.}}{{/lastName}}' />
+				<input class="form-control" type="text" name="lastName" value="{{#lastName}}{{.}}{{/lastName}}" />
 			</div>
 			<div class="col-sm-6"></div>
 		</div>
