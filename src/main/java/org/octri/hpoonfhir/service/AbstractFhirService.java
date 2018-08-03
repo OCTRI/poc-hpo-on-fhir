@@ -1,5 +1,7 @@
 package org.octri.hpoonfhir.service;
 
+import org.hl7.fhir.instance.model.api.IBaseResource;
+
 import ca.uhn.fhir.context.FhirContext;
 import ca.uhn.fhir.rest.client.api.IGenericClient;
 
@@ -21,6 +23,15 @@ public abstract class AbstractFhirService implements FhirService {
 	
 	public IGenericClient getClient() {
 		return client;
+	}
+	
+	/**
+	 * This provides a shortcut to seeing the json for debugging/logging purposes
+	 * @param resource
+	 * @return the resource as json
+	 */
+	protected String resourceAsString(IBaseResource resource) {
+		return client.getFhirContext().newJsonParser().encodeResourceToString(resource);
 	}
 	
 }

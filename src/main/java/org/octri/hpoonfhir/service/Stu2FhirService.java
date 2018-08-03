@@ -13,8 +13,6 @@ import ca.uhn.fhir.context.FhirContext;
 
 /**
  * The implementation of the STU2 FHIR service. FHIR communication uses STU2 and results are converted to STU3.
- * TODO: Better error handling will be needed, as each FHIR server may respond differently when no results are returned.
- * For example, the Epic Sandbox will not return results based only on a last name. The full name must be provided. 
  * 
  * @author yateam
  *
@@ -36,7 +34,6 @@ public class Stu2FhirService extends AbstractFhirService {
 	@Override
 	public List<Patient> findPatientsByFullName(String firstName, String lastName) throws FHIRException {
 		org.hl7.fhir.instance.model.Bundle patientBundle = getClient().search().forResource(org.hl7.fhir.instance.model.Patient.class).where(Patient.FAMILY.matches().value(lastName)).and(Patient.GIVEN.matches().value(firstName)).returnBundle(org.hl7.fhir.instance.model.Bundle.class).execute();
-		//System.out.println(ctx.newJsonParser().encodeResourceToString(patientBundle));
 		return processPatientBundle(patientBundle);
 		
 	}
