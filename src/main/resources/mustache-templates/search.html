@@ -40,11 +40,13 @@
 			{{^patients}}
 				<p>No Results Found</p>
 			{{/patients}}
+			<ul>
 			{{#patients}}
-				<div class="row" style="margin-left:inherit;">
-					<a href="{{req.contextPath}}/labs?patient_id={{id}}">{{firstName}} {{lastName}} ({{id}})</a>
-				</div>
+			<li>
+				<a href="{{req.contextPath}}/labs?patient_id={{id}}">{{firstName}} {{lastName}} ({{id}})</a>
+			</li>
 			{{/patients}}
+			</ul>
 		</div>
 	{{/results}}	
 </div>
