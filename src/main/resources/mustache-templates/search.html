@@ -4,7 +4,7 @@
 <div class="container vertical-space">
 	<h3>Patient Search</h3>
 	<small class="text-muted">Search the EHR system for a patient.</small>
-	<form method="POST" action="{{req.contextPath}}/search">
+	<form method="POST" action="{{req.contextPath}}/">
 		{{#patientSearchForm}}
 		<div class="form-group row vertical-space">
 			<label for="firstName" class="col-sm-2 col-form-label">First Name</label>
@@ -43,7 +43,7 @@
 			<ul>
 			{{#patients}}
 			<li>
-				<a href="{{req.contextPath}}/labs?patient_id={{id}}">{{firstName}} {{lastName}} ({{id}})</a>
+				<a href="{{req.contextPath}}/labs/{{id}}">{{firstName}} {{lastName}} ({{id}})</a>
 			</li>
 			{{/patients}}
 			</ul>
