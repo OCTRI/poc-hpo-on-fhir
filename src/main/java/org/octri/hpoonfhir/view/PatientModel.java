@@ -1,7 +1,7 @@
 package org.octri.hpoonfhir.view;
 
 /**
- * The model representing the fields we care about when search for and displaying a patient
+ * The model representing the fields we care about when searching for and displaying a patient
  * 
  * @author yateam
  *

@@ -32,7 +32,7 @@ public class MainController {
 
 	@Autowired
 	AnnotationService annotationService;
-	
+
 	@Autowired
 	@Qualifier("r3FhirService")
 	FhirService fhirService;
@@ -42,20 +42,22 @@ public class MainController {
 
 	/**
 	 * Return to a clean search form with no results.
+	 * 
 	 * @param model
 	 * @param request
 	 * @return
 	 */
 	@GetMapping("/")
 	public String home(Map<String, Object> model, HttpServletRequest request) {
-		
+
 		model.put("patientSearchForm", new PatientModel());
 		model.put("results", false);
 		return "search";
 	}
-	
+
 	/**
 	 * Search using the form parameters, and return results.
+	 * 
 	 * @param model
 	 * @param form
 	 * @return
@@ -65,21 +67,27 @@ public class MainController {
 		model.put("patientSearchForm", form);
 		try {
 			List<Patient> patients = fhirService.findPatientsByFullName(form.getFirstName(), form.getLastName());
-			List<PatientModel> patientModels = patients.stream().map(fhirPatient -> 
-				new PatientModel(fhirPatient.getIdElement().getIdPart(),
-						fhirPatient.getNameFirstRep().getGivenAsSingleString(), 
-						fhirPatient.getNameFirstRep().getFamily())
-			).collect(Collectors.toList());
+			List<PatientModel> patientModels = patients.stream()
+					.map(fhirPatient -> new PatientModel(fhirPatient.getIdElement().getIdPart(),
+							fhirPatient.getNameFirstRep().getGivenAsSingleString(),
+							fhirPatient.getNameFirstRep().getFamily()))
+					.collect(Collectors.toList());
 			model.put("patients", patientModels);
 			model.put("results", true);
 		} catch (FHIRException e) {
-			//TODO: Decide how to handle FHIRException which is only thrown if there's an error in the conversion of V2 messages
+			// TODO: Decide how to handle FHIRException which is only thrown if there's an error in the conversion of V2
+			// messages
 			e.printStackTrace();
 		}
 		return "search";
 	}
 
-
+	/**
+	 * Get the patient observations and convert them to HPO if possible.
+	 * @param model
+	 * @param request
+	 * @return the patient and all associated ObservationModels
+	 */
 	@GetMapping("/labs")
 	public String labs(Map<String, Object> model, HttpServletRequest request) {
 		String patientId = request.getParameter("patient_id");
@@ -87,15 +95,16 @@ public class MainController {
 			// Get the patient again so information can be displayed
 			Patient fhirPatient = fhirService.findPatientById(patientId);
 			PatientModel patientModel = new PatientModel(fhirPatient.getIdElement().getIdPart(),
-				fhirPatient.getNameFirstRep().getGivenAsSingleString(), 
-				fhirPatient.getNameFirstRep().getFamily());
+					fhirPatient.getNameFirstRep().getGivenAsSingleString(),
+					fhirPatient.getNameFirstRep().getFamily());
 			model.put("patient", patientModel);
 			List<Observation> observations = fhirService.findObservationsForPatient(patientId);
 			List<ObservationModel> observationModels = observations.stream().map(fhirObservation -> {
-				List<HpoConversionResult> conversionResults = observationAnalysisService.analyzeObservation(fhirObservation);
+				List<HpoConversionResult> conversionResults = observationAnalysisService
+						.analyzeObservation(fhirObservation);
 				return ObservationModelBuilder.build(fhirObservation, conversionResults);
 			}).collect(Collectors.toList());
-		
+
 			model.put("observations", observationModels);
 		} catch (FHIRException e) {
 			e.printStackTrace();

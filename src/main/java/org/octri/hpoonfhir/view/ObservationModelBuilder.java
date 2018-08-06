@@ -7,8 +7,7 @@ import org.hl7.fhir.dstu3.model.Observation;
 import org.monarchinitiative.fhir2hpo.hpo.HpoConversionResult;
 
 /**
- * This builder takes care of all the ugliness of parsing the observation and the conversion result to
- * construct the view.
+ * This builder takes care of parsing the observation and the conversion result to construct the view.
  * 
  * @author yateam
  *

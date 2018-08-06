@@ -1,11 +1,16 @@
 package org.octri.hpoonfhir.view;
 
 
+/**
+ * The model representing the fields on the observation that will be displayed.
+ * 
+ * @author yateam
+ *
+ */
 public class ObservationModel {
 	
 	private String description;
 	private String loincIds;
-	private String date;
 	private String value;
 	private String hpoTerm;
 	
@@ -23,14 +28,6 @@ public class ObservationModel {
 	
 	public void setLoincIds(String loincIds) {
 		this.loincIds = loincIds;
-	}
-	
-	public String getDate() {
-		return date;
-	}
-	
-	public void setDate(String date) {
-		this.date = date;
 	}
 	
 	public String getValue() {
