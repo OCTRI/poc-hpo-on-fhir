@@ -1,5 +1,7 @@
 package org.octri.hpoonfhir.view;
 
+import org.hl7.fhir.dstu3.model.Patient;
+
 /**
  * The model representing the fields we care about when searching for and displaying a patient
  * 
@@ -17,10 +19,10 @@ public class PatientModel {
 		
 	}
 	
-	public PatientModel(String id, String firstName, String lastName) {
-		this.id = id;
-		this.firstName = firstName;
-		this.lastName = lastName;
+	public PatientModel(Patient fhirPatient) {
+		this.id = fhirPatient.getIdElement().getIdPart();
+		this.firstName = fhirPatient.getNameFirstRep().getGivenAsSingleString();
+		this.lastName = fhirPatient.getNameFirstRep().getFamily();
 	}
 	
 	public String getId() {

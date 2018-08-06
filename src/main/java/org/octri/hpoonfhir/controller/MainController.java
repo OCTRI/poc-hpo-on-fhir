@@ -24,6 +24,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -68,9 +69,7 @@ public class MainController {
 		try {
 			List<Patient> patients = fhirService.findPatientsByFullName(form.getFirstName(), form.getLastName());
 			List<PatientModel> patientModels = patients.stream()
-					.map(fhirPatient -> new PatientModel(fhirPatient.getIdElement().getIdPart(),
-							fhirPatient.getNameFirstRep().getGivenAsSingleString(),
-							fhirPatient.getNameFirstRep().getFamily()))
+					.map(fhirPatient -> new PatientModel(fhirPatient))
 					.collect(Collectors.toList());
 			model.put("patients", patientModels);
 			model.put("results", true);
@@ -88,17 +87,14 @@ public class MainController {
 	 * @param request
 	 * @return the patient and all associated ObservationModels
 	 */
-	@GetMapping("/labs")
-	public String labs(Map<String, Object> model, HttpServletRequest request) {
-		String patientId = request.getParameter("patient_id");
+	@GetMapping("/labs/{id}")
+	public String labs(Map<String, Object> model, @PathVariable String id) {
 		try {
 			// Get the patient again so information can be displayed
-			Patient fhirPatient = fhirService.findPatientById(patientId);
-			PatientModel patientModel = new PatientModel(fhirPatient.getIdElement().getIdPart(),
-					fhirPatient.getNameFirstRep().getGivenAsSingleString(),
-					fhirPatient.getNameFirstRep().getFamily());
+			Patient fhirPatient = fhirService.findPatientById(id);
+			PatientModel patientModel = new PatientModel(fhirPatient);
 			model.put("patient", patientModel);
-			List<Observation> observations = fhirService.findObservationsForPatient(patientId);
+			List<Observation> observations = fhirService.findObservationsForPatient(id);
 			List<ObservationModel> observationModels = observations.stream().map(fhirObservation -> {
 				List<HpoConversionResult> conversionResults = observationAnalysisService
 						.analyzeObservation(fhirObservation);
