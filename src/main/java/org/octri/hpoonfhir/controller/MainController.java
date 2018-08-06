@@ -6,13 +6,18 @@ import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.hl7.fhir.dstu3.model.Observation;
 import org.hl7.fhir.dstu3.model.Patient;
 import org.hl7.fhir.exceptions.FHIRException;
+import org.monarchinitiative.fhir2hpo.hpo.HpoConversionResult;
 import org.monarchinitiative.fhir2hpo.loinc.DefaultLoinc2HpoAnnotation;
 import org.monarchinitiative.fhir2hpo.loinc.Loinc2HpoAnnotation;
 import org.monarchinitiative.fhir2hpo.loinc.LoincId;
 import org.monarchinitiative.fhir2hpo.service.AnnotationService;
+import org.monarchinitiative.fhir2hpo.service.ObservationAnalysisService;
 import org.octri.hpoonfhir.service.FhirService;
+import org.octri.hpoonfhir.view.ObservationModel;
+import org.octri.hpoonfhir.view.ObservationModelBuilder;
 import org.octri.hpoonfhir.view.PatientModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -32,6 +37,9 @@ public class MainController {
 	@Qualifier("r3FhirService")
 	FhirService fhirService;
 
+	@Autowired
+	ObservationAnalysisService observationAnalysisService;
+
 	/**
 	 * Return to a clean search form with no results.
 	 * @param model
@@ -40,6 +48,7 @@ public class MainController {
 	 */
 	@GetMapping("/")
 	public String home(Map<String, Object> model, HttpServletRequest request) {
+		
 		model.put("patientSearchForm", new PatientModel());
 		model.put("results", false);
 		return "search";
@@ -51,7 +60,7 @@ public class MainController {
 	 * @param form
 	 * @return
 	 */
-	@PostMapping("/search")
+	@PostMapping("/")
 	public String search(Map<String, Object> model, @ModelAttribute PatientModel form) {
 		model.put("patientSearchForm", form);
 		try {
@@ -71,9 +80,26 @@ public class MainController {
 	}
 
 
-	@RequestMapping("/labs")
+	@GetMapping("/labs")
 	public String labs(Map<String, Object> model, HttpServletRequest request) {
-		model.put("patient_id", request.getParameter("patient_id"));
+		String patientId = request.getParameter("patient_id");
+		try {
+			// Get the patient again so information can be displayed
+			Patient fhirPatient = fhirService.findPatientById(patientId);
+			PatientModel patientModel = new PatientModel(fhirPatient.getIdElement().getIdPart(),
+				fhirPatient.getNameFirstRep().getGivenAsSingleString(), 
+				fhirPatient.getNameFirstRep().getFamily());
+			model.put("patient", patientModel);
+			List<Observation> observations = fhirService.findObservationsForPatient(patientId);
+			List<ObservationModel> observationModels = observations.stream().map(fhirObservation -> {
+				List<HpoConversionResult> conversionResults = observationAnalysisService.analyzeObservation(fhirObservation);
+				return ObservationModelBuilder.build(fhirObservation, conversionResults);
+			}).collect(Collectors.toList());
+		
+			model.put("observations", observationModels);
+		} catch (FHIRException e) {
+			e.printStackTrace();
+		}
 		return "labs";
 	}
 

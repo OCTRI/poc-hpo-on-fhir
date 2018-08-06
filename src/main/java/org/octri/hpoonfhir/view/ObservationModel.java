@@ -1,0 +1,52 @@
+package org.octri.hpoonfhir.view;
+
+
+public class ObservationModel {
+	
+	private String description;
+	private String loincIds;
+	private String date;
+	private String value;
+	private String hpoTerm;
+	
+	public String getDescription() {
+		return description;
+	}
+	
+	public void setDescription(String description) {
+		this.description = description;
+	}
+	
+	public String getLoincIds() {
+		return loincIds;
+	}
+	
+	public void setLoincIds(String loincIds) {
+		this.loincIds = loincIds;
+	}
+	
+	public String getDate() {
+		return date;
+	}
+	
+	public void setDate(String date) {
+		this.date = date;
+	}
+	
+	public String getValue() {
+		return value;
+	}
+	
+	public void setValue(String value) {
+		this.value = value;
+	}
+	
+	public String getHpoTerm() {
+		return hpoTerm;
+	}
+	
+	public void setHpoTerm(String hpoTerm) {
+		this.hpoTerm = hpoTerm;
+	}	
+
+}
