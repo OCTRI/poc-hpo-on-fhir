@@ -9,26 +9,36 @@ public class PhenotypeModel implements Serializable {
 	
 	private static final long serialVersionUID = 5911092102035916719L;
 
-	private String hpoTermDisplay;
+	private String hpoTermName;
+	private String hpoTermId;
 	private String first;
 	private String last;
 	private List<ObservationModel> observations;
 	
 	public PhenotypeModel(HpoTermWithNegation hpoTerm, List<ObservationModel> observations) {
-		this.hpoTermDisplay = hpoTerm.toString() + " (" + hpoTerm.getHpoTerm().getId().getIdWithPrefix() + ")";
+		this.hpoTermName = hpoTerm.toString();
+		this.hpoTermId = hpoTerm.getHpoTerm().getId().getIdWithPrefix();
 		this.observations = observations;
 		this.first = observations.stream().reduce((x, y) -> x.getDate().compareTo(y.getDate()) < 0 ? x:y).get().getDate();
 		this.last = observations.stream().reduce((x, y) -> x.getDate().compareTo(y.getDate()) < 0 ? y:x).get().getDate();
 	}
 
-	public String getHpoTermDisplay() {
-		return hpoTermDisplay;
+	public String getHpoTermName() {
+		return hpoTermName;
 	}
 	
-	public void setHpoTermDisplay(String hpoTermDisplay) {
-		this.hpoTermDisplay = hpoTermDisplay;
+	public void setHpoTermName(String hpoTermName) {
+		this.hpoTermName = hpoTermName;
 	}
 	
+	public String getHpoTermId() {
+		return hpoTermId;
+	}
+
+	public void setHpoTermId(String hpoTermId) {
+		this.hpoTermId = hpoTermId;
+	}
+
 	public String getFirst() {
 		return first;
 	}

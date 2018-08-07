@@ -54,8 +54,7 @@ public class PhenotypeSummaryService {
 			phenotypes.add(new PhenotypeModel(term, observationsByPhenotype.get(term)));
 		}
 		
-		//TODO: Sort correctly
-		Collections.sort(phenotypes, (one, two) -> one.getCount().compareTo(two.getCount()));
+		Collections.sort(phenotypes, (one, two) -> one.getHpoTermName().compareTo(two.getHpoTermName()));
 		return phenotypes;
 		
 	}
