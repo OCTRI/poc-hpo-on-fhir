@@ -6,7 +6,6 @@ import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.hl7.fhir.dstu3.model.Observation;
 import org.hl7.fhir.dstu3.model.Patient;
 import org.hl7.fhir.exceptions.FHIRException;
 import org.monarchinitiative.fhir2hpo.loinc.DefaultLoinc2HpoAnnotation;
@@ -14,9 +13,7 @@ import org.monarchinitiative.fhir2hpo.loinc.Loinc2HpoAnnotation;
 import org.monarchinitiative.fhir2hpo.loinc.LoincId;
 import org.monarchinitiative.fhir2hpo.service.AnnotationService;
 import org.octri.hpoonfhir.service.FhirService;
-import org.octri.hpoonfhir.service.PhenotypeSummaryService;
 import org.octri.hpoonfhir.view.PatientModel;
-import org.octri.hpoonfhir.view.PhenotypeModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
@@ -35,9 +32,6 @@ public class MainController {
 	@Autowired
 	@Qualifier("r3FhirService")
 	FhirService fhirService;
-
-	@Autowired
-	PhenotypeSummaryService phenotypeSummaryService;
 
 	/**
 	 * Return to a clean search form with no results.
@@ -92,10 +86,6 @@ public class MainController {
 			Patient fhirPatient = fhirService.findPatientById(id);
 			PatientModel patientModel = new PatientModel(fhirPatient);
 			model.put("patient", patientModel);
-			List<Observation> observations = fhirService.findObservationsForPatient(id);
-			List<PhenotypeModel> phenotypes = phenotypeSummaryService.summarizePhenotypes(observations);
-
-			model.put("phenotypes", phenotypes);
 		} catch (FHIRException e) {
 			e.printStackTrace();
 		}

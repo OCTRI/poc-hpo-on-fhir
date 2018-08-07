@@ -1,5 +1,7 @@
 package org.octri.hpoonfhir.view;
 
+import java.io.Serializable;
+
 import org.hl7.fhir.dstu3.model.Observation;
 import org.hl7.fhir.exceptions.FHIRException;
 
@@ -9,7 +11,9 @@ import org.hl7.fhir.exceptions.FHIRException;
  * @author yateam
  *
  */
-public class ObservationModel {
+public class ObservationModel implements Serializable {
+	
+	private static final long serialVersionUID = -3076629390459562137L;
 	
 	private String fhirId;
 	private String loincId;
