@@ -33,7 +33,7 @@ public class PhenotypeSummaryController {
 	 * @param request
 	 * @return the patient and the phenotypes found
 	 */
-	@GetMapping("/summary/{id}")
+	@GetMapping("/summary/{id:.+}")
 	public String labs(Map<String, Object> model, @PathVariable String id) {
 		String json = "";
 		try {

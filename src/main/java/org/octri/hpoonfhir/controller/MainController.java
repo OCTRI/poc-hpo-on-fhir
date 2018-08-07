@@ -74,13 +74,13 @@ public class MainController {
 	}
 
 	/**
-	 * Get the patient observations and convert them to HPO if possible.
+	 * Get the patient information and return to the phenotypes view
 	 * @param model
-	 * @param request
-	 * @return the patient and the phenotypes found
+	 * @param id the patient id
+	 * @return the patient found
 	 */
-	@GetMapping("/phenotypes/{id}")
-	public String labs(Map<String, Object> model, @PathVariable String id) {
+	@GetMapping("/patient/{id:.+}")
+	public String patient(Map<String, Object> model, @PathVariable String id) {
 		try {
 			// Get the patient again so information can be displayed
 			Patient fhirPatient = fhirService.findPatientById(id);
