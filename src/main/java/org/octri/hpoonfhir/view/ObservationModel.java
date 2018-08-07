@@ -1,5 +1,7 @@
 package org.octri.hpoonfhir.view;
 
+import org.hl7.fhir.dstu3.model.Observation;
+import org.hl7.fhir.exceptions.FHIRException;
 
 /**
  * The model representing the fields on the observation that will be displayed.
@@ -9,10 +11,41 @@ package org.octri.hpoonfhir.view;
  */
 public class ObservationModel {
 	
+	private String fhirId;
+	private String loincId;
 	private String description;
-	private String loincIds;
+	private String date;
 	private String value;
-	private String hpoTerm;
+	
+	public ObservationModel(String loincId, Observation fhirObservation) {
+		this.fhirId = fhirObservation.getIdElement().getIdPart();
+		this.loincId = loincId;
+		this.description = fhirObservation.getCode().getCodingFirstRep().getDisplay();
+		try {
+			this.date = fhirObservation.getEffectiveDateTimeType().asStringValue();
+		} catch (FHIRException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		this.value = "TODO";
+		
+	}
+	
+	public String getFhirId() {
+		return fhirId;
+	}
+
+	public void setFhirId(String fhirId) {
+		this.fhirId = fhirId;
+	}
+	
+	public String getLoincId() {
+		return loincId;
+	}
+	
+	public void setLoincId(String loincId) {
+		this.loincId = loincId;
+	}
 	
 	public String getDescription() {
 		return description;
@@ -22,14 +55,14 @@ public class ObservationModel {
 		this.description = description;
 	}
 	
-	public String getLoincIds() {
-		return loincIds;
+	public String getDate() {
+		return date;
 	}
-	
-	public void setLoincIds(String loincIds) {
-		this.loincIds = loincIds;
+
+	public void setDate(String date) {
+		this.date = date;
 	}
-	
+
 	public String getValue() {
 		return value;
 	}
@@ -37,13 +70,5 @@ public class ObservationModel {
 	public void setValue(String value) {
 		this.value = value;
 	}
-	
-	public String getHpoTerm() {
-		return hpoTerm;
-	}
-	
-	public void setHpoTerm(String hpoTerm) {
-		this.hpoTerm = hpoTerm;
-	}	
 
 }

@@ -1,0 +1,84 @@
+{{>layout/header}}
+
+<div class="container vertical-space">
+	<h3>Patient Info</h3>
+	<ul class="list-unstyled">
+		{{#patient}}
+		<li>Name: <span>{{firstName}} {{lastName}}</span></li>
+		<li>Id: <span>{{id}}</span></li>
+		{{/patient}}
+	</ul>
+	<h3>Phenotypes</h3>
+	<table id="hposummary" class="table  table-striped table-bordered" style="width:100%">
+		<thead>
+			<tr>
+				<th></th>
+				<th>HPO Term With Negation</th>
+				<th># Observations</th>
+				<th>First Date</th>
+				<th>Last Date</th>
+			</tr>
+		</thead>
+		<tbody>
+			{{#phenotypes}}
+				<tr data-type="hpo">
+					<td></td>
+					<td>{{hpoTerm}}</td>
+					<td>{{count}}</td>
+					<td>{{first}}</td>
+					<td>{{last}}</td>
+				</tr>
+			{{/phenotypes}}
+		</tbody>
+	</table>
+</div>
+
+<script type="text/javascript"
+	src="https://code.jquery.com/jquery-3.3.1.js"></script>
+<script type="text/javascript"
+	src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript"
+	src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
+<script type="text/javascript">
+	function format ( d ) {
+	    // `d` is the original data object for the row
+	    return '<table><thead><tr><th>FHIR Id</th><th>LOINC</th></thead><tbody>{{#observations}}<tr><td>{{id}}</td><td>{{loincId}}</td></tr>{{/observations}}</tbody></table>';
+	}
+	
+	$(document).ready(function() {
+		// Set up table sorting
+	    let table = $("#hposummary").DataTable({
+	       	paging: true,
+	       	searching: false,
+	       	columnDefs: [
+	        	{ "orderable": false, "className": "details-control", "targets": [0] } // Details control is not sortable
+	      	],
+	    	aaSorting: [] // Do not sort any columns initially
+    	});
+		
+	    table.rows().every( function () {
+	        this.child(format($(this).data()));
+	    } );
+		
+		// Add event listener for opening and closing details
+	    $('#hposummary tbody').on('click', 'td.details-control', function () {
+	        let tr = $(this).closest('tr');
+	        let row = table.row( tr );
+	 
+	        if ( row.child.isShown() ) {
+	            // This row is already open - close it
+	            row.child.hide();
+	            tr.removeClass('shown');
+	        }
+	        else {
+	            // Open this row
+	            row.child.show();
+	            tr.addClass('shown');
+	        }
+	    } );
+
+	});
+	
+</script>
+
+{{>layout/footer}}

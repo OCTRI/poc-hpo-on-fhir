@@ -9,16 +9,14 @@ import javax.servlet.http.HttpServletRequest;
 import org.hl7.fhir.dstu3.model.Observation;
 import org.hl7.fhir.dstu3.model.Patient;
 import org.hl7.fhir.exceptions.FHIRException;
-import org.monarchinitiative.fhir2hpo.hpo.HpoConversionResult;
 import org.monarchinitiative.fhir2hpo.loinc.DefaultLoinc2HpoAnnotation;
 import org.monarchinitiative.fhir2hpo.loinc.Loinc2HpoAnnotation;
 import org.monarchinitiative.fhir2hpo.loinc.LoincId;
 import org.monarchinitiative.fhir2hpo.service.AnnotationService;
-import org.monarchinitiative.fhir2hpo.service.ObservationAnalysisService;
 import org.octri.hpoonfhir.service.FhirService;
-import org.octri.hpoonfhir.view.ObservationModel;
-import org.octri.hpoonfhir.view.ObservationModelBuilder;
+import org.octri.hpoonfhir.service.PhenotypeSummaryService;
 import org.octri.hpoonfhir.view.PatientModel;
+import org.octri.hpoonfhir.view.PhenotypeModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
@@ -39,7 +37,7 @@ public class MainController {
 	FhirService fhirService;
 
 	@Autowired
-	ObservationAnalysisService observationAnalysisService;
+	PhenotypeSummaryService phenotypeSummaryService;
 
 	/**
 	 * Return to a clean search form with no results.
@@ -85,9 +83,9 @@ public class MainController {
 	 * Get the patient observations and convert them to HPO if possible.
 	 * @param model
 	 * @param request
-	 * @return the patient and all associated ObservationModels
+	 * @return the patient and the phenotypes found
 	 */
-	@GetMapping("/labs/{id}")
+	@GetMapping("/phenotypes/{id}")
 	public String labs(Map<String, Object> model, @PathVariable String id) {
 		try {
 			// Get the patient again so information can be displayed
@@ -95,17 +93,13 @@ public class MainController {
 			PatientModel patientModel = new PatientModel(fhirPatient);
 			model.put("patient", patientModel);
 			List<Observation> observations = fhirService.findObservationsForPatient(id);
-			List<ObservationModel> observationModels = observations.stream().map(fhirObservation -> {
-				List<HpoConversionResult> conversionResults = observationAnalysisService
-						.analyzeObservation(fhirObservation);
-				return ObservationModelBuilder.build(fhirObservation, conversionResults);
-			}).collect(Collectors.toList());
+			List<PhenotypeModel> phenotypes = phenotypeSummaryService.summarizePhenotypes(observations);
 
-			model.put("observations", observationModels);
+			model.put("phenotypes", phenotypes);
 		} catch (FHIRException e) {
 			e.printStackTrace();
 		}
-		return "labs";
+		return "phenotypes";
 	}
 
 	@RequestMapping("/annotations")
