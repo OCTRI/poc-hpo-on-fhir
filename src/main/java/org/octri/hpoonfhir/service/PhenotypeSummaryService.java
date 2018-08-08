@@ -31,8 +31,7 @@ public class PhenotypeSummaryService {
 	public List<PhenotypeModel> summarizePhenotypes(List<Observation> fhirObservations) {
 		// Try to convert all observations and gather successes
 		List<HpoConversionResult> results = fhirObservations.stream()
-				.flatMap(fhirObservation -> 
-				observationAnalysisService.analyzeObservation(fhirObservation).stream().map(it -> it))
+				.flatMap(fhirObservation -> observationAnalysisService.analyzeObservation(fhirObservation).stream())
 				.filter(result -> result.hasSuccess())
 				.collect(Collectors.toList());
 		
