@@ -6,6 +6,12 @@ import java.util.List;
 import org.apache.commons.lang3.StringUtils;
 import org.monarchinitiative.fhir2hpo.hpo.HpoTermWithNegation;
 
+/**
+ * The model representing the fields on the phenotype that will be displayed.
+ * 
+ * @author yateam
+ *
+ */
 public class PhenotypeModel implements Serializable {
 	
 	private static final long serialVersionUID = 5911092102035916719L;
