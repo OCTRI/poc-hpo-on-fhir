@@ -26,8 +26,8 @@ public class PhenotypeModel implements Serializable {
 		this.hpoTermName = hpoTerm.toString();
 		this.hpoTermId = hpoTerm.getHpoTerm().getId().getIdWithPrefix();
 		this.observations = observations;
-		this.first = observations.stream().filter(observation -> !StringUtils.isBlank(observation.getDate())).reduce((x, y) -> x.getDate().compareTo(y.getDate()) < 0 ? x:y).get().getDate();
-		this.last = observations.stream().filter(observation -> !StringUtils.isBlank(observation.getDate())).reduce((x, y) -> x.getDate().compareTo(y.getDate()) < 0 ? y:x).get().getDate();
+		this.first = observations.stream().filter(obs -> !StringUtils.isBlank(obs.getDate())).map(obs -> obs.getDate()).min(String::compareTo).get();
+		this.last = observations.stream().filter(obs -> !StringUtils.isBlank(obs.getDate())).map(obs -> obs.getDate()).max(String::compareTo).get();
 	}
 
 	public String getHpoTermName() {
