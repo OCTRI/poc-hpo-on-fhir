@@ -43,7 +43,9 @@ public class PhenotypeSummaryService {
 				List<ObservationModel> observations = observationsByPhenotype.get(term);
 				
 				if (observations == null) {
-					observations = Arrays.asList(observationModel);					
+					observations = new ArrayList<>(Arrays.asList(observationModel));					
+				} else {
+					observations.add(observationModel);
 				}
 				observationsByPhenotype.put(term, observations);
 			}			
@@ -51,10 +53,14 @@ public class PhenotypeSummaryService {
 		
 		List<PhenotypeModel> phenotypes = new ArrayList<>();
 		for (HpoTermWithNegation term : observationsByPhenotype.keySet()) {
-			phenotypes.add(new PhenotypeModel(term, observationsByPhenotype.get(term)));
+			List<ObservationModel> observations = observationsByPhenotype.get(term);
+			// Sort observations by date
+			Collections.sort(observations, (x, y) -> x.getDate().compareTo(y.getDate()));
+			phenotypes.add(new PhenotypeModel(term, observations));
 		}
 		
-		Collections.sort(phenotypes, (one, two) -> one.getHpoTermName().compareTo(two.getHpoTermName()));
+		// Sort phenotypes by name
+		Collections.sort(phenotypes, (x, y) -> x.getHpoTermName().compareTo(y.getHpoTermName()));
 		return phenotypes;
 		
 	}
