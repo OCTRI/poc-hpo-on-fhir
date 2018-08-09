@@ -15,14 +15,19 @@ footer {
 	color: #a94442;
 }
 
-table, th, td {
-	width: 80%;
-	border: 1px solid black;
-	border-collapse: collapse;
-	border-spacing: .2rem;
-	padding: .5rem;
-}
-
 .navbar {
 	background-color: #bcd0ef;
+}
+
+td.details-control {
+    background: url('../../images/details_open.png') no-repeat center center;
+    cursor: pointer;
+}
+
+tr.shown td.details-control {
+    background: url('../../images/details_close.png') no-repeat center center;
+}
+
+.sub-table {
+	font-size: .9rem;
 }

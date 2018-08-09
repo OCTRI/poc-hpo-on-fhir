@@ -19,18 +19,17 @@
 	</div>
 </footer>
 
+ <script type="text/javascript"
+	src="{{req.contextPath}}/webjars/bootstrap/js/bootstrap.min.js"></script>
 <script type="text/javascript"
 	src="{{req.contextPath}}/webjars/jquery/jquery.min.js"></script>
-<script type="text/javascript"
-	src="{{req.contextPath}}/webjars/bootstrap/js/bootstrap.min.js"></script>
+{{#includeHpoSummaryJs}}
+	<script type="text/javascript"
+		src="{{req.contextPath}}/webjars/datatables/js/jquery.dataTables.min.js"></script>
+	<script type="text/javascript"
+		src="{{req.contextPath}}/webjars/datatables/js/dataTables.bootstrap4.min.js"></script>
+	<script src="{{req.contextPath}}/js/hposummary.js"></script>
+{{/includeHpoSummaryJs}}
 
-<!--/* Set the active navigation */-->
-<script type="text/javascript">
-	$(function() {
-		var pathname = window.location.pathname;
-		$('.nav a[href$="' + pathname + '"]').parent().addClass('active');
-	});
-</script>
-
-</body>
+ </body>
 </html>

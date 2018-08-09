@@ -1,0 +1,26 @@
+{{>layout/header}}
+
+<div class="container vertical-space">
+	<h3>Patient Info</h3>
+	<ul class="list-unstyled">
+		{{#patient}}
+		<li>Name: <span>{{firstName}} {{lastName}}</span></li>
+		<li>Id: <span id="patient_id">{{id}}</span></li> 
+		{{/patient}}
+	</ul>
+	<h3>Phenotypes</h3>
+	<table id="hposummary" class="table table-bordered" style="width: 100%">
+		<thead class="thead-light">
+			<tr>
+				<th></th>
+				<th>HPO Term Name</th>
+				<th>HPO Term Id</th>
+				<th># Observations</th>
+				<th>First Date</th>
+				<th>Last Date</th>
+			</tr>
+		</thead>
+	</table>
+</div>
+
+{{>layout/footer}}
