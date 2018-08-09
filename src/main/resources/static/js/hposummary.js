@@ -1,27 +1,27 @@
 // Javascript for the hposummary table on phenotypes view
 
-function showLabs(d) {
-	// `d` is the original data object for the row
-	let table = "<div class='card float-left'>"
-			+ "<table class='table-bordered sub-table'>"
-			+ "<thead>"
-			+ "<tr class='table-warning'><th>FHIR Id</th><th>LOINC</th><th>Description</th><th>Value</th><th>Date</th></tr>"
-			+ "</thead>" + "<tbody>";
-	for (i = 0; i < d.observations.length; i++) {
-		let observation = d.observations[i];
-		table += "<tr>" + "<td>" + observation.fhirId + "</td>" + "<td>"
-				+ observation.loincId + "</td>" + "<td>"
-				+ observation.description + "</td>" + "<td>"
-				+ observation.value + "</td>" + "<td>" + observation.date
-				+ "</td>" + "</tr>";
-	}
-	table += "</tbody></table></div>";
-	return table;
-}
-
-let patientId = $("#patient_id").html();
-
 $(document).ready(function() {
+	function showLabs(d) {
+		// `d` is the original data object for the row
+		let table = "<div class='card float-left'>"
+				+ "<table class='table-bordered sub-table'>"
+				+ "<thead>"
+				+ "<tr class='table-warning'><th>FHIR Id</th><th>LOINC</th><th>Description</th><th>Value</th><th>Date</th></tr>"
+				+ "</thead>" + "<tbody>";
+		for (i = 0; i < d.observations.length; i++) {
+			let observation = d.observations[i];
+			table += "<tr>" + "<td>" + observation.fhirId + "</td>" + "<td>"
+					+ observation.loincId + "</td>" + "<td>"
+					+ observation.description + "</td>" + "<td>"
+					+ observation.value + "</td>" + "<td>" + observation.date
+					+ "</td>" + "</tr>";
+		}
+		table += "</tbody></table></div>";
+		return table;
+	}
+
+	let patientId = $("#patient_id").html();
+
 	// Set up table sorting
 	let table = $("#hposummary").DataTable({
 		ajax : {
