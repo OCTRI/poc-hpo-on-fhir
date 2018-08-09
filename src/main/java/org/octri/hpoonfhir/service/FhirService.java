@@ -15,6 +15,12 @@ import org.hl7.fhir.exceptions.FHIRException;
 public interface FhirService {
 	
 	/**
+	 * Return a user-friendly name for the service
+	 * @return
+	 */
+	public String getServiceName();
+	
+	/**
 	 * Find the patient by an identifier.
 	 * @param id
 	 * @return the single patient or null if none exists

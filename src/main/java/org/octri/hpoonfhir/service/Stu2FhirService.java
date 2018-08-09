@@ -24,8 +24,8 @@ public class Stu2FhirService extends AbstractFhirService {
 	private static final FhirContext ctx = FhirContext.forDstu2Hl7Org();
 	private final VersionConvertor_10_30 converter = new VersionConvertor_10_30(new NullVersionConverterAdvisor30());
 
-	public Stu2FhirService(String url) {
-		super(url);
+	public Stu2FhirService(String serviceName, String url) {
+		super(serviceName, url);
 	}
 
 	@Override
