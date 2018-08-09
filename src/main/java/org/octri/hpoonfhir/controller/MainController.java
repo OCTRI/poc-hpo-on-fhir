@@ -86,6 +86,7 @@ public class MainController {
 			Patient fhirPatient = fhirService.findPatientById(id);
 			PatientModel patientModel = new PatientModel(fhirPatient);
 			model.put("patient", patientModel);
+			model.put("includeHpoSummaryJs", true);
 		} catch (FHIRException e) {
 			e.printStackTrace();
 		}

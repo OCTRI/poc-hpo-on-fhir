@@ -21,6 +21,15 @@
 
  <script type="text/javascript"
 	src="{{req.contextPath}}/webjars/bootstrap/js/bootstrap.min.js"></script>
+<script type="text/javascript"
+	src="{{req.contextPath}}/webjars/jquery/jquery.min.js"></script>
+{{#includeHpoSummaryJs}}
+	<script type="text/javascript"
+		src="{{req.contextPath}}/webjars/datatables/js/jquery.dataTables.min.js"></script>
+	<script type="text/javascript"
+		src="{{req.contextPath}}/webjars/datatables/js/dataTables.bootstrap4.min.js"></script>
+	<script src="/js/hposummary.js"></script>
+{{/includeHpoSummaryJs}}
 
  </body>
 </html>
