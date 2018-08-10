@@ -15,7 +15,6 @@ import org.monarchinitiative.fhir2hpo.service.AnnotationService;
 import org.octri.hpoonfhir.service.FhirService;
 import org.octri.hpoonfhir.view.PatientModel;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -25,12 +24,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 public class MainController {
-
+	
 	@Autowired
 	AnnotationService annotationService;
 
 	@Autowired
-	@Qualifier("r3FhirService")
 	FhirService fhirService;
 
 	/**
@@ -43,6 +41,7 @@ public class MainController {
 	@GetMapping("/")
 	public String home(Map<String, Object> model, HttpServletRequest request) {
 
+		model.put("fhirServiceName", fhirService.getServiceName());
 		model.put("patientSearchForm", new PatientModel());
 		model.put("results", false);
 		return "search";

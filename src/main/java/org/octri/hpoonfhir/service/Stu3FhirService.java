@@ -23,8 +23,8 @@ public class Stu3FhirService extends AbstractFhirService {
 	
 	private static final FhirContext ctx = FhirContext.forDstu3();
 
-	public Stu3FhirService(String url) {
-		super(url);
+	public Stu3FhirService(String serviceName, String url) {
+		super(serviceName, url);
 	}
 
 	@Override

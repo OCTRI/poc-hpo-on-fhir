@@ -12,13 +12,20 @@ import ca.uhn.fhir.rest.client.api.IGenericClient;
  */
 public abstract class AbstractFhirService implements FhirService {
 	
+	private String serviceName;
 	private final IGenericClient client;
 	
 	public abstract FhirContext getFhirContext();
 	
-	public AbstractFhirService(String url) {
+	public AbstractFhirService(String serviceName, String url) {
+		this.serviceName = serviceName;
 		getFhirContext().getRestfulClientFactory().setSocketTimeout(30 * 1000); // Extend the timeout
 		client = getFhirContext().newRestfulGenericClient(url);
+	}
+	
+	@Override
+	public String getServiceName() {
+		return serviceName;
 	}
 	
 	public IGenericClient getClient() {
