@@ -3,8 +3,8 @@
 $(document).ready(function() {
 	function showLabs(d) {
 		// `d` is the original data object for the row
-		let table = "<div class='card float-left'>"
-				+ "<table class='table-bordered sub-table'>"
+		let table = "<div class='card'>"
+				+ "<table class='table-bordered'>"
 				+ "<thead>"
 				+ "<tr class='table-warning'><th>FHIR Id</th><th>LOINC</th><th>Description</th><th>Value</th><th>Date</th></tr>"
 				+ "</thead>" + "<tbody>";
@@ -22,7 +22,7 @@ $(document).ready(function() {
 
 	let patientId = $("#patient_id").html();
 
-	// Set up table sorting
+	// Set up table
 	let table = $("#hposummary").DataTable({
 		ajax : {
 			"url" : "/summary/" + patientId
@@ -30,6 +30,9 @@ $(document).ready(function() {
 		info: true,
 		paging : true,
 		searching : true,
+		fnDrawCallback: function( settings ) {
+			$('td.details-control').html('<i class="fas fa-plus-square"></i>');
+	    },
 		columns : [ {
 			"className" : "details-control",
 			"orderable" : false,
@@ -42,10 +45,9 @@ $(document).ready(function() {
 			{ "data" : "first" },
 			{ "data" : "last"}
 		],
-		aaSorting : []
-	// Do not sort any columns initially
+		aaSorting : [] // Do not sort any columns initially
 	});
-
+	
 	// Add event listener for opening and closing details
 	$('#hposummary tbody').on('click', 'td.details-control', function() {
 		let tr = $(this).closest('tr');
@@ -54,11 +56,11 @@ $(document).ready(function() {
 		if (row.child.isShown()) {
 			// This row is already open - close it
 			row.child.hide();
-			tr.removeClass('shown');
+			$(this).html('<i class="fas fa-plus-square"></i>');
 		} else {
 			// Open this row
-			row.child(showLabs(row.data())).show();
-			tr.addClass('shown');
+			row.child(showLabs(row.data()), 'details-row').show();
+			$(this).html('<i class="fas fa-minus-square"></i>');
 		}
 	});
 
