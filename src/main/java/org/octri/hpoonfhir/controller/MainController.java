@@ -56,6 +56,7 @@ public class MainController {
 	 */
 	@PostMapping("/")
 	public String search(Map<String, Object> model, @ModelAttribute PatientModel form) {
+		model.put("fhirServiceName", fhirService.getServiceName());
 		model.put("patientSearchForm", form);
 		try {
 			List<Patient> patients = fhirService.findPatientsByFullName(form.getFirstName(), form.getLastName());
