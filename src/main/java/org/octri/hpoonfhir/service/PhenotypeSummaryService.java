@@ -11,7 +11,9 @@ import java.util.stream.Collectors;
 import org.hl7.fhir.dstu3.model.Observation;
 import org.monarchinitiative.fhir2hpo.hpo.HpoConversionResult;
 import org.monarchinitiative.fhir2hpo.hpo.HpoTermWithNegation;
+import org.monarchinitiative.fhir2hpo.service.HpoService;
 import org.monarchinitiative.fhir2hpo.service.ObservationAnalysisService;
+import org.monarchinitiative.phenol.ontology.data.Term;
 import org.octri.hpoonfhir.view.ObservationModel;
 import org.octri.hpoonfhir.view.PhenotypeModel;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +29,9 @@ public class PhenotypeSummaryService {
 
 	@Autowired
 	ObservationAnalysisService observationAnalysisService;
+	
+	@Autowired
+	HpoService hpoService;
 	
 	public List<PhenotypeModel> summarizePhenotypes(List<Observation> fhirObservations) {
 		// Try to convert all observations and gather successes
@@ -55,7 +60,9 @@ public class PhenotypeSummaryService {
 			List<ObservationModel> observations = observationsByPhenotype.get(term);
 			// Sort observations by date
 			Collections.sort(observations, (x, y) -> x.getDate().compareTo(y.getDate()));
-			phenotypes.add(new PhenotypeModel(term, observations));
+			// Get the term information from the HPO service
+			Term termInfo = hpoService.getTermForTermId(term.getHpoTermId());
+			phenotypes.add(new PhenotypeModel(term, termInfo, observations));
 		}
 		
 		// Sort phenotypes by name
