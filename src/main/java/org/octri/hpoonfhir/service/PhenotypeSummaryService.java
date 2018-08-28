@@ -9,7 +9,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 import org.hl7.fhir.dstu3.model.Observation;
-import org.monarchinitiative.fhir2hpo.hpo.HpoConversionResult;
+import org.monarchinitiative.fhir2hpo.hpo.LoincConversionResult;
 import org.monarchinitiative.fhir2hpo.hpo.HpoTermWithNegation;
 import org.monarchinitiative.fhir2hpo.service.HpoService;
 import org.monarchinitiative.fhir2hpo.service.ObservationAnalysisService;
@@ -35,15 +35,15 @@ public class PhenotypeSummaryService {
 	
 	public List<PhenotypeModel> summarizePhenotypes(List<Observation> fhirObservations) {
 		// Try to convert all observations and gather successes
-		List<HpoConversionResult> results = fhirObservations.stream()
-				.flatMap(fhirObservation -> observationAnalysisService.analyzeObservation(fhirObservation).stream())
+		List<LoincConversionResult> results = fhirObservations.stream()
+				.flatMap(fhirObservation -> observationAnalysisService.analyzeObservation(fhirObservation).getLoincConversionResults().stream())
 				.filter(result -> result.hasSuccess())
 				.collect(Collectors.toList());
 		
 		Map<HpoTermWithNegation, List<ObservationModel>> observationsByPhenotype = new HashMap<>();
-		for (HpoConversionResult result : results ) {
+		for (LoincConversionResult result : results ) {
 			for (HpoTermWithNegation term : result.getHpoTerms()) {
-				ObservationModel observationModel = new ObservationModel(result.getLoincId().getCode(), result.getObservation());
+				ObservationModel observationModel = new ObservationModel(result.getLoincId().getCode(), result.getObservationLoincInfo());
 				List<ObservationModel> observations = observationsByPhenotype.get(term);
 				
 				if (observations == null) {
