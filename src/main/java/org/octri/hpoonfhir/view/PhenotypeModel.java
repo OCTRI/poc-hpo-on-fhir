@@ -2,8 +2,8 @@ package org.octri.hpoonfhir.view;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.stream.Stream;
 
-import org.apache.commons.lang3.StringUtils;
 import org.monarchinitiative.fhir2hpo.hpo.HpoTermWithNegation;
 import org.monarchinitiative.phenol.ontology.data.Term;
 
@@ -27,8 +27,9 @@ public class PhenotypeModel implements Serializable {
 		this.hpoTermName = constructTermName(hpoTerm, termInfo);
 		this.hpoTermId = hpoTerm.getHpoTermId().getIdWithPrefix();
 		this.observations = observations;
-		this.first = observations.stream().filter(obs -> !StringUtils.isBlank(obs.getDate())).map(obs -> obs.getDate()).min(String::compareTo).get();
-		this.last = observations.stream().filter(obs -> !StringUtils.isBlank(obs.getDate())).map(obs -> obs.getDate()).max(String::compareTo).get();
+		// Get the earliest/latest start or end date
+		this.first = observations.stream().flatMap(o -> Stream.of(o.getStartDate(), o.getEndDate())).filter(s -> !s.isEmpty()).min(String::compareTo).get();
+		this.last = observations.stream().flatMap(o -> Stream.of(o.getStartDate(), o.getEndDate())).filter(s -> !s.isEmpty()).max(String::compareTo).get();
 	}
 
 	private String constructTermName(HpoTermWithNegation hpoTerm, Term termInfo) {

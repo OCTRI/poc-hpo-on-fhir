@@ -58,8 +58,8 @@ public class PhenotypeSummaryService {
 		List<PhenotypeModel> phenotypes = new ArrayList<>();
 		for (HpoTermWithNegation term : observationsByPhenotype.keySet()) {
 			List<ObservationModel> observations = observationsByPhenotype.get(term);
-			// Sort observations by date
-			Collections.sort(observations, (x, y) -> x.getDate().compareTo(y.getDate()));
+			// Sort observations by start date
+			Collections.sort(observations, (x, y) -> x.getStartDate().compareTo(y.getStartDate()));
 			// Get the term information from the HPO service
 			Term termInfo = hpoService.getTermForTermId(term.getHpoTermId());
 			phenotypes.add(new PhenotypeModel(term, termInfo, observations));
