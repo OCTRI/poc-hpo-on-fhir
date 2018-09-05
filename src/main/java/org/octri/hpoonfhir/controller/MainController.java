@@ -15,6 +15,7 @@ import org.monarchinitiative.fhir2hpo.service.AnnotationService;
 import org.octri.hpoonfhir.service.FhirService;
 import org.octri.hpoonfhir.view.PatientModel;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -39,8 +40,7 @@ public class MainController {
 	 * @return
 	 */
 	@GetMapping("/")
-	public String home(Map<String, Object> model, HttpServletRequest request) {
-
+	public String home(Map<String, Object> model, OAuth2AuthenticationToken authentication, HttpServletRequest request) {
 		model.put("fhirServiceName", fhirService.getServiceName());
 		model.put("patientSearchForm", new PatientModel());
 		model.put("results", false);

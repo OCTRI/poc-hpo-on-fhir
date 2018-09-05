@@ -6,6 +6,7 @@
 	<small class="text-muted">Search the {{fhirServiceName}} EHR system for a patient.</small>
 	<form method="POST" action="{{req.contextPath}}/">
 		{{#patientSearchForm}}
+		<input type="hidden" name="{{_csrf.parameterName}}" value="{{_csrf.token}}" />
 		<div class="form-group row vertical-space">
 			<label for="firstName" class="col-sm-2 col-form-label">First Name</label>
 			<div class="col-sm-4">

@@ -1,0 +1,11 @@
+{{>layout/header}}
+
+<div class="container vertical-space">
+	<ul>
+		{{#urls}}
+		<li><a href="{{auth}}">{{name}}</a></li>
+		{{/urls}}
+	</ul>
+</div>
+
+{{>layout/footer}}
