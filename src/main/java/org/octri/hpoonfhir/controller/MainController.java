@@ -5,9 +5,13 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.hl7.fhir.dstu3.model.Patient;
 import org.hl7.fhir.exceptions.FHIRException;
+import org.hspconsortium.client.auth.credentials.ClientSecretCredentials;
+import org.hspconsortium.client.session.Session;
+import org.hspconsortium.client.session.authorizationcode.AuthorizationCodeSessionFactory;
 import org.monarchinitiative.fhir2hpo.loinc.DefaultLoinc2HpoAnnotation;
 import org.monarchinitiative.fhir2hpo.loinc.Loinc2HpoAnnotation;
 import org.monarchinitiative.fhir2hpo.loinc.LoincId;
@@ -24,7 +28,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 public class MainController {
-	
+
+	@Autowired
+    AuthorizationCodeSessionFactory<ClientSecretCredentials> ehrSessionFactory;
+
 	@Autowired
 	AnnotationService annotationService;
 
@@ -39,8 +46,14 @@ public class MainController {
 	 * @return
 	 */
 	@GetMapping("/")
-	public String home(Map<String, Object> model, HttpServletRequest request) {
+	public String home(HttpSession httpSession, Map<String, Object> model) {
 
+        // retrieve the EHR session from the http session
+		Session ehrSession = (Session) httpSession.getAttribute(ehrSessionFactory.getSessionKey());
+		if (ehrSession == null) {
+			//TODO: Error handling for unauthenticated sessions
+			System.out.println("Not authenticated. Handle this.");
+		}
 		model.put("fhirServiceName", fhirService.getServiceName());
 		model.put("patientSearchForm", new PatientModel());
 		model.put("results", false);
@@ -55,14 +68,17 @@ public class MainController {
 	 * @return
 	 */
 	@PostMapping("/")
-	public String search(Map<String, Object> model, @ModelAttribute PatientModel form) {
+	public String search(HttpSession httpSession, Map<String, Object> model, @ModelAttribute PatientModel form) {
+        // retrieve the EHR session from the http session
+		Session ehrSession = (Session) httpSession.getAttribute(ehrSessionFactory.getSessionKey());
+
 		model.put("fhirServiceName", fhirService.getServiceName());
 		model.put("patientSearchForm", form);
 		try {
-			List<Patient> patients = fhirService.findPatientsByFullName(form.getFirstName(), form.getLastName());
+			List<Patient> patients = fhirService.findPatientsByFullName(ehrSession, form.getFirstName(), form.getLastName());
 			List<PatientModel> patientModels = patients.stream()
-					.map(fhirPatient -> new PatientModel(fhirPatient))
-					.collect(Collectors.toList());
+				.map(fhirPatient -> new PatientModel(fhirPatient))
+				.collect(Collectors.toList());
 			model.put("patients", patientModels);
 			model.put("results", true);
 		} catch (FHIRException e) {
@@ -75,15 +91,19 @@ public class MainController {
 
 	/**
 	 * Get the patient information and return to the phenotypes view
+	 * 
 	 * @param model
-	 * @param id the patient id
+	 * @param id
+	 *            the patient id
 	 * @return the patient found
 	 */
 	@GetMapping("/patient/{id:.+}")
-	public String patient(Map<String, Object> model, @PathVariable String id) {
+	public String patient(HttpSession httpSession, Map<String, Object> model, @PathVariable String id) {
+        // retrieve the EHR session from the http session
+		Session ehrSession = (Session) httpSession.getAttribute(ehrSessionFactory.getSessionKey());
 		try {
 			// Get the patient again so information can be displayed
-			Patient fhirPatient = fhirService.findPatientById(id);
+			Patient fhirPatient = fhirService.findPatientById(ehrSession, id);
 			PatientModel patientModel = new PatientModel(fhirPatient);
 			model.put("patient", patientModel);
 			model.put("includeHpoSummaryJs", true);
@@ -97,8 +117,8 @@ public class MainController {
 	public String annotations(Map<String, Object> model) throws Exception {
 		Map<LoincId, Loinc2HpoAnnotation> annotations = annotationService.getAnnotationsMap();
 		List<LoincId> loincs = annotations.entrySet().stream()
-				.filter(x -> x.getValue() instanceof DefaultLoinc2HpoAnnotation).map(x -> x.getKey())
-				.collect(Collectors.toList());
+			.filter(x -> x.getValue() instanceof DefaultLoinc2HpoAnnotation).map(x -> x.getKey())
+			.collect(Collectors.toList());
 		model.put("loincs", loincs);
 
 		return "annotations";

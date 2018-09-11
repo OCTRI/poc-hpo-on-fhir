@@ -8,6 +8,7 @@ import org.hl7.fhir.dstu3.model.Bundle;
 import org.hl7.fhir.dstu3.model.Observation;
 import org.hl7.fhir.dstu3.model.Patient;
 import org.hl7.fhir.exceptions.FHIRException;
+import org.hspconsortium.client.session.Session;
 
 import ca.uhn.fhir.context.FhirContext;
 import ca.uhn.fhir.rest.gclient.ReferenceClientParam;
@@ -23,8 +24,8 @@ public class Stu3FhirService extends AbstractFhirService {
 	
 	private static final FhirContext ctx = FhirContext.forDstu3();
 
-	public Stu3FhirService(String serviceName, String url) {
-		super(serviceName, url);
+	public Stu3FhirService(String serviceName) {
+		super(serviceName);
 	}
 
 	@Override
@@ -33,25 +34,25 @@ public class Stu3FhirService extends AbstractFhirService {
 	}
 	
 	@Override
-	public Patient findPatientById(String id) throws FHIRException {
-		return getClient().read().resource(Patient.class).withId(id).execute();
+	public Patient findPatientById(Session session, String id) throws FHIRException {
+		return session.read().resource(Patient.class).withId(id).execute();
 	}
 
 	@Override
-	public List<Patient> findPatientsByFullName(String firstName, String lastName) throws FHIRException {
+	public List<Patient> findPatientsByFullName(Session session, String firstName, String lastName) throws FHIRException {
 		//TODO: Check for a next link and more bundles
-		Bundle patientBundle = getClient().search().forResource(Patient.class).where(Patient.FAMILY.matches().value(lastName)).and(Patient.GIVEN.matches().value(firstName)).returnBundle(Bundle.class).execute();
+		Bundle patientBundle = session.search().forResource(Patient.class).where(Patient.FAMILY.matches().value(lastName)).and(Patient.GIVEN.matches().value(firstName)).returnBundle(Bundle.class).execute();
 		return processPatientBundle(patientBundle);
 	}
 	
 	@Override
-	public List<Observation> findObservationsForPatient(String patientId) throws FHIRException {
+	public List<Observation> findObservationsForPatient(Session session, String patientId) throws FHIRException {
 		List<Observation> allObservations = new ArrayList<>();
-		Bundle observationBundle = getClient().search().forResource(Observation.class).where(new ReferenceClientParam("patient").hasId(patientId)).returnBundle(Bundle.class).execute();
+		Bundle observationBundle = session.search().forResource(Observation.class).where(new ReferenceClientParam("patient").hasId(patientId)).returnBundle(Bundle.class).execute();
 		
 		while (observationBundle != null) {
 			allObservations.addAll(processObservationBundle(observationBundle));
-			observationBundle = (observationBundle.getLink(Bundle.LINK_NEXT) != null) ? getClient().loadPage().next(observationBundle).execute() : null;
+			observationBundle = (observationBundle.getLink(Bundle.LINK_NEXT) != null) ? session.loadPage().next(observationBundle).execute() : null;
 		}
 		
 		return allObservations;
