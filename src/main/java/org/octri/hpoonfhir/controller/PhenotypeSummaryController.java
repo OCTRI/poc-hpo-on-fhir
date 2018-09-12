@@ -3,7 +3,12 @@ package org.octri.hpoonfhir.controller;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.hl7.fhir.exceptions.FHIRException;
+import org.hspconsortium.client.auth.credentials.ClientSecretCredentials;
+import org.hspconsortium.client.session.Session;
+import org.hspconsortium.client.session.authorizationcode.AuthorizationCodeSessionFactory;
 import org.octri.hpoonfhir.service.FhirService;
 import org.octri.hpoonfhir.service.PhenotypeSummaryService;
 import org.octri.hpoonfhir.view.PhenotypeModel;
@@ -25,6 +30,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 public class PhenotypeSummaryController {
 
 	@Autowired
+    AuthorizationCodeSessionFactory<ClientSecretCredentials> ehrSessionFactory;
+
+	@Autowired
 	FhirService fhirService;
 
 	@Autowired
@@ -37,10 +45,12 @@ public class PhenotypeSummaryController {
 	 * @return a JSON string representing the summary of phenotypes found
 	 */
 	@GetMapping("/summary/{id:.+}")
-	public String labs(Map<String, Object> model, @PathVariable String id) {
+	public String labs(HttpSession httpSession, Map<String, Object> model, @PathVariable String id) {
+        // retrieve the EHR session from the http session
+		Session ehrSession = (Session) httpSession.getAttribute(ehrSessionFactory.getSessionKey());
 		String json = "";
 		try {
-			List<PhenotypeModel> phenotypes = phenotypeSummaryService.summarizePhenotypes(fhirService.findObservationsForPatient(id));
+			List<PhenotypeModel> phenotypes = phenotypeSummaryService.summarizePhenotypes(fhirService.findObservationsForPatient(ehrSession, id));
 			model.put("data", phenotypes);
 			ObjectMapper objectMapper = new ObjectMapper();
 			json = objectMapper.writeValueAsString(model);

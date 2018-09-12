@@ -6,7 +6,7 @@ import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootApplication
-@ComponentScan({"org.octri.hpoonfhir", "org.monarchinitiative.fhir2hpo"})
+@ComponentScan({"org.octri.hpoonfhir", "org.monarchinitiative.fhir2hpo", "org.hspconsortium.client"})
 @EntityScan( basePackages = {"org.octri.hpoonfhir", "org.monarchinitiative.fhir2hpo"} )
 public class HpoOnFhirApplication {
 
