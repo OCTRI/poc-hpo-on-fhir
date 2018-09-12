@@ -3,7 +3,7 @@
 $(document).ready(function() {
 	function showLabs(d) {
 		// `d` is the original data object for the row
-		let table = "<div class='card'>"
+		let table = "<div class='card details-card'>"
 				+ "<table class='table-bordered'>"
 				+ "<thead>"
 				+ "<tr class='table-warning'><th>FHIR Id</th><th>LOINC</th><th>Description</th><th>Value</th><th>Start Date</th><th>End Date</th></tr>"
