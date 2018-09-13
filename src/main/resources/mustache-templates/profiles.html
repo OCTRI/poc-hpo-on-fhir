@@ -1,0 +1,52 @@
+{{>layout/header}}
+
+<div class="container vertical-space">
+	<h3>JHU Asthma Lab 1</h3>
+	<small class="text-muted">
+	Click on a lab within the profile to see additional information.</small>
+	<div id="accordion">
+		{{#labs}}
+		  <div class="card">
+		    <div class="card-header" id="heading{{loincId}}">
+		      <h5 class="mb-0">
+		        <button class="btn btn-link" data-toggle="collapse" data-target="#collapse{{loincId}}" aria-expanded="true" aria-controls="collapseOne">
+		          {{loincId}}: {{description}} {{#annotated}}(Annotated){{/annotated}}
+		        </button>
+		      </h5>
+		    </div>
+		
+		    <div id="collapse{{loincId}}" class="collapse show" aria-labelledby="heading{{loincId}}" data-parent="#accordion">
+		      <div class="card-body">
+		      	<h4>Reference Range</h4>
+		      		<ul>
+			      	{{^referenceRange}}
+			      		<li>None</li>
+			      	{{/referenceRange}}
+			      	{{#referenceRange}}
+		      			<li>{{min}}</li>
+		      			<li>{{max}}</li>
+			      	{{/referenceRange}}
+		      		</ul>
+		      	<h4>Statistics</h4>
+		        <ul>
+		        	<li>Min: {{min}}</li>
+		        	<li>Max: {{max}}</li>
+		        	<li>Mean: {{mean}}</li>
+		        	<li>Median: {{median}}</li>
+<!-- 		        	<li>Fraction Above Normal: {{fractionAboveNormal}}</li>
+		        	<li>Fraction Below Normal: {{fractionBelowNormal}}</li>
+ -->		        </ul>
+		        <h4>HPO Terms</h4>
+		        <ul>
+		        {{#relatedHpoTerms}}
+		        	<li>{{code}} : {{term}}</li>
+		        {{/relatedHpoTerms}}
+		        </ul>		        
+		      </div>
+		    </div>
+		  </div>
+		  {{/labs}}
+	</div>
+</div>
+
+{{>layout/footer}}
