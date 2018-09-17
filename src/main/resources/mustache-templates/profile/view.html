@@ -1,18 +1,20 @@
 {{>layout/header}}
 
 <div class="container vertical-space">
-	<h3>JHU Asthma Lab 1</h3>
+	<h3>JHU Asthma Lab {{id}}</h3>
+	<p>{{description}}</p>
 	<small class="text-muted">
-	Click on a lab within the profile to see additional information.</small>
-	<div id="accordion">
+	Click on a lab within the profile to see additional information. Highlighted labs contain information about mapped phenotypes.</small>
+	<div id="accordion" class="vertical-space">
 		{{#labs}}
-		  <div class="card">
-		    <div class="card-header" id="heading{{loincId}}">
+		  <div class="card ">
+		    <div class="card-header {{#annotated}}annotated{{/annotated}}" id="heading{{loincId}}">
 		      <h5 class="mb-0">
-		        <button class="btn btn-link" data-toggle="collapse" data-target="#collapse{{loincId}}" aria-expanded="true" aria-controls="collapseOne">
-		          {{loincId}}: {{description}} {{#annotated}}(Annotated){{/annotated}}
-		        </button>
+		        <div class="lab-header btn-link" data-toggle="collapse" data-target="#collapse{{loincId}}" aria-expanded="true" aria-controls="collapseOne">
+		          {{loincId}}: {{description}}
+		        </div>
 		      </h5>
+		      <div class="lab-header float-right">{{count}}</div>
 		    </div>
 		
 		    <div id="collapse{{loincId}}" class="collapse show" aria-labelledby="heading{{loincId}}" data-parent="#accordion">
@@ -29,7 +31,7 @@
 			      	{{/referenceRange}}
 		      		</ul>
 		        {{/showDeciles}}
-		      	<h4>Statistics</h4>
+		      	<h4>Statistics ({{unit}})</h4>
 		        <ul>
 		        	<li>Min: {{min}}</li>
 		        	<li>Max: {{max}}</li>

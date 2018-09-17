@@ -17,6 +17,10 @@ public class LabSummaryModel {
 	private LoincId loincId;
 	private Boolean annotated;
 	private String description;
+	private String unit;
+	private Integer count;
+	private Double frequencyPerYear;
+	private Double fractionOfSubjects;
 	private Double min;
 	private Double mean;
 	private Double max;
@@ -24,10 +28,10 @@ public class LabSummaryModel {
 	private Double stddev;
 	private Double fractionAboveNormal;
 	private Double fractionBelowNormal;
-	private List<Map<String,String>> relatedHpoTerms;
+	private List<Map<String, String>> relatedHpoTerms;
 	private ReferenceRange referenceRange;
 	private List<DecileModel> deciles;
-	
+
 	public LoincId getLoincId() {
 		return loincId;
 	}
@@ -36,12 +40,52 @@ public class LabSummaryModel {
 		this.loincId = loincId;
 	}
 
+	public Boolean getAnnotated() {
+		return annotated;
+	}
+
+	public void setAnnotated(Boolean annotated) {
+		this.annotated = annotated;
+	}
+
 	public String getDescription() {
 		return description;
 	}
 
 	public void setDescription(String description) {
 		this.description = description;
+	}
+
+	public String getUnit() {
+		return unit;
+	}
+
+	public void setUnit(String unit) {
+		this.unit = unit;
+	}
+
+	public Integer getCount() {
+		return count;
+	}
+
+	public void setCount(Integer count) {
+		this.count = count;
+	}
+
+	public Double getFrequencyPerYear() {
+		return frequencyPerYear;
+	}
+
+	public void setFrequencyPerYear(Double frequencyPerYear) {
+		this.frequencyPerYear = frequencyPerYear;
+	}
+
+	public Double getFractionOfSubjects() {
+		return fractionOfSubjects;
+	}
+
+	public void setFractionOfSubjects(Double fractionOfSubjects) {
+		this.fractionOfSubjects = fractionOfSubjects;
 	}
 
 	public Double getMin() {
@@ -66,6 +110,14 @@ public class LabSummaryModel {
 
 	public void setMax(Double max) {
 		this.max = max;
+	}
+
+	public Double getMedian() {
+		return median;
+	}
+
+	public void setMedian(Double median) {
+		this.median = median;
 	}
 
 	public Double getStddev() {
@@ -100,22 +152,6 @@ public class LabSummaryModel {
 		this.relatedHpoTerms = relatedHpoTerms;
 	}
 
-	public Double getMedian() {
-		return median;
-	}
-
-	public void setMedian(Double median) {
-		this.median = median;
-	}
-
-	public Boolean getAnnotated() {
-		return annotated;
-	}
-
-	public void setAnnotated(Boolean annotated) {
-		this.annotated = annotated;
-	}
-
 	public ReferenceRange getReferenceRange() {
 		return referenceRange;
 	}
@@ -127,7 +163,7 @@ public class LabSummaryModel {
 	public List<DecileModel> getDeciles() {
 		return deciles;
 	}
-	
+
 	public void setDeciles(List<DecileModel> deciles) {
 		this.deciles = deciles;
 	}

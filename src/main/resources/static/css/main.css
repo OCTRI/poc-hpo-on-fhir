@@ -27,3 +27,11 @@ footer {
 .details-card {
 	margin-left: 2rem;
 }
+
+.annotated {
+	background-color: #ffeeba;	
+}
+
+.lab-header {
+	font-size: 0.95rem;
+}

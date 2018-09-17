@@ -1,13 +1,13 @@
 {{>layout/header}}
 
 <div class="container vertical-space">
-    <h1>Profile List</h1>
-    <p>Aggregated Laboratory Tests provided by Johns Hopkins University</p>
+    <h1>Clinical Profile List</h1>
+    <p>Aggregated Asthma Laboratory Tests provided by Johns Hopkins University</p>
      <table class='table table-striped table-bordered'>
     	<thead>
     	<tr>    		
     		<th>Lab Number</th>
-    		<th>Info</th>
+    		<th>Description</th>
     		<th>Actions</th>
     	</tr>
     	</thead>
@@ -15,7 +15,7 @@
     	{{#labs}}
     		<tr>    			
     			<td>{{id}}</td>
-    			<td>{{info}}</td>
+    			<td>{{description}}</td>
     			<td><a href='{{req.contextPath}}profile/{{id}}'>View</a></td>
     		</tr>
 	    {{/labs}}

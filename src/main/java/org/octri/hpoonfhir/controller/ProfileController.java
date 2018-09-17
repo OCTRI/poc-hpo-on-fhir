@@ -3,6 +3,7 @@ package org.octri.hpoonfhir.controller;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -57,21 +58,12 @@ public class ProfileController {
 	@GetMapping("profile")
 	public String getProfiles(Map<String, Object> model) throws JsonParseException, JsonMappingException, IOException {
 		List<Map<String,Object>> labs = new ArrayList<>();
-		List<Long> ids = new ArrayList<>();
 		for (int i=1; i<=96; i++) {
 			Long id = new Long(i);
 			Map<String,Object> lab = new HashMap<>();
 			lab.put("id", id);
 			Map<String, Object> map = getResourceAsMap(id);
-			Map<String, Object> text = (Map<String,Object>) map.get("text");
-			// Hacky way to pull out the text describing the cohort
-			String div = (String) text.get("div");
-			Pattern p = Pattern.compile("<p>(.+)");
-			Matcher m = p.matcher(div);
-			if (m.find()) {
-				lab.put("info", m.group(1));
-			}
-			
+			lab.put("description", getProfileDescription((Map<String,Object>) map.get("text")));			
 			labs.add(lab);
 		}
 		model.put("labs", labs);
@@ -79,11 +71,33 @@ public class ProfileController {
 	}
 
 
+	/**
+	 * Get the description of the profile
+	 * @param lab
+	 * @param text
+	 * @return
+	 */
+	private String getProfileDescription(Map<String, Object> text) {
+		// Hacky way to pull out the text describing the cohort
+		String div = (String) text.get("div");
+		Pattern p = Pattern.compile("<p>(.+)");
+		Matcher m = p.matcher(div);
+		if (m.find()) {
+			return m.group(1);
+		}
+		return null;
+	}
+
+
 	@GetMapping("/profile/{id}")
 	public String getProfiles(Map<String, Object> model, @PathVariable Long id) throws JsonParseException, JsonMappingException, IOException {
 		Map<String, Object> map = getResourceAsMap(id);
+		model.put("description", getProfileDescription((Map<String,Object>) map.get("text")));
 		List<Map<String, Object>> labs = (List<Map<String, Object>>) map.get("lab");
 		List<LabSummaryModel> labSummaries = summarizeLabs(labs);
+		Collections.sort(labSummaries, (o, n) -> o.getCount().compareTo(n.getCount()));
+		Collections.reverse(labSummaries);
+		model.put("id", id);
 		model.put("labs", labSummaries);
 		model.put("includeProfilesJs", true);
 		return "profile/view";
@@ -131,7 +145,12 @@ public class ProfileController {
 				e.printStackTrace();
 			}
 			model.setDescription((String) coding.get("display"));
+			model.setCount(getInteger(lab.get("count")));
+			model.setFrequencyPerYear(getDouble(lab.get("frequencyPerYear")));
+			model.setFractionOfSubjects(getDouble(lab.get("fractionOfSubjects")));
 			Map<String, Object> scalarDistribution = (Map<String, Object>) lab.get("scalarDistribution");
+			Map<String,Object> units = (Map<String, Object>) scalarDistribution.get("units");
+			model.setUnit((String) units.get("unit")); 
 			model.setMin(getDouble(scalarDistribution.get("min")));
 			model.setMax(getDouble(scalarDistribution.get("max")));
 			model.setMean(getDouble(scalarDistribution.get("mean")));
@@ -188,6 +207,17 @@ public class ProfileController {
 		} else if (number instanceof Integer) {
 			Integer n = (Integer) number;
 			return n.doubleValue();
+		}
+		System.out.println("Problem converting the number " + number);
+		return null;
+	}
+
+	private Integer getInteger(Object number) {
+		if (number == null) {
+			return null;
+		}
+		if (number instanceof Integer) {
+			return (Integer) number;
 		}
 		System.out.println("Problem converting the number " + number);
 		return null;
