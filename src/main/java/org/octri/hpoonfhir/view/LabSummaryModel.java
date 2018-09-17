@@ -21,11 +21,13 @@ public class LabSummaryModel {
 	private Double mean;
 	private Double max;
 	private Double median;
+	private Double stddev;
 	private Double fractionAboveNormal;
 	private Double fractionBelowNormal;
 	private List<Map<String,String>> relatedHpoTerms;
 	private ReferenceRange referenceRange;
-
+	private List<DecileModel> deciles;
+	
 	public LoincId getLoincId() {
 		return loincId;
 	}
@@ -64,6 +66,14 @@ public class LabSummaryModel {
 
 	public void setMax(Double max) {
 		this.max = max;
+	}
+
+	public Double getStddev() {
+		return stddev;
+	}
+
+	public void setStddev(Double stddev) {
+		this.stddev = stddev;
 	}
 
 	public Double getFractionAboveNormal() {
@@ -112,6 +122,14 @@ public class LabSummaryModel {
 
 	public void setReferenceRange(ReferenceRange referenceRange) {
 		this.referenceRange = referenceRange;
+	}
+
+	public List<DecileModel> getDeciles() {
+		return deciles;
+	}
+	
+	public void setDeciles(List<DecileModel> deciles) {
+		this.deciles = deciles;
 	}
 
 }

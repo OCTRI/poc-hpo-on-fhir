@@ -1,0 +1,4383 @@
+{
+  "resourceType": "ClinicalProfile",
+  "id": "jhu-asthma-profile-81-labs",
+  "text": {
+    "status": "generated",
+    "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\">\n\t\t\t<p>Selected laboratory tests for Female, Black or African American patients aged 0 - 80+ seen as either outpatients or inpatients at Johns Hopkins Hospital, JHCP, and Bayview between 3/1/2016 and 3/1/2018 having a diagnosis of asthma recorded on the problem list or as an encounter diagnosis.\n\t\t\t</p>\n\t\t</div>"
+  },
+  "identifier": [
+    {
+      "value": "urn:uuid:1823C21C-DE12-FD7C-78381B509E8DC85E"
+    }
+  ],
+  "status": "draft",
+  "population": {
+    "reference": "Group/asthma-population-jhu1"
+  },
+  "cohort": {
+    "reference": "Group/asthma-sample-81-cohort-jhu1"
+  },
+  "date": "2018-09-12T15:17:00Z",
+  "source": [
+    {
+      "value": "http://ictrweb.johnshopkins.edu/ictr/synthetic/includes/clinical_profiles.cfm"
+    }
+  ],
+  "reporter": {
+    "reference": "Organization/JHM",
+    "type": "Organization",
+    "display": "Johns Hopkins School of Medicine"
+  },
+  "lab": [
+    {
+      "code": [
+        {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "2345-7",
+              "display": "Glucose [Mass/volume] in Serum or Plasma"
+            }
+          ]
+        }
+      ],
+      "count": 49233,
+      "frequencyPerYear": 1.6126,
+      "fractionOfSubjects": 0.5777,
+      "scalarDistribution": {
+        "units": {
+          "unit": "mg/dL",
+          "system": "http://unitsofmeasure.org",
+          "code": "mg/dL"
+        },
+        "min": 3,
+        "max": 1220,
+        "mean": 122.68,
+        "median": 101,
+        "stdDev": 65.92,
+        "decile": [
+          {
+            "nth": 10,
+            "value": 79
+          },
+          {
+            "nth": 20,
+            "value": 85
+          },
+          {
+            "nth": 30,
+            "value": 90
+          },
+          {
+            "nth": 40,
+            "value": 95
+          },
+          {
+            "nth": 50,
+            "value": 101
+          },
+          {
+            "nth": 60,
+            "value": 109
+          },
+          {
+            "nth": 70,
+            "value": 121
+          },
+          {
+            "nth": 80,
+            "value": 143
+          },
+          {
+            "nth": 90,
+            "value": 192
+          }
+        ],
+        "normalizedHigh": 106,
+        "normalizedLow": 74,
+        "fractionAboveNormal": 0.43,
+        "fractionBelowNormal": 0.05
+      }
+    },
+    {
+      "code": [
+        {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "2339-0",
+              "display": "Glucose [Mass/volume] in Blood"
+            }
+          ]
+        }
+      ],
+      "count": 1929,
+      "frequencyPerYear": 0.0632,
+      "fractionOfSubjects": 0.0294,
+      "scalarDistribution": {
+        "units": {
+          "unit": "mg/dL",
+          "system": "http://unitsofmeasure.org",
+          "code": "mg/dL"
+        },
+        "min": 36,
+        "max": 876,
+        "mean": 125.88,
+        "median": 106,
+        "stdDev": 62.64,
+        "decile": [
+          {
+            "nth": 10,
+            "value": 84
+          },
+          {
+            "nth": 20,
+            "value": 90
+          },
+          {
+            "nth": 30,
+            "value": 95
+          },
+          {
+            "nth": 40,
+            "value": 100
+          },
+          {
+            "nth": 50,
+            "value": 106
+          },
+          {
+            "nth": 60,
+            "value": 113
+          },
+          {
+            "nth": 70,
+            "value": 127
+          },
+          {
+            "nth": 80,
+            "value": 147
+          },
+          {
+            "nth": 90,
+            "value": 192
+          }
+        ]
+      }
+    },
+    {
+      "code": [
+        {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "14749-6",
+              "display": "Glucose [Moles/volume] in Serum or Plasma"
+            }
+          ]
+        }
+      ],
+      "count": 620,
+      "frequencyPerYear": 0.0203,
+      "fractionOfSubjects": 0.0125,
+      "scalarDistribution": {
+        "units": {
+          "unit": "mg/dL",
+          "system": "http://unitsofmeasure.org",
+          "code": "mg/dL"
+        },
+        "min": 38,
+        "max": 571,
+        "mean": 128.73,
+        "median": 107,
+        "stdDev": 62.00,
+        "decile": [
+          {
+            "nth": 10,
+            "value": 85
+          },
+          {
+            "nth": 20,
+            "value": 91
+          },
+          {
+            "nth": 30,
+            "value": 95
+          },
+          {
+            "nth": 40,
+            "value": 101
+          },
+          {
+            "nth": 50,
+            "value": 107
+          },
+          {
+            "nth": 60,
+            "value": 116
+          },
+          {
+            "nth": 70,
+            "value": 130
+          },
+          {
+            "nth": 80,
+            "value": 154
+          },
+          {
+            "nth": 90,
+            "value": 208
+          }
+        ],
+        "normalizedHigh": 99,
+        "normalizedLow": 60,
+        "fractionAboveNormal": 0.63,
+        "fractionBelowNormal": 0.00
+      }
+    },
+    {
+      "code": [
+        {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "1558-6",
+              "display": "Fasting glucose [Mass/volume] in Serum or Plasma"
+            }
+          ]
+        }
+      ],
+      "count": 14,
+      "frequencyPerYear": 0.0005,
+      "fractionOfSubjects": 0.0008,
+      "scalarDistribution": {
+        "units": {
+          "unit": "mg/dL",
+          "system": "http://unitsofmeasure.org",
+          "code": "mg/dL"
+        },
+        "min": 75,
+        "max": 156,
+        "mean": 89.79,
+        "median": 86,
+        "stdDev": 19.76,
+        "decile": [
+          {
+            "nth": 10,
+            "value": 75
+          },
+          {
+            "nth": 20,
+            "value": 80
+          },
+          {
+            "nth": 30,
+            "value": 80
+          },
+          {
+            "nth": 40,
+            "value": 84
+          },
+          {
+            "nth": 50,
+            "value": 86
+          },
+          {
+            "nth": 60,
+            "value": 86
+          },
+          {
+            "nth": 70,
+            "value": 87
+          },
+          {
+            "nth": 80,
+            "value": 88
+          },
+          {
+            "nth": 90,
+            "value": 94
+          }
+        ],
+        "normalizedHigh": 99,
+        "normalizedLow": 65,
+        "fractionAboveNormal": 0.07,
+        "fractionBelowNormal": 0
+      }
+    },
+    {
+      "code": [
+        {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "39789-3",
+              "display": "Potassium [Moles/volume] in Venous blood"
+            }
+          ]
+        }
+      ],
+      "count": 45217,
+      "frequencyPerYear": 1.4811,
+      "fractionOfSubjects": 0.4896,
+      "scalarDistribution": {
+        "units": {
+          "unit": "mmol/L",
+          "system": "http://unitsofmeasure.org",
+          "code": "mmol/L"
+        },
+        "min": 1.90,
+        "max": 8.50,
+        "mean": 4.19,
+        "median": 4.20,
+        "stdDev": 0.54,
+        "decile": [
+          {
+            "nth": 10,
+            "value": 3.60
+          },
+          {
+            "nth": 20,
+            "value": 3.80
+          },
+          {
+            "nth": 30,
+            "value": 3.90
+          },
+          {
+            "nth": 40,
+            "value": 4
+          },
+          {
+            "nth": 50,
+            "value": 4.20
+          },
+          {
+            "nth": 60,
+            "value": 4.30
+          },
+          {
+            "nth": 70,
+            "value": 4.40
+          },
+          {
+            "nth": 80,
+            "value": 4.60
+          },
+          {
+            "nth": 90,
+            "value": 4.80
+          }
+        ]
+      }
+    },
+    {
+      "code": [
+        {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "2823-3",
+              "display": "Potassium [Moles/volume] in Serum or Plasma"
+            }
+          ]
+        }
+      ],
+      "count": 4481,
+      "frequencyPerYear": 0.1468,
+      "fractionOfSubjects": 0.1436,
+      "scalarDistribution": {
+        "units": {
+          "unit": "mmol/L",
+          "system": "http://unitsofmeasure.org",
+          "code": "mmol/L"
+        },
+        "min": 2.60,
+        "max": 9.40,
+        "mean": 4.22,
+        "median": 4.20,
+        "stdDev": 0.43,
+        "decile": [
+          {
+            "nth": 10,
+            "value": 3.70
+          },
+          {
+            "nth": 20,
+            "value": 3.90
+          },
+          {
+            "nth": 30,
+            "value": 4
+          },
+          {
+            "nth": 40,
+            "value": 4.10
+          },
+          {
+            "nth": 50,
+            "value": 4.20
+          },
+          {
+            "nth": 60,
+            "value": 4.30
+          },
+          {
+            "nth": 70,
+            "value": 4.40
+          },
+          {
+            "nth": 80,
+            "value": 4.50
+          },
+          {
+            "nth": 90,
+            "value": 4.70
+          }
+        ],
+        "normalizedHigh": 5.2,
+        "normalizedLow": 3.5,
+        "fractionAboveNormal": 0.02,
+        "fractionBelowNormal": 0.03
+      }
+    },
+    {
+      "code": [
+        {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "6298-4",
+              "display": "Potassium [Moles/volume] in Blood"
+            }
+          ]
+        }
+      ],
+      "count": 41,
+      "frequencyPerYear": 0.0013,
+      "fractionOfSubjects": 0.0011,
+      "scalarDistribution": {
+        "units": {
+          "unit": "MEQ/L",
+          "system": "http://unitsofmeasure.org",
+          "code": "MEQ/L"
+        },
+        "min": 3.40,
+        "max": 4.90,
+        "mean": 4.20,
+        "median": 4.20,
+        "stdDev": 0.32,
+        "decile": [
+          {
+            "nth": 10,
+            "value": 3.80
+          },
+          {
+            "nth": 20,
+            "value": 4
+          },
+          {
+            "nth": 30,
+            "value": 4.10
+          },
+          {
+            "nth": 40,
+            "value": 4.20
+          },
+          {
+            "nth": 50,
+            "value": 4.20
+          },
+          {
+            "nth": 60,
+            "value": 4.20
+          },
+          {
+            "nth": 70,
+            "value": 4.30
+          },
+          {
+            "nth": 80,
+            "value": 4.40
+          },
+          {
+            "nth": 90,
+            "value": 4.60
+          }
+        ],
+        "normalizedHigh": 5.4,
+        "normalizedLow": 3.7,
+        "fractionAboveNormal": 0,
+        "fractionBelowNormal": 0.07
+      }
+    },
+    {
+      "code": [
+        {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "17861-6",
+              "display": "Calcium [Mass/volume] in Serum or Plasma"
+            }
+          ]
+        }
+      ],
+      "count": 50780,
+      "frequencyPerYear": 1.6633,
+      "fractionOfSubjects": 0.5860,
+      "scalarDistribution": {
+        "units": {
+          "unit": "mg/dL",
+          "system": "http://unitsofmeasure.org",
+          "code": "mg/dL"
+        },
+        "min": 4.40,
+        "max": 16.60,
+        "mean": 9,
+        "median": 9.10,
+        "stdDev": 0.70,
+        "decile": [
+          {
+            "nth": 10,
+            "value": 8.10
+          },
+          {
+            "nth": 20,
+            "value": 8.50
+          },
+          {
+            "nth": 30,
+            "value": 8.70
+          },
+          {
+            "nth": 40,
+            "value": 8.90
+          },
+          {
+            "nth": 50,
+            "value": 9.10
+          },
+          {
+            "nth": 60,
+            "value": 9.20
+          },
+          {
+            "nth": 70,
+            "value": 9.40
+          },
+          {
+            "nth": 80,
+            "value": 9.50
+          },
+          {
+            "nth": 90,
+            "value": 9.80
+          }
+        ],
+        "normalizedHigh": 10.5,
+        "normalizedLow": 9,
+        "fractionAboveNormal": 0.01,
+        "fractionBelowNormal": 0.43
+      }
+    },
+    {
+      "code": [
+        {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "2000-8",
+              "display": "Calcium [Moles/volume] in Serum or Plasma"
+            }
+          ]
+        }
+      ],
+      "count": 620,
+      "frequencyPerYear": 0.0203,
+      "fractionOfSubjects": 0.0125,
+      "scalarDistribution": {
+        "units": {
+          "unit": "mg/dL",
+          "system": "http://unitsofmeasure.org",
+          "code": "mg/dL"
+        },
+        "min": 6.30,
+        "max": 11.50,
+        "mean": 9.06,
+        "median": 9.10,
+        "stdDev": 0.74,
+        "decile": [
+          {
+            "nth": 10,
+            "value": 8.10
+          },
+          {
+            "nth": 20,
+            "value": 8.50
+          },
+          {
+            "nth": 30,
+            "value": 8.70
+          },
+          {
+            "nth": 40,
+            "value": 8.90
+          },
+          {
+            "nth": 50,
+            "value": 9.10
+          },
+          {
+            "nth": 60,
+            "value": 9.20
+          },
+          {
+            "nth": 70,
+            "value": 9.40
+          },
+          {
+            "nth": 80,
+            "value": 9.60
+          },
+          {
+            "nth": 90,
+            "value": 10
+          }
+        ],
+        "normalizedHigh": 10.4,
+        "normalizedLow": 8.5,
+        "fractionAboveNormal": 0.03,
+        "fractionBelowNormal": 0.17
+      }
+    },
+    {
+      "code": [
+        {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "2951-2",
+              "display": "Sodium [Moles/volume] in Serum or Plasma"
+            }
+          ]
+        }
+      ],
+      "count": 50897,
+      "frequencyPerYear": 1.6671,
+      "fractionOfSubjects": 0.5881,
+      "scalarDistribution": {
+        "units": {
+          "unit": "mmol/L",
+          "system": "http://unitsofmeasure.org",
+          "code": "mmol/L"
+        },
+        "min": 106,
+        "max": 162,
+        "mean": 139.64,
+        "median": 140,
+        "stdDev": 3.46,
+        "decile": [
+          {
+            "nth": 10,
+            "value": 136
+          },
+          {
+            "nth": 20,
+            "value": 137
+          },
+          {
+            "nth": 30,
+            "value": 138
+          },
+          {
+            "nth": 40,
+            "value": 139
+          },
+          {
+            "nth": 50,
+            "value": 140
+          },
+          {
+            "nth": 60,
+            "value": 141
+          },
+          {
+            "nth": 70,
+            "value": 141
+          },
+          {
+            "nth": 80,
+            "value": 142
+          },
+          {
+            "nth": 90,
+            "value": 144
+          }
+        ],
+        "normalizedHigh": 145,
+        "normalizedLow": 136,
+        "fractionAboveNormal": 0.03,
+        "fractionBelowNormal": 0.10
+      }
+    },
+    {
+      "code": [
+        {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "12962-7",
+              "display": "Urea nitrogen [Mass/volume] in Venous blood"
+            }
+          ]
+        }
+      ],
+      "count": 46210,
+      "frequencyPerYear": 1.5136,
+      "fractionOfSubjects": 0.4930,
+      "scalarDistribution": {
+        "units": {
+          "unit": "mg/dL",
+          "system": "http://unitsofmeasure.org",
+          "code": "mg/dL"
+        },
+        "min": 1,
+        "max": 178,
+        "mean": 17.70,
+        "median": 13,
+        "stdDev": 15.04,
+        "decile": [
+          {
+            "nth": 10,
+            "value": 7
+          },
+          {
+            "nth": 20,
+            "value": 8
+          },
+          {
+            "nth": 30,
+            "value": 10
+          },
+          {
+            "nth": 40,
+            "value": 11
+          },
+          {
+            "nth": 50,
+            "value": 13
+          },
+          {
+            "nth": 60,
+            "value": 15
+          },
+          {
+            "nth": 70,
+            "value": 18
+          },
+          {
+            "nth": 80,
+            "value": 23
+          },
+          {
+            "nth": 90,
+            "value": 34
+          }
+        ]
+      }
+    },
+    {
+      "code": [
+        {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "3094-0",
+              "display": "Urea nitrogen [Mass/volume] in Serum or Plasma"
+            }
+          ]
+        }
+      ],
+      "count": 4481,
+      "frequencyPerYear": 0.1468,
+      "fractionOfSubjects": 0.1439,
+      "scalarDistribution": {
+        "units": {
+          "unit": "mg/dL",
+          "system": "http://unitsofmeasure.org",
+          "code": "mg/dL"
+        },
+        "min": 3,
+        "max": 114,
+        "mean": 15.31,
+        "median": 13,
+        "stdDev": 10.16,
+        "decile": [
+          {
+            "nth": 10,
+            "value": 8
+          },
+          {
+            "nth": 20,
+            "value": 9
+          },
+          {
+            "nth": 30,
+            "value": 10
+          },
+          {
+            "nth": 40,
+            "value": 12
+          },
+          {
+            "nth": 50,
+            "value": 13
+          },
+          {
+            "nth": 60,
+            "value": 14
+          },
+          {
+            "nth": 70,
+            "value": 16
+          },
+          {
+            "nth": 80,
+            "value": 18
+          },
+          {
+            "nth": 90,
+            "value": 25
+          }
+        ],
+        "normalizedHigh": 25,
+        "normalizedLow": 7,
+        "fractionAboveNormal": 0.09,
+        "fractionBelowNormal": 0.04
+      }
+    },
+    {
+      "code": [
+        {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "6299-2",
+              "display": "Urea nitrogen [Mass/volume] in Blood"
+            }
+          ]
+        }
+      ],
+      "count": 41,
+      "frequencyPerYear": 0.0013,
+      "fractionOfSubjects": 0.0011,
+      "scalarDistribution": {
+        "units": {
+          "unit": "mg/dL",
+          "system": "http://unitsofmeasure.org",
+          "code": "mg/dL"
+        },
+        "min": 7,
+        "max": 44,
+        "mean": 16.63,
+        "median": 13,
+        "stdDev": 9.18,
+        "decile": [
+          {
+            "nth": 10,
+            "value": 8
+          },
+          {
+            "nth": 20,
+            "value": 10
+          },
+          {
+            "nth": 30,
+            "value": 11
+          },
+          {
+            "nth": 40,
+            "value": 11
+          },
+          {
+            "nth": 50,
+            "value": 13
+          },
+          {
+            "nth": 60,
+            "value": 16
+          },
+          {
+            "nth": 70,
+            "value": 18
+          },
+          {
+            "nth": 80,
+            "value": 21
+          },
+          {
+            "nth": 90,
+            "value": 32
+          }
+        ],
+        "normalizedHigh": 23,
+        "normalizedLow": 9,
+        "fractionAboveNormal": 0.17,
+        "fractionBelowNormal": 0.12
+      }
+    },
+    {
+      "code": [
+        {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "4544-3",
+              "display": "Hematocrit [Volume Fraction] of Blood by Automated count"
+            }
+          ]
+        }
+      ],
+      "count": 49245,
+      "frequencyPerYear": 1.6130,
+      "fractionOfSubjects": 0.6166,
+      "scalarDistribution": {
+        "units": {
+          "unit": "%",
+          "system": "http://unitsofmeasure.org",
+          "code": "%"
+        },
+        "min": 8.70,
+        "max": 64.30,
+        "mean": 33.75,
+        "median": 34.80,
+        "stdDev": 6.48,
+        "decile": [
+          {
+            "nth": 10,
+            "value": 24.40
+          },
+          {
+            "nth": 20,
+            "value": 27.80
+          },
+          {
+            "nth": 30,
+            "value": 30.60
+          },
+          {
+            "nth": 40,
+            "value": 32.90
+          },
+          {
+            "nth": 50,
+            "value": 34.80
+          },
+          {
+            "nth": 60,
+            "value": 36.30
+          },
+          {
+            "nth": 70,
+            "value": 37.80
+          },
+          {
+            "nth": 80,
+            "value": 39.30
+          },
+          {
+            "nth": 90,
+            "value": 41.20
+          }
+        ],
+        "normalizedHigh": 46.6,
+        "normalizedLow": 34.0,
+        "fractionAboveNormal": 0.01,
+        "fractionBelowNormal": 0.45
+      }
+    },
+    {
+      "code": [
+        {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "33256-9",
+              "display": "Leukocytes [#/volume] corrected for nucleated erythrocytes in Blood by Automated count"
+            }
+          ]
+        }
+      ],
+      "count": 44949,
+      "frequencyPerYear": 1.4723,
+      "fractionOfSubjects": 0.5239,
+      "scalarDistribution": {
+        "units": {
+          "unit": "K/cu mm",
+          "system": "http://unitsofmeasure.org",
+          "code": "K/cu mm"
+        },
+        "min": 0.05,
+        "max": 354.03,
+        "mean": 8.72,
+        "median": 7.72,
+        "stdDev": 5.42,
+        "decile": [
+          {
+            "nth": 10,
+            "value": 4.35
+          },
+          {
+            "nth": 20,
+            "value": 5.32
+          },
+          {
+            "nth": 30,
+            "value": 6.12
+          },
+          {
+            "nth": 40,
+            "value": 6.89
+          },
+          {
+            "nth": 50,
+            "value": 7.72
+          },
+          {
+            "nth": 60,
+            "value": 8.67
+          },
+          {
+            "nth": 70,
+            "value": 9.88
+          },
+          {
+            "nth": 80,
+            "value": 11.42
+          },
+          {
+            "nth": 90,
+            "value": 13.98
+          }
+        ]
+      }
+    },
+    {
+      "code": [
+        {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "6690-2",
+              "display": "Leukocytes [#/volume] in Blood by Automated count"
+            }
+          ]
+        }
+      ],
+      "count": 4218,
+      "frequencyPerYear": 0.1382,
+      "fractionOfSubjects": 0.1450,
+      "scalarDistribution": {
+        "units": {
+          "unit": "x10E3/uL",
+          "system": "http://unitsofmeasure.org",
+          "code": "x10E3/uL"
+        },
+        "min": 0.27,
+        "max": 41.23,
+        "mean": 6.95,
+        "median": 6.32,
+        "stdDev": 3.08,
+        "decile": [
+          {
+            "nth": 10,
+            "value": 4
+          },
+          {
+            "nth": 20,
+            "value": 4.70
+          },
+          {
+            "nth": 30,
+            "value": 5.20
+          },
+          {
+            "nth": 40,
+            "value": 5.80
+          },
+          {
+            "nth": 50,
+            "value": 6.32
+          },
+          {
+            "nth": 60,
+            "value": 7
+          },
+          {
+            "nth": 70,
+            "value": 7.70
+          },
+          {
+            "nth": 80,
+            "value": 8.70
+          },
+          {
+            "nth": 90,
+            "value": 10.60
+          }
+        ],
+        "normalizedHigh": 10.8,
+        "normalizedLow": 3.4,
+        "fractionAboveNormal": 0.09,
+        "fractionBelowNormal": 0.04
+      }
+    },
+    {
+      "code": [
+        {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "777-3",
+              "display": "Platelets [#/volume] in Blood by Automated count"
+            }
+          ]
+        }
+      ],
+      "count": 49040,
+      "frequencyPerYear": 1.6063,
+      "fractionOfSubjects": 0.6153,
+      "scalarDistribution": {
+        "units": {
+          "unit": "x10E3/uL",
+          "system": "http://unitsofmeasure.org",
+          "code": "x10E3/uL"
+        },
+        "min": 1,
+        "max": 1581,
+        "mean": 266.32,
+        "median": 257,
+        "stdDev": 110.95,
+        "decile": [
+          {
+            "nth": 10,
+            "value": 142
+          },
+          {
+            "nth": 20,
+            "value": 185
+          },
+          {
+            "nth": 30,
+            "value": 212
+          },
+          {
+            "nth": 40,
+            "value": 235
+          },
+          {
+            "nth": 50,
+            "value": 257
+          },
+          {
+            "nth": 60,
+            "value": 280
+          },
+          {
+            "nth": 70,
+            "value": 306
+          },
+          {
+            "nth": 80,
+            "value": 340
+          },
+          {
+            "nth": 90,
+            "value": 395
+          }
+        ],
+        "normalizedHigh": 396,
+        "normalizedLow": 140,
+        "fractionAboveNormal": 0.10,
+        "fractionBelowNormal": 0.09
+      }
+    },
+    {
+      "code": [
+        {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "718-7",
+              "display": "Hemoglobin [Mass/volume] in Blood"
+            }
+          ]
+        }
+      ],
+      "count": 49064,
+      "frequencyPerYear": 1.6071,
+      "fractionOfSubjects": 0.6166,
+      "scalarDistribution": {
+        "units": {
+          "unit": "g/dL",
+          "system": "http://unitsofmeasure.org",
+          "code": "g/dL"
+        },
+        "min": 2.70,
+        "max": 20.70,
+        "mean": 10.90,
+        "median": 11.20,
+        "stdDev": 2.15,
+        "decile": [
+          {
+            "nth": 10,
+            "value": 7.80
+          },
+          {
+            "nth": 20,
+            "value": 8.90
+          },
+          {
+            "nth": 30,
+            "value": 9.80
+          },
+          {
+            "nth": 40,
+            "value": 10.60
+          },
+          {
+            "nth": 50,
+            "value": 11.20
+          },
+          {
+            "nth": 60,
+            "value": 11.70
+          },
+          {
+            "nth": 70,
+            "value": 12.20
+          },
+          {
+            "nth": 80,
+            "value": 12.80
+          },
+          {
+            "nth": 90,
+            "value": 13.50
+          }
+        ],
+        "normalizedHigh": 16.0,
+        "normalizedLow": 12.0,
+        "fractionAboveNormal": 0.00,
+        "fractionBelowNormal": 0.64
+      }
+    },
+    {
+      "code": [
+        {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "789-8",
+              "display": "Erythrocytes [#/volume] in Blood by Automated count"
+            }
+          ]
+        }
+      ],
+      "count": 49122,
+      "frequencyPerYear": 1.6090,
+      "fractionOfSubjects": 0.6163,
+      "scalarDistribution": {
+        "units": {
+          "unit": "x10E6/uL",
+          "system": "http://unitsofmeasure.org",
+          "code": "x10E6/uL"
+        },
+        "min": 1.06,
+        "max": 8.34,
+        "mean": 3.92,
+        "median": 4.04,
+        "stdDev": 0.82,
+        "decile": [
+          {
+            "nth": 10,
+            "value": 2.74
+          },
+          {
+            "nth": 20,
+            "value": 3.19
+          },
+          {
+            "nth": 30,
+            "value": 3.55
+          },
+          {
+            "nth": 40,
+            "value": 3.82
+          },
+          {
+            "nth": 50,
+            "value": 4.04
+          },
+          {
+            "nth": 60,
+            "value": 4.23
+          },
+          {
+            "nth": 70,
+            "value": 4.41
+          },
+          {
+            "nth": 80,
+            "value": 4.61
+          },
+          {
+            "nth": 90,
+            "value": 4.87
+          }
+        ],
+        "normalizedHigh": 5.28,
+        "normalizedLow": 3.77,
+        "fractionAboveNormal": 0.03,
+        "fractionBelowNormal": 0.38
+      }
+    },
+    {
+      "code": [
+        {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "787-2",
+              "display": "Erythrocyte mean corpuscular volume [Entitic volume] by Automated count"
+            }
+          ]
+        }
+      ],
+      "count": 49073,
+      "frequencyPerYear": 1.6074,
+      "fractionOfSubjects": 0.6163,
+      "scalarDistribution": {
+        "units": {
+          "unit": "fL",
+          "system": "http://unitsofmeasure.org",
+          "code": "fL"
+        },
+        "min": 52.40,
+        "max": 129.80,
+        "mean": 86.79,
+        "median": 87.20,
+        "stdDev": 7.80,
+        "decile": [
+          {
+            "nth": 10,
+            "value": 76.60
+          },
+          {
+            "nth": 20,
+            "value": 80.80
+          },
+          {
+            "nth": 30,
+            "value": 83.40
+          },
+          {
+            "nth": 40,
+            "value": 85.40
+          },
+          {
+            "nth": 50,
+            "value": 87.20
+          },
+          {
+            "nth": 60,
+            "value": 89
+          },
+          {
+            "nth": 70,
+            "value": 90.80
+          },
+          {
+            "nth": 80,
+            "value": 92.90
+          },
+          {
+            "nth": 90,
+            "value": 96
+          }
+        ],
+        "normalizedHigh": 97,
+        "normalizedLow": 79,
+        "fractionAboveNormal": 0.08,
+        "fractionBelowNormal": 0.15
+      }
+    },
+    {
+      "code": [
+        {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "48642-3",
+              "display": "Glomerular filtration rate/1.73 sq M predicted among non-blacks [Volume Rate/Area] in Serum or Plasma by Creatinine-based formula (MDRD)"
+            }
+          ]
+        }
+      ],
+      "count": 19629,
+      "frequencyPerYear": 0.6429,
+      "fractionOfSubjects": 0.2084,
+      "scalarDistribution": {
+        "units": {
+          "unit": "mL/min/1.73 sqm",
+          "system": "http://unitsofmeasure.org",
+          "code": "mL/min/1.73 sqm"
+        },
+        "min": 1,
+        "max": 164,
+        "mean": 40.95,
+        "median": 42,
+        "stdDev": 22.42,
+        "decile": [
+          {
+            "nth": 10,
+            "value": 11
+          },
+          {
+            "nth": 20,
+            "value": 21
+          },
+          {
+            "nth": 30,
+            "value": 29
+          },
+          {
+            "nth": 40,
+            "value": 36
+          },
+          {
+            "nth": 50,
+            "value": 42
+          },
+          {
+            "nth": 60,
+            "value": 47
+          },
+          {
+            "nth": 70,
+            "value": 51
+          },
+          {
+            "nth": 80,
+            "value": 56
+          },
+          {
+            "nth": 90,
+            "value": 59
+          }
+        ]
+      }
+    },
+    {
+      "code": [
+        {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "33914-3",
+              "display": "Glomerular filtration rate/1.73 sq M.predicted [Volume Rate/Area] in Serum or Plasma by Creatinine-based formula (MDRD)"
+            }
+          ]
+        }
+      ],
+      "count": 1315,
+      "frequencyPerYear": 0.0431,
+      "fractionOfSubjects": 0.0454,
+      "scalarDistribution": {
+        "units": {
+          "unit": "mL/min/1.73m2",
+          "system": "http://unitsofmeasure.org",
+          "code": "mL/min/1.73m2"
+        },
+        "min": 8,
+        "max": 150,
+        "mean": 76.60,
+        "median": 79,
+        "stdDev": 26.50,
+        "decile": [
+          {
+            "nth": 10,
+            "value": 33
+          },
+          {
+            "nth": 20,
+            "value": 58
+          },
+          {
+            "nth": 30,
+            "value": 67
+          },
+          {
+            "nth": 40,
+            "value": 73
+          },
+          {
+            "nth": 50,
+            "value": 79
+          },
+          {
+            "nth": 60,
+            "value": 85
+          },
+          {
+            "nth": 70,
+            "value": 92
+          },
+          {
+            "nth": 80,
+            "value": 99
+          },
+          {
+            "nth": 90,
+            "value": 107
+          }
+        ]
+      }
+    },
+    {
+      "code": [
+        {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "62238-1",
+              "display": "Glomerular filtration rate/1.73 sq M.predicted [Volume Rate/Area] in Serum or Plasma by Creatinine-based formula (CKD-EPI)"
+            }
+          ]
+        }
+      ],
+      "count": 329,
+      "frequencyPerYear": 0.0108,
+      "fractionOfSubjects": 0.0178,
+      "scalarDistribution": {
+        "units": {
+          "unit": "mL/min/1.73m2",
+          "system": "http://unitsofmeasure.org",
+          "code": "mL/min/1.73m2"
+        },
+        "min": 12,
+        "max": 137,
+        "mean": 81.01,
+        "median": 84,
+        "stdDev": 25.04,
+        "decile": [
+          {
+            "nth": 10,
+            "value": 47
+          },
+          {
+            "nth": 20,
+            "value": 58
+          },
+          {
+            "nth": 30,
+            "value": 68
+          },
+          {
+            "nth": 40,
+            "value": 75
+          },
+          {
+            "nth": 50,
+            "value": 84
+          },
+          {
+            "nth": 60,
+            "value": 90
+          },
+          {
+            "nth": 70,
+            "value": 95
+          },
+          {
+            "nth": 80,
+            "value": 102
+          },
+          {
+            "nth": 90,
+            "value": 111
+          }
+        ]
+      }
+    },
+    {
+      "code": [
+        {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "786-4",
+              "display": "Erythrocyte mean corpuscular hemoglobin concentration [Mass/volume] by Automated count"
+            }
+          ]
+        }
+      ],
+      "count": 48913,
+      "frequencyPerYear": 1.6021,
+      "fractionOfSubjects": 0.6163,
+      "scalarDistribution": {
+        "units": {
+          "unit": "g/dL",
+          "system": "http://unitsofmeasure.org",
+          "code": "g/dL"
+        },
+        "min": 22.60,
+        "max": 38,
+        "mean": 32.29,
+        "median": 32.30,
+        "stdDev": 1.56,
+        "decile": [
+          {
+            "nth": 10,
+            "value": 30.40
+          },
+          {
+            "nth": 20,
+            "value": 31.10
+          },
+          {
+            "nth": 30,
+            "value": 31.60
+          },
+          {
+            "nth": 40,
+            "value": 32
+          },
+          {
+            "nth": 50,
+            "value": 32.30
+          },
+          {
+            "nth": 60,
+            "value": 32.70
+          },
+          {
+            "nth": 70,
+            "value": 33
+          },
+          {
+            "nth": 80,
+            "value": 33.50
+          },
+          {
+            "nth": 90,
+            "value": 34.20
+          }
+        ],
+        "normalizedHigh": 35.7,
+        "normalizedLow": 31.5,
+        "fractionAboveNormal": 0.02,
+        "fractionBelowNormal": 0.27
+      }
+    },
+    {
+      "code": [
+        {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "785-6",
+              "display": "Erythrocyte mean corpuscular hemoglobin [Entitic mass] by Automated count"
+            }
+          ]
+        }
+      ],
+      "count": 48871,
+      "frequencyPerYear": 1.6008,
+      "fractionOfSubjects": 0.6163,
+      "scalarDistribution": {
+        "units": {
+          "unit": "pg",
+          "system": "http://unitsofmeasure.org",
+          "code": "pg"
+        },
+        "min": 14.20,
+        "max": 48.50,
+        "mean": 28.05,
+        "median": 28.30,
+        "stdDev": 3.06,
+        "decile": [
+          {
+            "nth": 10,
+            "value": 24
+          },
+          {
+            "nth": 20,
+            "value": 25.80
+          },
+          {
+            "nth": 30,
+            "value": 26.80
+          },
+          {
+            "nth": 40,
+            "value": 27.60
+          },
+          {
+            "nth": 50,
+            "value": 28.30
+          },
+          {
+            "nth": 60,
+            "value": 29
+          },
+          {
+            "nth": 70,
+            "value": 29.60
+          },
+          {
+            "nth": 80,
+            "value": 30.40
+          },
+          {
+            "nth": 90,
+            "value": 31.50
+          }
+        ],
+        "normalizedHigh": 33.0,
+        "normalizedLow": 26.6,
+        "fractionAboveNormal": 0.03,
+        "fractionBelowNormal": 0.27
+      }
+    },
+    {
+      "code": [
+        {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "48643-1",
+              "display": "Glomerular filtration rate/1.73 sq M predicted among blacks [Volume Rate/Area] in Serum or Plasma by Creatinine-based formula (MDRD)"
+            }
+          ]
+        }
+      ],
+      "count": 16053,
+      "frequencyPerYear": 0.5258,
+      "fractionOfSubjects": 0.1896,
+      "scalarDistribution": {
+        "units": {
+          "unit": "mL/min/1.73m2",
+          "system": "http://unitsofmeasure.org",
+          "code": "mL/min/1.73m2"
+        },
+        "min": 2,
+        "max": 189,
+        "mean": 46.91,
+        "median": 43,
+        "stdDev": 30.67,
+        "decile": [
+          {
+            "nth": 10,
+            "value": 11
+          },
+          {
+            "nth": 20,
+            "value": 21
+          },
+          {
+            "nth": 30,
+            "value": 29
+          },
+          {
+            "nth": 40,
+            "value": 36
+          },
+          {
+            "nth": 50,
+            "value": 43
+          },
+          {
+            "nth": 60,
+            "value": 49
+          },
+          {
+            "nth": 70,
+            "value": 54
+          },
+          {
+            "nth": 80,
+            "value": 59
+          },
+          {
+            "nth": 90,
+            "value": 96
+          }
+        ]
+      }
+    },
+    {
+      "code": [
+        {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "62238-1",
+              "display": "Glomerular filtration rate/1.73 sq M.predicted [Volume Rate/Area] in Serum or Plasma by Creatinine-based formula (CKD-EPI)"
+            }
+          ]
+        }
+      ],
+      "count": 329,
+      "frequencyPerYear": 0.0108,
+      "fractionOfSubjects": 0.0178,
+      "scalarDistribution": {
+        "units": {
+          "unit": "mL/min/1.73m2",
+          "system": "http://unitsofmeasure.org",
+          "code": "mL/min/1.73m2"
+        },
+        "min": 13,
+        "max": 158,
+        "mean": 93.40,
+        "median": 96,
+        "stdDev": 28.88,
+        "decile": [
+          {
+            "nth": 10,
+            "value": 54
+          },
+          {
+            "nth": 20,
+            "value": 67
+          },
+          {
+            "nth": 30,
+            "value": 78
+          },
+          {
+            "nth": 40,
+            "value": 86
+          },
+          {
+            "nth": 50,
+            "value": 96
+          },
+          {
+            "nth": 60,
+            "value": 104
+          },
+          {
+            "nth": 70,
+            "value": 109
+          },
+          {
+            "nth": 80,
+            "value": 118
+          },
+          {
+            "nth": 90,
+            "value": 128
+          }
+        ]
+      }
+    },
+    {
+      "code": [
+        {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "788-0",
+              "display": "Erythrocyte distribution width [Ratio] by Automated count"
+            }
+          ]
+        }
+      ],
+      "count": 48482,
+      "frequencyPerYear": 1.5880,
+      "fractionOfSubjects": 0.6162,
+      "scalarDistribution": {
+        "units": {
+          "unit": "%",
+          "system": "http://unitsofmeasure.org",
+          "code": "%"
+        },
+        "min": 10.80,
+        "max": 89.50,
+        "mean": 15.57,
+        "median": 14.80,
+        "stdDev": 2.83,
+        "decile": [
+          {
+            "nth": 10,
+            "value": 12.90
+          },
+          {
+            "nth": 20,
+            "value": 13.30
+          },
+          {
+            "nth": 30,
+            "value": 13.80
+          },
+          {
+            "nth": 40,
+            "value": 14.30
+          },
+          {
+            "nth": 50,
+            "value": 14.80
+          },
+          {
+            "nth": 60,
+            "value": 15.40
+          },
+          {
+            "nth": 70,
+            "value": 16.30
+          },
+          {
+            "nth": 80,
+            "value": 17.40
+          },
+          {
+            "nth": 90,
+            "value": 19.40
+          }
+        ],
+        "normalizedHigh": 15.4,
+        "normalizedLow": 12.3,
+        "fractionAboveNormal": 0.40,
+        "fractionBelowNormal": 0.03
+      }
+    },
+    {
+      "code": [
+        {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "6768-6",
+              "display": "Alkaline phosphatase [Enzymatic activity/volume] in Serum or Plasma"
+            }
+          ]
+        }
+      ],
+      "count": 36673,
+      "frequencyPerYear": 1.2012,
+      "fractionOfSubjects": 0.5497,
+      "scalarDistribution": {
+        "units": {
+          "unit": "U/L",
+          "system": "http://unitsofmeasure.org",
+          "code": "U/L"
+        },
+        "min": 17,
+        "max": 1829,
+        "mean": 102.86,
+        "median": 84,
+        "stdDev": 79.00,
+        "decile": [
+          {
+            "nth": 10,
+            "value": 53
+          },
+          {
+            "nth": 20,
+            "value": 61
+          },
+          {
+            "nth": 30,
+            "value": 69
+          },
+          {
+            "nth": 40,
+            "value": 77
+          },
+          {
+            "nth": 50,
+            "value": 84
+          },
+          {
+            "nth": 60,
+            "value": 94
+          },
+          {
+            "nth": 70,
+            "value": 105
+          },
+          {
+            "nth": 80,
+            "value": 123
+          },
+          {
+            "nth": 90,
+            "value": 163
+          }
+        ],
+        "normalizedHigh": 120,
+        "normalizedLow": 30,
+        "fractionAboveNormal": 0.21,
+        "fractionBelowNormal": 0.00
+      }
+    },
+    {
+      "code": [
+        {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "1742-6",
+              "display": "Alanine aminotransferase [Enzymatic activity/volume] in Serum or Plasma"
+            }
+          ]
+        }
+      ],
+      "count": 36349,
+      "frequencyPerYear": 1.1906,
+      "fractionOfSubjects": 0.5512,
+      "scalarDistribution": {
+        "units": {
+          "unit": "U/L",
+          "system": "http://unitsofmeasure.org",
+          "code": "U/L"
+        },
+        "min": 3,
+        "max": 6672,
+        "mean": 30.75,
+        "median": 16,
+        "stdDev": 135.37,
+        "decile": [
+          {
+            "nth": 10,
+            "value": 9
+          },
+          {
+            "nth": 20,
+            "value": 11
+          },
+          {
+            "nth": 30,
+            "value": 13
+          },
+          {
+            "nth": 40,
+            "value": 14
+          },
+          {
+            "nth": 50,
+            "value": 16
+          },
+          {
+            "nth": 60,
+            "value": 19
+          },
+          {
+            "nth": 70,
+            "value": 22
+          },
+          {
+            "nth": 80,
+            "value": 29
+          },
+          {
+            "nth": 90,
+            "value": 44
+          }
+        ],
+        "normalizedHigh": 25,
+        "normalizedLow": 0,
+        "fractionAboveNormal": 0.24,
+        "fractionBelowNormal": 0
+      }
+    },
+    {
+      "code": [
+        {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "1920-8",
+              "display": "Aspartate aminotransferase [Enzymatic activity/volume] in Serum or Plasma"
+            }
+          ]
+        }
+      ],
+      "count": 34132,
+      "frequencyPerYear": 1.1180,
+      "fractionOfSubjects": 0.5420,
+      "scalarDistribution": {
+        "units": {
+          "unit": "IU/L",
+          "system": "http://unitsofmeasure.org",
+          "code": "IU/L"
+        },
+        "min": 4,
+        "max": 13440,
+        "mean": 37.25,
+        "median": 19,
+        "stdDev": 243.83,
+        "decile": [
+          {
+            "nth": 10,
+            "value": 12
+          },
+          {
+            "nth": 20,
+            "value": 14
+          },
+          {
+            "nth": 30,
+            "value": 16
+          },
+          {
+            "nth": 40,
+            "value": 17
+          },
+          {
+            "nth": 50,
+            "value": 19
+          },
+          {
+            "nth": 60,
+            "value": 21
+          },
+          {
+            "nth": 70,
+            "value": 25
+          },
+          {
+            "nth": 80,
+            "value": 31
+          },
+          {
+            "nth": 90,
+            "value": 50
+          }
+        ],
+        "normalizedHigh": 40,
+        "normalizedLow": 0,
+        "fractionAboveNormal": 0.13,
+        "fractionBelowNormal": 0
+      }
+    },
+    {
+      "code": [
+        {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "1975-2",
+              "display": "Bilirubin.total [Mass/volume] in Serum or Plasma"
+            }
+          ]
+        }
+      ],
+      "count": 31275,
+      "frequencyPerYear": 1.0244,
+      "fractionOfSubjects": 0.5108,
+      "scalarDistribution": {
+        "units": {
+          "unit": "mg/dL",
+          "system": "http://unitsofmeasure.org",
+          "code": "mg/dL"
+        },
+        "min": 0.10,
+        "max": 63.80,
+        "mean": 0.83,
+        "median": 0.40,
+        "stdDev": 2.06,
+        "decile": [
+          {
+            "nth": 10,
+            "value": 0.20
+          },
+          {
+            "nth": 20,
+            "value": 0.30
+          },
+          {
+            "nth": 30,
+            "value": 0.30
+          },
+          {
+            "nth": 40,
+            "value": 0.40
+          },
+          {
+            "nth": 50,
+            "value": 0.40
+          },
+          {
+            "nth": 60,
+            "value": 0.50
+          },
+          {
+            "nth": 70,
+            "value": 0.60
+          },
+          {
+            "nth": 80,
+            "value": 0.70
+          },
+          {
+            "nth": 90,
+            "value": 1.40
+          }
+        ],
+        "normalizedHigh": 1.2,
+        "normalizedLow": 0.2,
+        "fractionAboveNormal": 0.11,
+        "fractionBelowNormal": 0.00
+      }
+    },
+    {
+      "code": [
+        {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "713-8",
+              "display": "Eosinophils/100 leukocytes in Blood by Automated count"
+            }
+          ]
+        }
+      ],
+      "count": 30973,
+      "frequencyPerYear": 1.0145,
+      "fractionOfSubjects": 0.4757,
+      "scalarDistribution": {
+        "units": {
+          "unit": "%",
+          "system": "http://unitsofmeasure.org",
+          "code": "%"
+        },
+        "min": 0,
+        "max": 45.10,
+        "mean": 2.53,
+        "median": 1.80,
+        "stdDev": 2.76,
+        "decile": [
+          {
+            "nth": 10,
+            "value": 0.20
+          },
+          {
+            "nth": 20,
+            "value": 0.60
+          },
+          {
+            "nth": 30,
+            "value": 1
+          },
+          {
+            "nth": 40,
+            "value": 1.40
+          },
+          {
+            "nth": 50,
+            "value": 1.80
+          },
+          {
+            "nth": 60,
+            "value": 2.30
+          },
+          {
+            "nth": 70,
+            "value": 3
+          },
+          {
+            "nth": 80,
+            "value": 3.90
+          },
+          {
+            "nth": 90,
+            "value": 5.50
+          }
+        ],
+        "normalizedHigh": 7,
+        "normalizedLow": 0,
+        "fractionAboveNormal": 0.06,
+        "fractionBelowNormal": 0
+      }
+    },
+    {
+      "code": [
+        {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "706-2",
+              "display": "Basophils/100 leukocytes in Blood by Automated count"
+            }
+          ]
+        }
+      ],
+      "count": 29189,
+      "frequencyPerYear": 0.9561,
+      "fractionOfSubjects": 0.4349,
+      "scalarDistribution": {
+        "units": {
+          "unit": "%",
+          "system": "http://unitsofmeasure.org",
+          "code": "%"
+        },
+        "min": 0,
+        "max": 3.90,
+        "mean": 0.48,
+        "median": 0.40,
+        "stdDev": 0.31,
+        "decile": [
+          {
+            "nth": 10,
+            "value": 0.20
+          },
+          {
+            "nth": 20,
+            "value": 0.20
+          },
+          {
+            "nth": 30,
+            "value": 0.30
+          },
+          {
+            "nth": 40,
+            "value": 0.40
+          },
+          {
+            "nth": 50,
+            "value": 0.40
+          },
+          {
+            "nth": 60,
+            "value": 0.50
+          },
+          {
+            "nth": 70,
+            "value": 0.60
+          },
+          {
+            "nth": 80,
+            "value": 0.70
+          },
+          {
+            "nth": 90,
+            "value": 0.90
+          }
+        ],
+        "normalizedHigh": 1.0,
+        "normalizedLow": 0.0,
+        "fractionAboveNormal": 0.05,
+        "fractionBelowNormal": 0
+      }
+    },
+    {
+      "code": [
+        {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "704-7",
+              "display": "Basophils [#/volume] in Blood by Automated count"
+            }
+          ]
+        }
+      ],
+      "count": 13,
+      "frequencyPerYear": 0.0004,
+      "fractionOfSubjects": 0.0005,
+      "scalarDistribution": {
+        "units": {
+          "unit": "K/uL",
+          "system": "http://unitsofmeasure.org",
+          "code": "K/uL"
+        },
+        "min": 0,
+        "max": 0.10,
+        "mean": 0.01,
+        "median": 0,
+        "stdDev": 0.03,
+        "decile": [
+          {
+            "nth": 10,
+            "value": 0
+          },
+          {
+            "nth": 20,
+            "value": 0
+          },
+          {
+            "nth": 30,
+            "value": 0
+          },
+          {
+            "nth": 40,
+            "value": 0
+          },
+          {
+            "nth": 50,
+            "value": 0
+          },
+          {
+            "nth": 60,
+            "value": 0
+          },
+          {
+            "nth": 70,
+            "value": 0
+          },
+          {
+            "nth": 80,
+            "value": 0
+          },
+          {
+            "nth": 90,
+            "value": 0
+          }
+        ],
+        "normalizedHigh": 0.1,
+        "normalizedLow": 0,
+        "fractionAboveNormal": 0,
+        "fractionBelowNormal": 0
+      }
+    },
+    {
+      "code": [
+        {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "5905-5",
+              "display": "Monocytes/100 leukocytes in Blood by Automated count"
+            }
+          ]
+        }
+      ],
+      "count": 28870,
+      "frequencyPerYear": 0.9456,
+      "fractionOfSubjects": 0.4136,
+      "scalarDistribution": {
+        "units": {
+          "unit": "%",
+          "system": "http://unitsofmeasure.org",
+          "code": "%"
+        },
+        "min": 0,
+        "max": 69.80,
+        "mean": 7.90,
+        "median": 7.50,
+        "stdDev": 3.11,
+        "decile": [
+          {
+            "nth": 10,
+            "value": 4.60
+          },
+          {
+            "nth": 20,
+            "value": 5.60
+          },
+          {
+            "nth": 30,
+            "value": 6.30
+          },
+          {
+            "nth": 40,
+            "value": 6.90
+          },
+          {
+            "nth": 50,
+            "value": 7.50
+          },
+          {
+            "nth": 60,
+            "value": 8.20
+          },
+          {
+            "nth": 70,
+            "value": 9
+          },
+          {
+            "nth": 80,
+            "value": 10
+          },
+          {
+            "nth": 90,
+            "value": 11.70
+          }
+        ],
+        "normalizedHigh": 12,
+        "normalizedLow": 0,
+        "fractionAboveNormal": 0.09,
+        "fractionBelowNormal": 0
+      }
+    },
+    {
+      "code": [
+        {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "19123-9",
+              "display": "Magnesium [Mass/volume] in Serum or Plasma"
+            }
+          ]
+        }
+      ],
+      "count": 15193,
+      "frequencyPerYear": 0.4976,
+      "fractionOfSubjects": 0.1439,
+      "scalarDistribution": {
+        "units": {
+          "unit": "mg/dL",
+          "system": "http://unitsofmeasure.org",
+          "code": "mg/dL"
+        },
+        "min": 0.50,
+        "max": 12.60,
+        "mean": 2.06,
+        "median": 2,
+        "stdDev": 0.48,
+        "decile": [
+          {
+            "nth": 10,
+            "value": 1.60
+          },
+          {
+            "nth": 20,
+            "value": 1.80
+          },
+          {
+            "nth": 30,
+            "value": 1.90
+          },
+          {
+            "nth": 40,
+            "value": 1.90
+          },
+          {
+            "nth": 50,
+            "value": 2
+          },
+          {
+            "nth": 60,
+            "value": 2.10
+          },
+          {
+            "nth": 70,
+            "value": 2.20
+          },
+          {
+            "nth": 80,
+            "value": 2.30
+          },
+          {
+            "nth": 90,
+            "value": 2.50
+          }
+        ],
+        "normalizedHigh": 2.3,
+        "normalizedLow": 1.6,
+        "fractionAboveNormal": 0.16,
+        "fractionBelowNormal": 0.06
+      }
+    },
+    {
+      "code": [
+        {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "2601-3",
+              "display": "Magnesium [Moles/volume] in Serum or Plasma"
+            }
+          ]
+        }
+      ],
+      "count": 96,
+      "frequencyPerYear": 0.0031,
+      "fractionOfSubjects": 0.0024,
+      "scalarDistribution": {
+        "units": {
+          "unit": "mg/dL",
+          "system": "http://unitsofmeasure.org",
+          "code": "mg/dL"
+        },
+        "min": 1.30,
+        "max": 4.80,
+        "mean": 2.02,
+        "median": 2,
+        "stdDev": 0.44,
+        "decile": [
+          {
+            "nth": 10,
+            "value": 1.60
+          },
+          {
+            "nth": 20,
+            "value": 1.80
+          },
+          {
+            "nth": 30,
+            "value": 1.90
+          },
+          {
+            "nth": 40,
+            "value": 1.90
+          },
+          {
+            "nth": 50,
+            "value": 2
+          },
+          {
+            "nth": 60,
+            "value": 2
+          },
+          {
+            "nth": 70,
+            "value": 2.10
+          },
+          {
+            "nth": 80,
+            "value": 2.10
+          },
+          {
+            "nth": 90,
+            "value": 2.30
+          }
+        ],
+        "normalizedHigh": 2.2,
+        "normalizedLow": 1.2,
+        "fractionAboveNormal": 0.18,
+        "fractionBelowNormal": 0
+      }
+    },
+    {
+      "code": [
+        {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "5964-2",
+              "display": "Prothrombin time (PT) in Blood by Coagulation assay"
+            }
+          ]
+        }
+      ],
+      "count": 10080,
+      "frequencyPerYear": 0.3302,
+      "fractionOfSubjects": 0.1448,
+      "scalarDistribution": {
+        "units": {
+          "unit": "Seconds",
+          "system": "http://unitsofmeasure.org",
+          "code": "Seconds"
+        },
+        "min": 9.30,
+        "max": 119.80,
+        "mean": 14.68,
+        "median": 11.40,
+        "stdDev": 8.54,
+        "decile": [
+          {
+            "nth": 10,
+            "value": 10.10
+          },
+          {
+            "nth": 20,
+            "value": 10.40
+          },
+          {
+            "nth": 30,
+            "value": 10.70
+          },
+          {
+            "nth": 40,
+            "value": 11
+          },
+          {
+            "nth": 50,
+            "value": 11.40
+          },
+          {
+            "nth": 60,
+            "value": 12
+          },
+          {
+            "nth": 70,
+            "value": 13.40
+          },
+          {
+            "nth": 80,
+            "value": 16.90
+          },
+          {
+            "nth": 90,
+            "value": 23.60
+          }
+        ]
+      }
+    },
+    {
+      "code": [
+        {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "5902-2",
+              "display": "Prothrombin time (PT)"
+            }
+          ]
+        }
+      ],
+      "count": 506,
+      "frequencyPerYear": 0.0166,
+      "fractionOfSubjects": 0.0147,
+      "scalarDistribution": {
+        "units": {
+          "unit": "sec",
+          "system": "http://unitsofmeasure.org",
+          "code": "sec"
+        },
+        "min": 9.50,
+        "max": 102.10,
+        "mean": 16,
+        "median": 11.20,
+        "stdDev": 9.82,
+        "decile": [
+          {
+            "nth": 10,
+            "value": 10.10
+          },
+          {
+            "nth": 20,
+            "value": 10.40
+          },
+          {
+            "nth": 30,
+            "value": 10.50
+          },
+          {
+            "nth": 40,
+            "value": 10.70
+          },
+          {
+            "nth": 50,
+            "value": 11.20
+          },
+          {
+            "nth": 60,
+            "value": 13.30
+          },
+          {
+            "nth": 70,
+            "value": 17
+          },
+          {
+            "nth": 80,
+            "value": 22.10
+          },
+          {
+            "nth": 90,
+            "value": 26.70
+          }
+        ],
+        "normalizedHigh": 12.0,
+        "normalizedLow": 9.1,
+        "fractionAboveNormal": 0.43,
+        "fractionBelowNormal": 0
+      }
+    },
+    {
+      "code": [
+        {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "2777-1",
+              "display": "Phosphate [Mass/volume] in Serum or Plasma"
+            }
+          ]
+        }
+      ],
+      "count": 10086,
+      "frequencyPerYear": 0.3304,
+      "fractionOfSubjects": 0.1008,
+      "scalarDistribution": {
+        "units": {
+          "unit": "mg/dL",
+          "system": "http://unitsofmeasure.org",
+          "code": "mg/dL"
+        },
+        "min": 0.50,
+        "max": 16.80,
+        "mean": 3.57,
+        "median": 3.50,
+        "stdDev": 1.21,
+        "decile": [
+          {
+            "nth": 10,
+            "value": 2.30
+          },
+          {
+            "nth": 20,
+            "value": 2.70
+          },
+          {
+            "nth": 30,
+            "value": 3
+          },
+          {
+            "nth": 40,
+            "value": 3.20
+          },
+          {
+            "nth": 50,
+            "value": 3.50
+          },
+          {
+            "nth": 60,
+            "value": 3.70
+          },
+          {
+            "nth": 70,
+            "value": 3.90
+          },
+          {
+            "nth": 80,
+            "value": 4.30
+          },
+          {
+            "nth": 90,
+            "value": 4.80
+          }
+        ],
+        "normalizedHigh": 4.5,
+        "normalizedLow": 2.5,
+        "fractionAboveNormal": 0.14,
+        "fractionBelowNormal": 0.13
+      }
+    },
+    {
+      "code": [
+        {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "2093-3",
+              "display": "Cholesterol [Mass/volume] in Serum or Plasma"
+            }
+          ]
+        }
+      ],
+      "count": 8306,
+      "frequencyPerYear": 0.2721,
+      "fractionOfSubjects": 0.3685,
+      "scalarDistribution": {
+        "units": {
+          "unit": "mg/dL",
+          "system": "http://unitsofmeasure.org",
+          "code": "mg/dL"
+        },
+        "min": 50,
+        "max": 570,
+        "mean": 182,
+        "median": 178,
+        "stdDev": 43.04,
+        "decile": [
+          {
+            "nth": 10,
+            "value": 132
+          },
+          {
+            "nth": 20,
+            "value": 147
+          },
+          {
+            "nth": 30,
+            "value": 158
+          },
+          {
+            "nth": 40,
+            "value": 168
+          },
+          {
+            "nth": 50,
+            "value": 178
+          },
+          {
+            "nth": 60,
+            "value": 188
+          },
+          {
+            "nth": 70,
+            "value": 199
+          },
+          {
+            "nth": 80,
+            "value": 214
+          },
+          {
+            "nth": 90,
+            "value": 236
+          }
+        ],
+        "normalizedHigh": 199,
+        "normalizedLow": 100,
+        "fractionAboveNormal": 0.30,
+        "fractionBelowNormal": 0.01
+      }
+    },
+    {
+      "code": [
+        {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "2565-0",
+              "display": "Deprecated Cholesterol [Mass/volume] in Serum or Plasma"
+            }
+          ]
+        }
+      ],
+      "count": 16,
+      "frequencyPerYear": 0.0005,
+      "fractionOfSubjects": 0.0009,
+      "scalarDistribution": {
+        "units": {
+          "unit": "mg/dL",
+          "system": "http://unitsofmeasure.org",
+          "code": "mg/dL"
+        },
+        "min": 108,
+        "max": 309,
+        "mean": 184.81,
+        "median": 171,
+        "stdDev": 54.02,
+        "decile": [
+          {
+            "nth": 10,
+            "value": 112
+          },
+          {
+            "nth": 20,
+            "value": 139
+          },
+          {
+            "nth": 30,
+            "value": 158
+          },
+          {
+            "nth": 40,
+            "value": 160
+          },
+          {
+            "nth": 50,
+            "value": 171
+          },
+          {
+            "nth": 60,
+            "value": 178
+          },
+          {
+            "nth": 70,
+            "value": 185
+          },
+          {
+            "nth": 80,
+            "value": 235
+          },
+          {
+            "nth": 90,
+            "value": 251
+          }
+        ]
+      }
+    },
+    {
+      "code": [
+        {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "2085-9",
+              "display": "Cholesterol in HDL [Mass/volume] in Serum or Plasma"
+            }
+          ]
+        }
+      ],
+      "count": 7919,
+      "frequencyPerYear": 0.2594,
+      "fractionOfSubjects": 0.3555,
+      "scalarDistribution": {
+        "units": {
+          "unit": "mg/dL",
+          "system": "http://unitsofmeasure.org",
+          "code": "mg/dL"
+        },
+        "min": 4,
+        "max": 187,
+        "mean": 58.63,
+        "median": 56,
+        "stdDev": 18.18,
+        "decile": [
+          {
+            "nth": 10,
+            "value": 39
+          },
+          {
+            "nth": 20,
+            "value": 44
+          },
+          {
+            "nth": 30,
+            "value": 48
+          },
+          {
+            "nth": 40,
+            "value": 52
+          },
+          {
+            "nth": 50,
+            "value": 56
+          },
+          {
+            "nth": 60,
+            "value": 60
+          },
+          {
+            "nth": 70,
+            "value": 65
+          },
+          {
+            "nth": 80,
+            "value": 72
+          },
+          {
+            "nth": 90,
+            "value": 82
+          }
+        ],
+        "normalizedHigh": 76,
+        "normalizedLow": 36,
+        "fractionAboveNormal": 0.15,
+        "fractionBelowNormal": 0.06
+      }
+    },
+    {
+      "code": [
+        {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "2571-8",
+              "display": "Triglyceride [Mass/volume] in Serum or Plasma"
+            }
+          ]
+        }
+      ],
+      "count": 7700,
+      "frequencyPerYear": 0.2522,
+      "fractionOfSubjects": 0.3440,
+      "scalarDistribution": {
+        "units": {
+          "unit": "mg/dL",
+          "system": "http://unitsofmeasure.org",
+          "code": "mg/dL"
+        },
+        "min": 23,
+        "max": 1752,
+        "mean": 107.60,
+        "median": 90,
+        "stdDev": 71.94,
+        "decile": [
+          {
+            "nth": 10,
+            "value": 50
+          },
+          {
+            "nth": 20,
+            "value": 60
+          },
+          {
+            "nth": 30,
+            "value": 70
+          },
+          {
+            "nth": 40,
+            "value": 80
+          },
+          {
+            "nth": 50,
+            "value": 90
+          },
+          {
+            "nth": 60,
+            "value": 101
+          },
+          {
+            "nth": 70,
+            "value": 116
+          },
+          {
+            "nth": 80,
+            "value": 138
+          },
+          {
+            "nth": 90,
+            "value": 181
+          }
+        ],
+        "normalizedHigh": 149,
+        "normalizedLow": 0,
+        "fractionAboveNormal": 0.17,
+        "fractionBelowNormal": 0
+      }
+    },
+    {
+      "code": [
+        {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "3049-4",
+              "display": "Deprecated Triglyceride [Mass/volume] in Serum or Plasma"
+            }
+          ]
+        }
+      ],
+      "count": 18,
+      "frequencyPerYear": 0.0006,
+      "fractionOfSubjects": 0.0009,
+      "scalarDistribution": {
+        "units": {
+          "unit": "mg/dL",
+          "system": "http://unitsofmeasure.org",
+          "code": "mg/dL"
+        },
+        "min": 43,
+        "max": 407,
+        "mean": 109.44,
+        "median": 81,
+        "stdDev": 84.21,
+        "decile": [
+          {
+            "nth": 10,
+            "value": 44
+          },
+          {
+            "nth": 20,
+            "value": 55
+          },
+          {
+            "nth": 30,
+            "value": 62
+          },
+          {
+            "nth": 40,
+            "value": 72
+          },
+          {
+            "nth": 50,
+            "value": 81
+          },
+          {
+            "nth": 60,
+            "value": 96
+          },
+          {
+            "nth": 70,
+            "value": 122
+          },
+          {
+            "nth": 80,
+            "value": 134
+          },
+          {
+            "nth": 90,
+            "value": 155
+          }
+        ],
+        "normalizedHigh": 120,
+        "normalizedLow": 10,
+        "fractionAboveNormal": 0.33,
+        "fractionBelowNormal": 0
+      }
+    },
+    {
+      "code": [
+        {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "737-7",
+              "display": "Lymphocytes/100 leukocytes in Blood by Manual count"
+            }
+          ]
+        }
+      ],
+      "count": 3087,
+      "frequencyPerYear": 0.1011,
+      "fractionOfSubjects": 0.0565,
+      "scalarDistribution": {
+        "units": {
+          "unit": "%",
+          "system": "http://unitsofmeasure.org",
+          "code": "%"
+        },
+        "min": 0,
+        "max": 100,
+        "mean": 25.81,
+        "median": 20,
+        "stdDev": 21.67,
+        "decile": [
+          {
+            "nth": 10,
+            "value": 4
+          },
+          {
+            "nth": 20,
+            "value": 7
+          },
+          {
+            "nth": 30,
+            "value": 10
+          },
+          {
+            "nth": 40,
+            "value": 15
+          },
+          {
+            "nth": 50,
+            "value": 20
+          },
+          {
+            "nth": 60,
+            "value": 26
+          },
+          {
+            "nth": 70,
+            "value": 33
+          },
+          {
+            "nth": 80,
+            "value": 42
+          },
+          {
+            "nth": 90,
+            "value": 57
+          }
+        ],
+        "normalizedHigh": 44,
+        "normalizedLow": 24,
+        "fractionAboveNormal": 0.18,
+        "fractionBelowNormal": 0.56
+      }
+    },
+    {
+      "code": [
+        {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "736-9",
+              "display": "Lymphocytes/100 leukocytes in Blood by Automated count"
+            }
+          ]
+        }
+      ],
+      "count": 110,
+      "frequencyPerYear": 0.0036,
+      "fractionOfSubjects": 0.0059,
+      "scalarDistribution": {
+        "units": {
+          "unit": "%",
+          "system": "http://unitsofmeasure.org",
+          "code": "%"
+        },
+        "min": 8.50,
+        "max": 68,
+        "mean": 32.27,
+        "median": 31.90,
+        "stdDev": 11.88,
+        "decile": [
+          {
+            "nth": 10,
+            "value": 17.20
+          },
+          {
+            "nth": 20,
+            "value": 22
+          },
+          {
+            "nth": 30,
+            "value": 25
+          },
+          {
+            "nth": 40,
+            "value": 28.40
+          },
+          {
+            "nth": 50,
+            "value": 31.90
+          },
+          {
+            "nth": 60,
+            "value": 34.40
+          },
+          {
+            "nth": 70,
+            "value": 37
+          },
+          {
+            "nth": 80,
+            "value": 41.20
+          },
+          {
+            "nth": 90,
+            "value": 47.10
+          }
+        ]
+      }
+    },
+    {
+      "code": [
+        {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "744-3",
+              "display": "Monocytes/100 leukocytes in Blood by Manual count"
+            }
+          ]
+        }
+      ],
+      "count": 3060,
+      "frequencyPerYear": 0.1002,
+      "fractionOfSubjects": 0.0565,
+      "scalarDistribution": {
+        "units": {
+          "unit": "%",
+          "system": "http://unitsofmeasure.org",
+          "code": "%"
+        },
+        "min": 0,
+        "max": 68,
+        "mean": 8.41,
+        "median": 6,
+        "stdDev": 8.51,
+        "decile": [
+          {
+            "nth": 10,
+            "value": 1
+          },
+          {
+            "nth": 20,
+            "value": 3
+          },
+          {
+            "nth": 30,
+            "value": 4
+          },
+          {
+            "nth": 40,
+            "value": 5
+          },
+          {
+            "nth": 50,
+            "value": 6
+          },
+          {
+            "nth": 60,
+            "value": 8
+          },
+          {
+            "nth": 70,
+            "value": 9
+          },
+          {
+            "nth": 80,
+            "value": 12
+          },
+          {
+            "nth": 90,
+            "value": 17
+          }
+        ],
+        "normalizedHigh": 12,
+        "normalizedLow": 1,
+        "fractionAboveNormal": 0.18,
+        "fractionBelowNormal": 0.06
+      }
+    },
+    {
+      "code": [
+        {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "5905-5",
+              "display": "Monocytes/100 leukocytes in Blood by Automated count"
+            }
+          ]
+        }
+      ],
+      "count": 110,
+      "frequencyPerYear": 0.0036,
+      "fractionOfSubjects": 0.0059,
+      "scalarDistribution": {
+        "units": {
+          "unit": "%",
+          "system": "http://unitsofmeasure.org",
+          "code": "%"
+        },
+        "min": 0.30,
+        "max": 14.90,
+        "mean": 8,
+        "median": 7.60,
+        "stdDev": 2.51,
+        "decile": [
+          {
+            "nth": 10,
+            "value": 5.30
+          },
+          {
+            "nth": 20,
+            "value": 6
+          },
+          {
+            "nth": 30,
+            "value": 6.50
+          },
+          {
+            "nth": 40,
+            "value": 7.10
+          },
+          {
+            "nth": 50,
+            "value": 7.60
+          },
+          {
+            "nth": 60,
+            "value": 8.40
+          },
+          {
+            "nth": 70,
+            "value": 9.40
+          },
+          {
+            "nth": 80,
+            "value": 10.10
+          },
+          {
+            "nth": 90,
+            "value": 11.20
+          }
+        ],
+        "normalizedHigh": 12,
+        "normalizedLow": 0,
+        "fractionAboveNormal": 0.05,
+        "fractionBelowNormal": 0
+      }
+    },
+    {
+      "code": [
+        {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "714-6",
+              "display": "Eosinophils/100 leukocytes in Blood by Manual count"
+            }
+          ]
+        }
+      ],
+      "count": 2923,
+      "frequencyPerYear": 0.0957,
+      "fractionOfSubjects": 0.0565,
+      "scalarDistribution": {
+        "units": {
+          "unit": "%",
+          "system": "http://unitsofmeasure.org",
+          "code": "%"
+        },
+        "min": 0,
+        "max": 48,
+        "mean": 1.82,
+        "median": 1,
+        "stdDev": 3.39,
+        "decile": [
+          {
+            "nth": 10,
+            "value": 0
+          },
+          {
+            "nth": 20,
+            "value": 0
+          },
+          {
+            "nth": 30,
+            "value": 0
+          },
+          {
+            "nth": 40,
+            "value": 0
+          },
+          {
+            "nth": 50,
+            "value": 1
+          },
+          {
+            "nth": 60,
+            "value": 1
+          },
+          {
+            "nth": 70,
+            "value": 2
+          },
+          {
+            "nth": 80,
+            "value": 3
+          },
+          {
+            "nth": 90,
+            "value": 5
+          }
+        ],
+        "normalizedHigh": 7,
+        "normalizedLow": 0,
+        "fractionAboveNormal": 0.04,
+        "fractionBelowNormal": 0
+      }
+    },
+    {
+      "code": [
+        {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "713-8",
+              "display": "Eosinophils/100 leukocytes in Blood by Automated count"
+            }
+          ]
+        }
+      ],
+      "count": 110,
+      "frequencyPerYear": 0.0036,
+      "fractionOfSubjects": 0.0059,
+      "scalarDistribution": {
+        "units": {
+          "unit": "%",
+          "system": "http://unitsofmeasure.org",
+          "code": "%"
+        },
+        "min": 0,
+        "max": 9.40,
+        "mean": 2.70,
+        "median": 2.40,
+        "stdDev": 1.84,
+        "decile": [
+          {
+            "nth": 10,
+            "value": 0.60
+          },
+          {
+            "nth": 20,
+            "value": 1.10
+          },
+          {
+            "nth": 30,
+            "value": 1.40
+          },
+          {
+            "nth": 40,
+            "value": 1.70
+          },
+          {
+            "nth": 50,
+            "value": 2.40
+          },
+          {
+            "nth": 60,
+            "value": 3.10
+          },
+          {
+            "nth": 70,
+            "value": 3.50
+          },
+          {
+            "nth": 80,
+            "value": 4.30
+          },
+          {
+            "nth": 90,
+            "value": 4.90
+          }
+        ],
+        "normalizedHigh": 7,
+        "normalizedLow": 0,
+        "fractionAboveNormal": 0.03,
+        "fractionBelowNormal": 0
+      }
+    },
+    {
+      "code": [
+        {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "19254-2",
+              "display": "Oxygen [Partial pressure] adjusted to patient's actual temperature in Blood"
+            }
+          ]
+        }
+      ],
+      "count": 2327,
+      "frequencyPerYear": 0.0762,
+      "fractionOfSubjects": 0.0206,
+      "scalarDistribution": {
+        "units": {
+          "unit": "mmHg",
+          "system": "http://unitsofmeasure.org",
+          "code": "mmHg"
+        },
+        "min": 19,
+        "max": 588,
+        "mean": 124.85,
+        "median": 102,
+        "stdDev": 75.39,
+        "decile": [
+          {
+            "nth": 10,
+            "value": 60
+          },
+          {
+            "nth": 20,
+            "value": 69
+          },
+          {
+            "nth": 30,
+            "value": 78
+          },
+          {
+            "nth": 40,
+            "value": 89
+          },
+          {
+            "nth": 50,
+            "value": 102
+          },
+          {
+            "nth": 60,
+            "value": 119
+          },
+          {
+            "nth": 70,
+            "value": 141
+          },
+          {
+            "nth": 80,
+            "value": 169
+          },
+          {
+            "nth": 90,
+            "value": 209
+          }
+        ],
+        "normalizedHigh": 100,
+        "normalizedLow": 75,
+        "fractionAboveNormal": 0.51,
+        "fractionBelowNormal": 0.26
+      }
+    },
+    {
+      "code": [
+        {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "19996-8",
+              "display": "Oxygen/Inspired gas Respiratory system --on ventilator"
+            }
+          ]
+        }
+      ],
+      "count": 2165,
+      "frequencyPerYear": 0.0709,
+      "fractionOfSubjects": 0.0316,
+      "scalarDistribution": {
+        "units": {
+          "unit": "%",
+          "system": "http://unitsofmeasure.org",
+          "code": "%"
+        },
+        "min": 0,
+        "max": 100,
+        "mean": 44.39,
+        "median": 40,
+        "stdDev": 25.34,
+        "decile": [
+          {
+            "nth": 10,
+            "value": 21
+          },
+          {
+            "nth": 20,
+            "value": 21
+          },
+          {
+            "nth": 30,
+            "value": 28
+          },
+          {
+            "nth": 40,
+            "value": 30
+          },
+          {
+            "nth": 50,
+            "value": 40
+          },
+          {
+            "nth": 60,
+            "value": 40
+          },
+          {
+            "nth": 70,
+            "value": 50
+          },
+          {
+            "nth": 80,
+            "value": 60
+          },
+          {
+            "nth": 90,
+            "value": 98
+          }
+        ]
+      }
+    },
+    {
+      "code": [
+        {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "34705-4",
+              "display": "Carbon dioxide [Partial pressure] adjusted to patient's actual temperature in Blood"
+            }
+          ]
+        }
+      ],
+      "count": 2094,
+      "frequencyPerYear": 0.0686,
+      "fractionOfSubjects": 0.0206,
+      "scalarDistribution": {
+        "units": {
+          "unit": "mmHg",
+          "system": "http://unitsofmeasure.org",
+          "code": "mmHg"
+        },
+        "min": 13,
+        "max": 127,
+        "mean": 45.62,
+        "median": 42,
+        "stdDev": 15.13,
+        "decile": [
+          {
+            "nth": 10,
+            "value": 32
+          },
+          {
+            "nth": 20,
+            "value": 35
+          },
+          {
+            "nth": 30,
+            "value": 37
+          },
+          {
+            "nth": 40,
+            "value": 40
+          },
+          {
+            "nth": 50,
+            "value": 42
+          },
+          {
+            "nth": 60,
+            "value": 44
+          },
+          {
+            "nth": 70,
+            "value": 48
+          },
+          {
+            "nth": 80,
+            "value": 54
+          },
+          {
+            "nth": 90,
+            "value": 66
+          }
+        ],
+        "normalizedHigh": 45,
+        "normalizedLow": 35,
+        "fractionAboveNormal": 0.37,
+        "fractionBelowNormal": 0.19
+      }
+    },
+    {
+      "code": [
+        {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "49701-6",
+              "display": "pH of Blood adjusted to patient's actual temperature"
+            }
+          ]
+        }
+      ],
+      "count": 2101,
+      "frequencyPerYear": 0.0688,
+      "fractionOfSubjects": 0.0206,
+      "scalarDistribution": {
+        "units": {
+          "unit": "UNK",
+          "system": "http://unitsofmeasure.org",
+          "code": "UNK"
+        },
+        "min": 6.71,
+        "max": 7.68,
+        "mean": 7.36,
+        "median": 7.38,
+        "stdDev": 0.09,
+        "decile": [
+          {
+            "nth": 10,
+            "value": 7.25
+          },
+          {
+            "nth": 20,
+            "value": 7.30
+          },
+          {
+            "nth": 30,
+            "value": 7.33
+          },
+          {
+            "nth": 40,
+            "value": 7.36
+          },
+          {
+            "nth": 50,
+            "value": 7.38
+          },
+          {
+            "nth": 60,
+            "value": 7.40
+          },
+          {
+            "nth": 70,
+            "value": 7.41
+          },
+          {
+            "nth": 80,
+            "value": 7.43
+          },
+          {
+            "nth": 90,
+            "value": 7.47
+          }
+        ],
+        "normalizedHigh": 7.45,
+        "normalizedLow": 7.35,
+        "fractionAboveNormal": 0.16,
+        "fractionBelowNormal": 0.39
+      }
+    },
+    {
+      "code": [
+        {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "1959-6",
+              "display": "Bicarbonate [Moles/volume] in Blood"
+            }
+          ]
+        }
+      ],
+      "count": 1716,
+      "frequencyPerYear": 0.0562,
+      "fractionOfSubjects": 0.0206,
+      "scalarDistribution": {
+        "units": {
+          "unit": "mmol/L",
+          "system": "http://unitsofmeasure.org",
+          "code": "mmol/L"
+        },
+        "min": 6,
+        "max": 51,
+        "mean": 25,
+        "median": 25,
+        "stdDev": 6.18,
+        "decile": [
+          {
+            "nth": 10,
+            "value": 18
+          },
+          {
+            "nth": 20,
+            "value": 21
+          },
+          {
+            "nth": 30,
+            "value": 22
+          },
+          {
+            "nth": 40,
+            "value": 23
+          },
+          {
+            "nth": 50,
+            "value": 25
+          },
+          {
+            "nth": 60,
+            "value": 26
+          },
+          {
+            "nth": 70,
+            "value": 27
+          },
+          {
+            "nth": 80,
+            "value": 29
+          },
+          {
+            "nth": 90,
+            "value": 33
+          }
+        ],
+        "normalizedHigh": 26,
+        "normalizedLow": 22,
+        "fractionAboveNormal": 0.33,
+        "fractionBelowNormal": 0.26
+      }
+    },
+    {
+      "code": [
+        {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "706-2",
+              "display": "Basophils/100 leukocytes in Blood by Automated count"
+            }
+          ]
+        }
+      ],
+      "count": 1572,
+      "frequencyPerYear": 0.0515,
+      "fractionOfSubjects": 0.0611,
+      "scalarDistribution": {
+        "units": {
+          "unit": "%",
+          "system": "http://unitsofmeasure.org",
+          "code": "%"
+        },
+        "min": 0,
+        "max": 4,
+        "mean": 0.41,
+        "median": 0,
+        "stdDev": 0.58,
+        "decile": [
+          {
+            "nth": 10,
+            "value": 0
+          },
+          {
+            "nth": 20,
+            "value": 0
+          },
+          {
+            "nth": 30,
+            "value": 0
+          },
+          {
+            "nth": 40,
+            "value": 0
+          },
+          {
+            "nth": 50,
+            "value": 0
+          },
+          {
+            "nth": 60,
+            "value": 0
+          },
+          {
+            "nth": 70,
+            "value": 1
+          },
+          {
+            "nth": 80,
+            "value": 1
+          },
+          {
+            "nth": 90,
+            "value": 1
+          }
+        ],
+        "normalizedHigh": 1.0,
+        "normalizedLow": 0.0,
+        "fractionAboveNormal": 0.03,
+        "fractionBelowNormal": 0
+      }
+    },
+    {
+      "code": [
+        {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "736-9",
+              "display": "Lymphocytes/100 leukocytes in Blood by Automated count"
+            }
+          ]
+        }
+      ],
+      "count": 729,
+      "frequencyPerYear": 0.0239,
+      "fractionOfSubjects": 0.0299,
+      "scalarDistribution": {
+        "units": {
+          "unit": "%",
+          "system": "http://unitsofmeasure.org",
+          "code": "%"
+        },
+        "min": 2.60,
+        "max": 74,
+        "mean": 32.32,
+        "median": 32.20,
+        "stdDev": 11.97,
+        "decile": [
+          {
+            "nth": 10,
+            "value": 18
+          },
+          {
+            "nth": 20,
+            "value": 22.30
+          },
+          {
+            "nth": 30,
+            "value": 25.20
+          },
+          {
+            "nth": 40,
+            "value": 28.80
+          },
+          {
+            "nth": 50,
+            "value": 32.20
+          },
+          {
+            "nth": 60,
+            "value": 35.30
+          },
+          {
+            "nth": 70,
+            "value": 38.20
+          },
+          {
+            "nth": 80,
+            "value": 42.20
+          },
+          {
+            "nth": 90,
+            "value": 48
+          }
+        ]
+      }
+    },
+    {
+      "code": [
+        {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "731-0",
+              "display": "Lymphocytes [#/volume] in Blood by Automated count"
+            }
+          ]
+        }
+      ],
+      "count": 13,
+      "frequencyPerYear": 0.0004,
+      "fractionOfSubjects": 0.0005,
+      "scalarDistribution": {
+        "units": {
+          "unit": "K/uL",
+          "system": "http://unitsofmeasure.org",
+          "code": "K/uL"
+        },
+        "min": 0.60,
+        "max": 4,
+        "mean": 2.28,
+        "median": 2.20,
+        "stdDev": 1.05,
+        "decile": [
+          {
+            "nth": 10,
+            "value": 0.60
+          },
+          {
+            "nth": 20,
+            "value": 1.50
+          },
+          {
+            "nth": 30,
+            "value": 1.70
+          },
+          {
+            "nth": 40,
+            "value": 1.90
+          },
+          {
+            "nth": 50,
+            "value": 2.30
+          },
+          {
+            "nth": 60,
+            "value": 2.30
+          },
+          {
+            "nth": 70,
+            "value": 2.80
+          },
+          {
+            "nth": 80,
+            "value": 3.20
+          },
+          {
+            "nth": 90,
+            "value": 3.50
+          }
+        ],
+        "normalizedHigh": 2.8,
+        "normalizedLow": 1.0,
+        "fractionAboveNormal": 0.31,
+        "fractionBelowNormal": 0.15
+      }
+    },
+    {
+      "code": [
+        {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "20448-7",
+              "display": "Insulin [Units/volume] in Serum or Plasma"
+            }
+          ]
+        }
+      ],
+      "count": 102,
+      "frequencyPerYear": 0.0033,
+      "fractionOfSubjects": 0.0045,
+      "scalarDistribution": {
+        "units": {
+          "unit": "uIU/mL",
+          "system": "http://unitsofmeasure.org",
+          "code": "uIU/mL"
+        },
+        "min": 0.60,
+        "max": 267,
+        "mean": 39.03,
+        "median": 32.40,
+        "stdDev": 39.82,
+        "decile": [
+          {
+            "nth": 10,
+            "value": 8.70
+          },
+          {
+            "nth": 20,
+            "value": 13.60
+          },
+          {
+            "nth": 30,
+            "value": 20
+          },
+          {
+            "nth": 40,
+            "value": 27.20
+          },
+          {
+            "nth": 50,
+            "value": 32.40
+          },
+          {
+            "nth": 60,
+            "value": 35.70
+          },
+          {
+            "nth": 70,
+            "value": 40.50
+          },
+          {
+            "nth": 80,
+            "value": 52.70
+          },
+          {
+            "nth": 90,
+            "value": 63.50
+          }
+        ],
+        "normalizedHigh": 24.9,
+        "normalizedLow": 2.6,
+        "fractionAboveNormal": 0.64,
+        "fractionBelowNormal": 0.02
+      }
+    },
+    {
+      "code": [
+        {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "1995-0",
+              "display": "Calcium.ionized [Moles/volume] in Serum or Plasma"
+            }
+          ]
+        }
+      ],
+      "count": 65,
+      "frequencyPerYear": 0.0021,
+      "fractionOfSubjects": 0.0029,
+      "scalarDistribution": {
+        "units": {
+          "unit": "mmol/L",
+          "system": "http://unitsofmeasure.org",
+          "code": "mmol/L"
+        },
+        "min": 1.10,
+        "max": 1.74,
+        "mean": 1.26,
+        "median": 1.24,
+        "stdDev": 0.11,
+        "decile": [
+          {
+            "nth": 10,
+            "value": 1.12
+          },
+          {
+            "nth": 20,
+            "value": 1.17
+          },
+          {
+            "nth": 30,
+            "value": 1.21
+          },
+          {
+            "nth": 40,
+            "value": 1.23
+          },
+          {
+            "nth": 50,
+            "value": 1.24
+          },
+          {
+            "nth": 60,
+            "value": 1.25
+          },
+          {
+            "nth": 70,
+            "value": 1.29
+          },
+          {
+            "nth": 80,
+            "value": 1.32
+          },
+          {
+            "nth": 90,
+            "value": 1.38
+          }
+        ]
+      }
+    },
+    {
+      "code": [
+        {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "13457-7",
+              "display": "Cholesterol in LDL [Mass/volume] in Serum or Plasma by calculation"
+            }
+          ]
+        }
+      ],
+      "count": 21,
+      "frequencyPerYear": 0.0007,
+      "fractionOfSubjects": 0.0008,
+      "scalarDistribution": {
+        "units": {
+          "unit": "mg/dL",
+          "system": "http://unitsofmeasure.org",
+          "code": "mg/dL"
+        },
+        "min": 55,
+        "max": 280,
+        "mean": 130.81,
+        "median": 119.50,
+        "stdDev": 63.84,
+        "decile": [
+          {
+            "nth": 10,
+            "value": 60
+          },
+          {
+            "nth": 20,
+            "value": 77
+          },
+          {
+            "nth": 30,
+            "value": 85
+          },
+          {
+            "nth": 40,
+            "value": 94
+          },
+          {
+            "nth": 50,
+            "value": 123
+          },
+          {
+            "nth": 60,
+            "value": 138
+          },
+          {
+            "nth": 70,
+            "value": 140
+          },
+          {
+            "nth": 80,
+            "value": 161
+          },
+          {
+            "nth": 90,
+            "value": 212
+          }
+        ],
+        "normalizedHigh": 99,
+        "normalizedLow": 0,
+        "fractionAboveNormal": 0.62,
+        "fractionBelowNormal": 0
+      }
+    }
+  ]
+}

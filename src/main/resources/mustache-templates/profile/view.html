@@ -17,22 +17,25 @@
 		
 		    <div id="collapse{{loincId}}" class="collapse show" aria-labelledby="heading{{loincId}}" data-parent="#accordion">
 		      <div class="card-body">
+		        {{#showDeciles}}
 		      	<h4>Reference Range</h4>
 		      		<ul>
 			      	{{^referenceRange}}
 			      		<li>None</li>
 			      	{{/referenceRange}}
 			      	{{#referenceRange}}
-		      			<li>{{min}}</li>
-		      			<li>{{max}}</li>
+		      			<li>Min Normal: {{min}}</li>
+		      			<li>Max Normal: {{max}}</li>
 			      	{{/referenceRange}}
 		      		</ul>
+		        {{/showDeciles}}
 		      	<h4>Statistics</h4>
 		        <ul>
 		        	<li>Min: {{min}}</li>
 		        	<li>Max: {{max}}</li>
 		        	<li>Mean: {{mean}}</li>
 		        	<li>Median: {{median}}</li>
+		        	<li>StdDev: {{stddev}}</li>
 <!-- 		        	<li>Fraction Above Normal: {{fractionAboveNormal}}</li>
 		        	<li>Fraction Below Normal: {{fractionBelowNormal}}</li>
  -->		        </ul>
@@ -41,7 +44,28 @@
 		        {{#relatedHpoTerms}}
 		        	<li>{{code}} : {{term}}</li>
 		        {{/relatedHpoTerms}}
-		        </ul>		        
+		        </ul>
+		        {{#showDeciles}}
+		        <h4>Deciles</h4>
+	        	<table class="table table-bordered">
+	        		<thead>
+	        			<tr>
+	        				<td>Nth</td>
+	        				<td>Value</td>
+	        				<td>Associated HPO</td>
+	        			</tr>
+	        		</thead>
+	        		<tbody>
+	        			{{#deciles}}
+	        				<tr>
+	        					<td>{{nth}}</td>
+	        					<td>{{value}}</td>
+	        					<td>{{hpo}}</td>
+	        				</tr>
+	        			{{/deciles}}
+	        		</tbody>
+	        	</table>
+		        {{/showDeciles}}
 		      </div>
 		    </div>
 		  </div>

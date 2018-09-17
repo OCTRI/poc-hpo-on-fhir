@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.monarchinitiative.fhir2hpo.loinc.DefaultLoinc2HpoAnnotation;
 import org.monarchinitiative.fhir2hpo.loinc.Loinc2HpoAnnotation;
@@ -19,16 +21,24 @@ import org.monarchinitiative.phenol.ontology.data.TermId;
 import org.monarchinitiative.phenol.ontology.data.TermPrefix;
 import org.octri.hpoonfhir.service.FhirService;
 import org.octri.hpoonfhir.service.ReferenceRangeService;
+import org.octri.hpoonfhir.view.DecileModel;
 import org.octri.hpoonfhir.view.LabSummaryModel;
+import org.octri.hpoonfhir.view.ReferenceRange;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+/**
+ * Controller for viewing the JHU clinical profile asthma data
+ * @author yateam
+ *
+ */
 @Controller
 public class ProfileController {
 
@@ -43,20 +53,59 @@ public class ProfileController {
 	
 	@Autowired
 	ReferenceRangeService referenceRangeService;
-
-	@GetMapping("/profiles")
+	
+	@GetMapping("profile")
 	public String getProfiles(Map<String, Object> model) throws JsonParseException, JsonMappingException, IOException {
-		ClassLoader classLoader = getClass().getClassLoader();
-		InputStream stream = classLoader.getResourceAsStream("json/jhu-asthma-lab-1.json");
-		ObjectMapper om = new ObjectMapper();
-		TypeReference<HashMap<String, Object>> typeRef = new TypeReference<HashMap<String, Object>>() {
-		};
-		HashMap<String, Object> map = om.readValue(stream, typeRef);
+		List<Map<String,Object>> labs = new ArrayList<>();
+		List<Long> ids = new ArrayList<>();
+		for (int i=1; i<=96; i++) {
+			Long id = new Long(i);
+			Map<String,Object> lab = new HashMap<>();
+			lab.put("id", id);
+			Map<String, Object> map = getResourceAsMap(id);
+			Map<String, Object> text = (Map<String,Object>) map.get("text");
+			// Hacky way to pull out the text describing the cohort
+			String div = (String) text.get("div");
+			Pattern p = Pattern.compile("<p>(.+)");
+			Matcher m = p.matcher(div);
+			if (m.find()) {
+				lab.put("info", m.group(1));
+			}
+			
+			labs.add(lab);
+		}
+		model.put("labs", labs);
+		return "profile/list";
+	}
+
+
+	@GetMapping("/profile/{id}")
+	public String getProfiles(Map<String, Object> model, @PathVariable Long id) throws JsonParseException, JsonMappingException, IOException {
+		Map<String, Object> map = getResourceAsMap(id);
 		List<Map<String, Object>> labs = (List<Map<String, Object>>) map.get("lab");
 		List<LabSummaryModel> labSummaries = summarizeLabs(labs);
 		model.put("labs", labSummaries);
 		model.put("includeProfilesJs", true);
-		return "profiles";
+		return "profile/view";
+	}
+
+	/**
+	 * Given the resource number, get the JSON file as a map.
+	 * @param id
+	 * @return A map representing the json file extracted from the resource
+	 * @throws IOException
+	 * @throws JsonParseException
+	 * @throws JsonMappingException
+	 */
+	private Map<String, Object> getResourceAsMap(Long id)
+		throws IOException, JsonParseException, JsonMappingException {
+		ClassLoader classLoader = getClass().getClassLoader();
+		InputStream stream = classLoader.getResourceAsStream("json/jhu-asthma-lab-" + id + ".json");
+		ObjectMapper om = new ObjectMapper();
+		TypeReference<HashMap<String, Object>> typeRef = new TypeReference<HashMap<String, Object>>() {
+		};
+		HashMap<String, Object> map = om.readValue(stream, typeRef);
+		return map;
 	}
 
 	private List<LabSummaryModel> summarizeLabs(List<Map<String, Object>> labs) {
@@ -87,11 +136,41 @@ public class ProfileController {
 			model.setMax(getDouble(scalarDistribution.get("max")));
 			model.setMean(getDouble(scalarDistribution.get("mean")));
 			model.setMedian(getDouble(scalarDistribution.get("median")));
+			model.setStddev(getDouble(scalarDistribution.get("stdDev")));
 			model.setFractionAboveNormal(getDouble(scalarDistribution.get("fractionAboveNormal")));
 			model.setFractionBelowNormal(getDouble(scalarDistribution.get("fractionBelowNormal")));
+			model.setDeciles(summarizeDeciles(model.getReferenceRange(), model.getRelatedHpoTerms(), (List<Map<String,Object>>) scalarDistribution.get("decile")));
 			models.add(model);
 		}
 		return models;
+	}
+
+	private List<DecileModel> summarizeDeciles(ReferenceRange referenceRange, List<Map<String, String>> relatedHpoTerms,
+		List<Map<String, Object>> deciles) {
+		
+		List<DecileModel> decileModels = new ArrayList<>();
+		for (Map<String,Object> decile : deciles) {
+			DecileModel decileModel = new DecileModel();
+			decileModel.setNth(getDouble(decile.get("nth"))); 
+			Double val = getDouble(decile.get("value"));
+			decileModel.setValue(val);
+			if (referenceRange != null && relatedHpoTerms != null) {
+				String code = "N";
+				if (val < referenceRange.getMin()) {
+					code = "L";
+				} else if (val > referenceRange.getMax()) {
+					code = "H";
+				} 
+				for (Map<String,String> termMap : relatedHpoTerms) {
+					if (termMap.get("code").equals(code)) {
+						decileModel.setHpo(termMap.get("term"));
+					}
+				}
+			}
+			decileModels.add(decileModel);
+		}
+
+		return decileModels;
 	}
 
 	private Map<String, Object> getCodingForLab(Map<String, Object> lab) {

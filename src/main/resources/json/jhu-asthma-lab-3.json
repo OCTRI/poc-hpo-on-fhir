@@ -1,0 +1,5093 @@
+{
+  "resourceType": "ClinicalProfile",
+  "id": "jhu-asthma-profile-3-labs",
+  "text": {
+    "status": "generated",
+    "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\">\n\t\t\t<p>Selected laboratory tests for Male,Female, White or Caucasian,Native Hawaiian or Other Pacific Islander,Black or African American,Asian,Unknown,Hispanic,Declined to Answer,American Indian or Alaska Native,Other patients aged 5-14 seen as either outpatients or inpatients at Johns Hopkins Hospital, JHCP, and Bayview between 3/1/2016 and 3/1/2018 having a diagnosis of asthma recorded on the problem list or as an encounter diagnosis.\n\t\t\t</p>\n\t\t</div>"
+  },
+  "identifier": [
+    {
+      "value": "urn:uuid:E1977604-CB42-E343-B34C7DA0B19D7475"
+    }
+  ],
+  "status": "draft",
+  "population": {
+    "reference": "Group/asthma-population-jhu1"
+  },
+  "cohort": {
+    "reference": "Group/asthma-sample-3-cohort-jhu1"
+  },
+  "date": "2018-09-11T13:53:00Z",
+  "source": [
+    {
+      "value": "http://ictrweb.johnshopkins.edu/ictr/synthetic/includes/clinical_profiles.cfm"
+    }
+  ],
+  "reporter": {
+    "reference": "Organization/JHM",
+    "type": "Organization",
+    "display": "Johns Hopkins School of Medicine"
+  },
+  "lab": [
+    {
+      "code": [
+        {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "33256-9",
+              "display": "Leukocytes [#/volume] corrected for nucleated erythrocytes in Blood by Automated count"
+            }
+          ]
+        }
+      ],
+      "count": 6228,
+      "frequencyPerYear": 0.2640,
+      "fractionOfSubjects": 0.1847,
+      "scalarDistribution": {
+        "units": {
+          "unit": "K/cu mm",
+          "system": "http://unitsofmeasure.org",
+          "code": "K/cu mm"
+        },
+        "min": 0.05,
+        "max": 51.80,
+        "mean": 8.41,
+        "median": 7.08,
+        "stdDev": 5.63,
+        "decile": [
+          {
+            "nth": 10,
+            "value": 3.23
+          },
+          {
+            "nth": 20,
+            "value": 4.59
+          },
+          {
+            "nth": 30,
+            "value": 5.43
+          },
+          {
+            "nth": 40,
+            "value": 6.23
+          },
+          {
+            "nth": 50,
+            "value": 7.08
+          },
+          {
+            "nth": 60,
+            "value": 8.11
+          },
+          {
+            "nth": 70,
+            "value": 9.47
+          },
+          {
+            "nth": 80,
+            "value": 11.49
+          },
+          {
+            "nth": 90,
+            "value": 14.89
+          }
+        ],
+        "correlatedLabs": {
+          "topn": 20,
+          "abscorrelation": 0.4,
+          "entry": [
+            {
+              "labcode": [
+                {
+                  "coding": [
+                    {
+                      "system": "http://loinc.org",
+                      "code": "6690-2",
+                      "display": "lab_WBC # Bld Auto"
+                    }
+                  ]
+                }
+              ],
+              "coefficient": 0.74811
+            },
+            {
+              "labcode": [
+                {
+                  "coding": [
+                    {
+                      "system": "http://loinc.org",
+                      "code": "pulse",
+                      "display": "pulse"
+                    }
+                  ]
+                }
+              ],
+              "coefficient": 0.40247
+            },
+            {
+              "labcode": [
+                {
+                  "coding": [
+                    {
+                      "system": "http://loinc.org",
+                      "code": "736-9",
+                      "display": "lab_Lymphocytes/leuk NFr Bld Auto"
+                    }
+                  ]
+                }
+              ],
+              "coefficient": -0.44339
+            },
+            {
+              "labcode": [
+                {
+                  "coding": [
+                    {
+                      "system": "http://loinc.org",
+                      "code": "737-7",
+                      "display": "lab_Lymphocytes/leuk NFr Bld Manual"
+                    }
+                  ]
+                }
+              ],
+              "coefficient": -0.48924
+            }
+          ]
+        }
+      }
+    },
+    {
+      "code": [
+        {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "6690-2",
+              "display": "Leukocytes [#/volume] in Blood by Automated count"
+            }
+          ]
+        }
+      ],
+      "count": 989,
+      "frequencyPerYear": 0.0419,
+      "fractionOfSubjects": 0.0554,
+      "scalarDistribution": {
+        "units": {
+          "unit": "x10E3/uL",
+          "system": "http://unitsofmeasure.org",
+          "code": "x10E3/uL"
+        },
+        "min": 0.20,
+        "max": 29.63,
+        "mean": 7.14,
+        "median": 6.50,
+        "stdDev": 3.20,
+        "decile": [
+          {
+            "nth": 10,
+            "value": 4.20
+          },
+          {
+            "nth": 20,
+            "value": 4.90
+          },
+          {
+            "nth": 30,
+            "value": 5.50
+          },
+          {
+            "nth": 40,
+            "value": 6
+          },
+          {
+            "nth": 50,
+            "value": 6.50
+          },
+          {
+            "nth": 60,
+            "value": 7
+          },
+          {
+            "nth": 70,
+            "value": 7.70
+          },
+          {
+            "nth": 80,
+            "value": 8.60
+          },
+          {
+            "nth": 90,
+            "value": 10.40
+          }
+        ],
+        "normalizedHigh": 10.8,
+        "normalizedLow": 3.4,
+        "fractionAboveNormal": 0.09,
+        "fractionBelowNormal": 0.03,
+        "correlatedLabs": {
+          "topn": 20,
+          "abscorrelation": 0.4,
+          "entry": [
+            {
+              "labcode": [
+                {
+                  "coding": [
+                    {
+                      "system": "http://loinc.org",
+                      "code": "33256-9",
+                      "display": "lab_WBC nRBC cor # Bld Auto"
+                    }
+                  ]
+                }
+              ],
+              "coefficient": 0.74811
+            },
+            {
+              "labcode": [
+                {
+                  "coding": [
+                    {
+                      "system": "http://loinc.org",
+                      "code": "736-9",
+                      "display": "lab_Lymphocytes/leuk NFr Bld Auto"
+                    }
+                  ]
+                }
+              ],
+              "coefficient": -0.41263
+            },
+            {
+              "labcode": [
+                {
+                  "coding": [
+                    {
+                      "system": "http://loinc.org",
+                      "code": "5902-2",
+                      "display": "lab_Prothrombin time"
+                    }
+                  ]
+                }
+              ],
+              "coefficient": -0.51331
+            }
+          ]
+        }
+      }
+    },
+    {
+      "code": [
+        {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "4544-3",
+              "display": "Hematocrit [Volume Fraction] of Blood by Automated count"
+            }
+          ]
+        }
+      ],
+      "count": 7255,
+      "frequencyPerYear": 0.3075,
+      "fractionOfSubjects": 0.2292,
+      "scalarDistribution": {
+        "units": {
+          "unit": "%",
+          "system": "http://unitsofmeasure.org",
+          "code": "%"
+        },
+        "min": 9.80,
+        "max": 53.30,
+        "mean": 34.98,
+        "median": 36.40,
+        "stdDev": 6.28,
+        "decile": [
+          {
+            "nth": 10,
+            "value": 25.70
+          },
+          {
+            "nth": 20,
+            "value": 29.10
+          },
+          {
+            "nth": 30,
+            "value": 32.20
+          },
+          {
+            "nth": 40,
+            "value": 34.80
+          },
+          {
+            "nth": 50,
+            "value": 36.40
+          },
+          {
+            "nth": 60,
+            "value": 37.60
+          },
+          {
+            "nth": 70,
+            "value": 38.80
+          },
+          {
+            "nth": 80,
+            "value": 40.10
+          },
+          {
+            "nth": 90,
+            "value": 42
+          }
+        ],
+        "normalizedHigh": 46.6,
+        "normalizedLow": 34.0,
+        "fractionAboveNormal": 0.01,
+        "fractionBelowNormal": 0.36,
+        "correlatedLabs": {
+          "topn": 20,
+          "abscorrelation": 0.4,
+          "entry": [
+            {
+              "labcode": [
+                {
+                  "coding": [
+                    {
+                      "system": "http://loinc.org",
+                      "code": "718-7",
+                      "display": "lab_Hgb Bld-mCnc"
+                    }
+                  ]
+                }
+              ],
+              "coefficient": 0.93844
+            },
+            {
+              "labcode": [
+                {
+                  "coding": [
+                    {
+                      "system": "http://loinc.org",
+                      "code": "789-8",
+                      "display": "lab_RBC # Bld Auto"
+                    }
+                  ]
+                }
+              ],
+              "coefficient": 0.79263
+            }
+          ]
+        }
+      }
+    },
+    {
+      "code": [
+        {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "718-7",
+              "display": "Hemoglobin [Mass/volume] in Blood"
+            }
+          ]
+        }
+      ],
+      "count": 7248,
+      "frequencyPerYear": 0.3072,
+      "fractionOfSubjects": 0.2290,
+      "scalarDistribution": {
+        "units": {
+          "unit": "g/dL",
+          "system": "http://unitsofmeasure.org",
+          "code": "g/dL"
+        },
+        "min": 3.30,
+        "max": 18,
+        "mean": 11.60,
+        "median": 12,
+        "stdDev": 2.08,
+        "decile": [
+          {
+            "nth": 10,
+            "value": 8.60
+          },
+          {
+            "nth": 20,
+            "value": 9.60
+          },
+          {
+            "nth": 30,
+            "value": 10.60
+          },
+          {
+            "nth": 40,
+            "value": 11.40
+          },
+          {
+            "nth": 50,
+            "value": 12
+          },
+          {
+            "nth": 60,
+            "value": 12.40
+          },
+          {
+            "nth": 70,
+            "value": 12.90
+          },
+          {
+            "nth": 80,
+            "value": 13.30
+          },
+          {
+            "nth": 90,
+            "value": 13.90
+          }
+        ],
+        "normalizedHigh": 16.0,
+        "normalizedLow": 12.0,
+        "fractionAboveNormal": 0.01,
+        "fractionBelowNormal": 0.50,
+        "correlatedLabs": {
+          "topn": 20,
+          "abscorrelation": 0.4,
+          "entry": [
+            {
+              "labcode": [
+                {
+                  "coding": [
+                    {
+                      "system": "http://loinc.org",
+                      "code": "4544-3",
+                      "display": "lab_Hct VFr Bld Auto"
+                    }
+                  ]
+                }
+              ],
+              "coefficient": 0.93844
+            },
+            {
+              "labcode": [
+                {
+                  "coding": [
+                    {
+                      "system": "http://loinc.org",
+                      "code": "789-8",
+                      "display": "lab_RBC # Bld Auto"
+                    }
+                  ]
+                }
+              ],
+              "coefficient": 0.6983
+            },
+            {
+              "labcode": [
+                {
+                  "coding": [
+                    {
+                      "system": "http://loinc.org",
+                      "code": "788-0",
+                      "display": "lab_RDW RBC Auto-Rto"
+                    }
+                  ]
+                }
+              ],
+              "coefficient": -0.47033
+            }
+          ]
+        }
+      }
+    },
+    {
+      "code": [
+        {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "777-3",
+              "display": "Platelets [#/volume] in Blood by Automated count"
+            }
+          ]
+        }
+      ],
+      "count": 7236,
+      "frequencyPerYear": 0.3067,
+      "fractionOfSubjects": 0.2285,
+      "scalarDistribution": {
+        "units": {
+          "unit": "x10E3/uL",
+          "system": "http://unitsofmeasure.org",
+          "code": "x10E3/uL"
+        },
+        "min": 1,
+        "max": 1301,
+        "mean": 271.07,
+        "median": 269,
+        "stdDev": 132.31,
+        "decile": [
+          {
+            "nth": 10,
+            "value": 96
+          },
+          {
+            "nth": 20,
+            "value": 180
+          },
+          {
+            "nth": 30,
+            "value": 218
+          },
+          {
+            "nth": 40,
+            "value": 247
+          },
+          {
+            "nth": 50,
+            "value": 269
+          },
+          {
+            "nth": 60,
+            "value": 292
+          },
+          {
+            "nth": 70,
+            "value": 317
+          },
+          {
+            "nth": 80,
+            "value": 350
+          },
+          {
+            "nth": 90,
+            "value": 408
+          }
+        ],
+        "normalizedHigh": 396,
+        "normalizedLow": 140,
+        "fractionAboveNormal": 0.12,
+        "fractionBelowNormal": 0.15,
+        "correlatedLabs": {
+          "topn": 20,
+          "abscorrelation": 0.4
+        }
+      }
+    },
+    {
+      "code": [
+        {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "787-2",
+              "display": "Erythrocyte mean corpuscular volume [Entitic volume] by Automated count"
+            }
+          ]
+        }
+      ],
+      "count": 7245,
+      "frequencyPerYear": 0.3071,
+      "fractionOfSubjects": 0.2290,
+      "scalarDistribution": {
+        "units": {
+          "unit": "fL",
+          "system": "http://unitsofmeasure.org",
+          "code": "fL"
+        },
+        "min": 53.60,
+        "max": 133,
+        "mean": 84.39,
+        "median": 84.10,
+        "stdDev": 7.79,
+        "decile": [
+          {
+            "nth": 10,
+            "value": 75.90
+          },
+          {
+            "nth": 20,
+            "value": 79
+          },
+          {
+            "nth": 30,
+            "value": 81
+          },
+          {
+            "nth": 40,
+            "value": 82.70
+          },
+          {
+            "nth": 50,
+            "value": 84.10
+          },
+          {
+            "nth": 60,
+            "value": 85.80
+          },
+          {
+            "nth": 70,
+            "value": 87.30
+          },
+          {
+            "nth": 80,
+            "value": 89.20
+          },
+          {
+            "nth": 90,
+            "value": 93.40
+          }
+        ],
+        "normalizedHigh": 97,
+        "normalizedLow": 79,
+        "fractionAboveNormal": 0.05,
+        "fractionBelowNormal": 0.20,
+        "correlatedLabs": {
+          "topn": 20,
+          "abscorrelation": 0.4,
+          "entry": [
+            {
+              "labcode": [
+                {
+                  "coding": [
+                    {
+                      "system": "http://loinc.org",
+                      "code": "785-6",
+                      "display": "lab_MCH RBC Qn Auto"
+                    }
+                  ]
+                }
+              ],
+              "coefficient": 0.89978
+            },
+            {
+              "labcode": [
+                {
+                  "coding": [
+                    {
+                      "system": "http://loinc.org",
+                      "code": "2077-6",
+                      "display": "lab_Chloride Sweat-sCnc"
+                    }
+                  ]
+                }
+              ],
+              "coefficient": -0.44025
+            },
+            {
+              "labcode": [
+                {
+                  "coding": [
+                    {
+                      "system": "http://loinc.org",
+                      "code": "789-8",
+                      "display": "lab_RBC # Bld Auto"
+                    }
+                  ]
+                }
+              ],
+              "coefficient": -0.4778
+            }
+          ]
+        }
+      }
+    },
+    {
+      "code": [
+        {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "789-8",
+              "display": "Erythrocytes [#/volume] in Blood by Automated count"
+            }
+          ]
+        }
+      ],
+      "count": 7242,
+      "frequencyPerYear": 0.3069,
+      "fractionOfSubjects": 0.2290,
+      "scalarDistribution": {
+        "units": {
+          "unit": "x10E6/uL",
+          "system": "http://unitsofmeasure.org",
+          "code": "x10E6/uL"
+        },
+        "min": 1.09,
+        "max": 7.46,
+        "mean": 4.19,
+        "median": 4.37,
+        "stdDev": 0.85,
+        "decile": [
+          {
+            "nth": 10,
+            "value": 2.90
+          },
+          {
+            "nth": 20,
+            "value": 3.39
+          },
+          {
+            "nth": 30,
+            "value": 3.84
+          },
+          {
+            "nth": 40,
+            "value": 4.16
+          },
+          {
+            "nth": 50,
+            "value": 4.37
+          },
+          {
+            "nth": 60,
+            "value": 4.53
+          },
+          {
+            "nth": 70,
+            "value": 4.69
+          },
+          {
+            "nth": 80,
+            "value": 4.87
+          },
+          {
+            "nth": 90,
+            "value": 5.12
+          }
+        ],
+        "normalizedHigh": 5.28,
+        "normalizedLow": 3.77,
+        "fractionAboveNormal": 0.06,
+        "fractionBelowNormal": 0.28,
+        "correlatedLabs": {
+          "topn": 20,
+          "abscorrelation": 0.4,
+          "entry": [
+            {
+              "labcode": [
+                {
+                  "coding": [
+                    {
+                      "system": "http://loinc.org",
+                      "code": "4544-3",
+                      "display": "lab_Hct VFr Bld Auto"
+                    }
+                  ]
+                }
+              ],
+              "coefficient": 0.79263
+            },
+            {
+              "labcode": [
+                {
+                  "coding": [
+                    {
+                      "system": "http://loinc.org",
+                      "code": "718-7",
+                      "display": "lab_Hgb Bld-mCnc"
+                    }
+                  ]
+                }
+              ],
+              "coefficient": 0.6983
+            },
+            {
+              "labcode": [
+                {
+                  "coding": [
+                    {
+                      "system": "http://loinc.org",
+                      "code": "785-6",
+                      "display": "lab_MCH RBC Qn Auto"
+                    }
+                  ]
+                }
+              ],
+              "coefficient": -0.46118
+            },
+            {
+              "labcode": [
+                {
+                  "coding": [
+                    {
+                      "system": "http://loinc.org",
+                      "code": "787-2",
+                      "display": "lab_MCV RBC Auto"
+                    }
+                  ]
+                }
+              ],
+              "coefficient": -0.4778
+            }
+          ]
+        }
+      }
+    },
+    {
+      "code": [
+        {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "786-4",
+              "display": "Erythrocyte mean corpuscular hemoglobin concentration [Mass/volume] by Automated count"
+            }
+          ]
+        }
+      ],
+      "count": 7228,
+      "frequencyPerYear": 0.3063,
+      "fractionOfSubjects": 0.2290,
+      "scalarDistribution": {
+        "units": {
+          "unit": "g/dL",
+          "system": "http://unitsofmeasure.org",
+          "code": "g/dL"
+        },
+        "min": 26.10,
+        "max": 38,
+        "mean": 33.20,
+        "median": 33.20,
+        "stdDev": 1.49,
+        "decile": [
+          {
+            "nth": 10,
+            "value": 31.40
+          },
+          {
+            "nth": 20,
+            "value": 32.10
+          },
+          {
+            "nth": 30,
+            "value": 32.50
+          },
+          {
+            "nth": 40,
+            "value": 32.90
+          },
+          {
+            "nth": 50,
+            "value": 33.20
+          },
+          {
+            "nth": 60,
+            "value": 33.60
+          },
+          {
+            "nth": 70,
+            "value": 33.90
+          },
+          {
+            "nth": 80,
+            "value": 34.40
+          },
+          {
+            "nth": 90,
+            "value": 35
+          }
+        ],
+        "normalizedHigh": 35.7,
+        "normalizedLow": 31.5,
+        "fractionAboveNormal": 0.05,
+        "fractionBelowNormal": 0.11,
+        "correlatedLabs": {
+          "topn": 20,
+          "abscorrelation": 0.4,
+          "entry": [
+            {
+              "labcode": [
+                {
+                  "coding": [
+                    {
+                      "system": "http://loinc.org",
+                      "code": "785-6",
+                      "display": "lab_MCH RBC Qn Auto"
+                    }
+                  ]
+                }
+              ],
+              "coefficient": 0.61677
+            }
+          ]
+        }
+      }
+    },
+    {
+      "code": [
+        {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "785-6",
+              "display": "Erythrocyte mean corpuscular hemoglobin [Entitic mass] by Automated count"
+            }
+          ]
+        }
+      ],
+      "count": 7219,
+      "frequencyPerYear": 0.3060,
+      "fractionOfSubjects": 0.2290,
+      "scalarDistribution": {
+        "units": {
+          "unit": "pg",
+          "system": "http://unitsofmeasure.org",
+          "code": "pg"
+        },
+        "min": 15.60,
+        "max": 48.20,
+        "mean": 28.04,
+        "median": 28.10,
+        "stdDev": 3.17,
+        "decile": [
+          {
+            "nth": 10,
+            "value": 24.40
+          },
+          {
+            "nth": 20,
+            "value": 25.90
+          },
+          {
+            "nth": 30,
+            "value": 26.90
+          },
+          {
+            "nth": 40,
+            "value": 27.50
+          },
+          {
+            "nth": 50,
+            "value": 28.10
+          },
+          {
+            "nth": 60,
+            "value": 28.60
+          },
+          {
+            "nth": 70,
+            "value": 29.20
+          },
+          {
+            "nth": 80,
+            "value": 29.90
+          },
+          {
+            "nth": 90,
+            "value": 31.10
+          }
+        ],
+        "normalizedHigh": 33.0,
+        "normalizedLow": 26.6,
+        "fractionAboveNormal": 0.05,
+        "fractionBelowNormal": 0.26,
+        "correlatedLabs": {
+          "topn": 20,
+          "abscorrelation": 0.4,
+          "entry": [
+            {
+              "labcode": [
+                {
+                  "coding": [
+                    {
+                      "system": "http://loinc.org",
+                      "code": "787-2",
+                      "display": "lab_MCV RBC Auto"
+                    }
+                  ]
+                }
+              ],
+              "coefficient": 0.89978
+            },
+            {
+              "labcode": [
+                {
+                  "coding": [
+                    {
+                      "system": "http://loinc.org",
+                      "code": "786-4",
+                      "display": "lab_MCHC RBC Auto-mCnc"
+                    }
+                  ]
+                }
+              ],
+              "coefficient": 0.61677
+            },
+            {
+              "labcode": [
+                {
+                  "coding": [
+                    {
+                      "system": "http://loinc.org",
+                      "code": "2077-6",
+                      "display": "lab_Chloride Sweat-sCnc"
+                    }
+                  ]
+                }
+              ],
+              "coefficient": -0.40443
+            },
+            {
+              "labcode": [
+                {
+                  "coding": [
+                    {
+                      "system": "http://loinc.org",
+                      "code": "788-0",
+                      "display": "lab_RDW RBC Auto-Rto"
+                    }
+                  ]
+                }
+              ],
+              "coefficient": -0.424
+            },
+            {
+              "labcode": [
+                {
+                  "coding": [
+                    {
+                      "system": "http://loinc.org",
+                      "code": "789-8",
+                      "display": "lab_RBC # Bld Auto"
+                    }
+                  ]
+                }
+              ],
+              "coefficient": -0.46118
+            }
+          ]
+        }
+      }
+    },
+    {
+      "code": [
+        {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "788-0",
+              "display": "Erythrocyte distribution width [Ratio] by Automated count"
+            }
+          ]
+        }
+      ],
+      "count": 7204,
+      "frequencyPerYear": 0.3053,
+      "fractionOfSubjects": 0.2290,
+      "scalarDistribution": {
+        "units": {
+          "unit": "%",
+          "system": "http://unitsofmeasure.org",
+          "code": "%"
+        },
+        "min": 10.70,
+        "max": 33.60,
+        "mean": 14.68,
+        "median": 13.70,
+        "stdDev": 2.78,
+        "decile": [
+          {
+            "nth": 10,
+            "value": 12.20
+          },
+          {
+            "nth": 20,
+            "value": 12.70
+          },
+          {
+            "nth": 30,
+            "value": 13
+          },
+          {
+            "nth": 40,
+            "value": 13.30
+          },
+          {
+            "nth": 50,
+            "value": 13.70
+          },
+          {
+            "nth": 60,
+            "value": 14.30
+          },
+          {
+            "nth": 70,
+            "value": 15
+          },
+          {
+            "nth": 80,
+            "value": 16.50
+          },
+          {
+            "nth": 90,
+            "value": 18.50
+          }
+        ],
+        "normalizedHigh": 15.4,
+        "normalizedLow": 12.3,
+        "fractionAboveNormal": 0.26,
+        "fractionBelowNormal": 0.10,
+        "correlatedLabs": {
+          "topn": 20,
+          "abscorrelation": 0.4,
+          "entry": [
+            {
+              "labcode": [
+                {
+                  "coding": [
+                    {
+                      "system": "http://loinc.org",
+                      "code": "1975-2",
+                      "display": "lab_Bilirub SerPl-mCnc"
+                    }
+                  ]
+                }
+              ],
+              "coefficient": 0.44169
+            },
+            {
+              "labcode": [
+                {
+                  "coding": [
+                    {
+                      "system": "http://loinc.org",
+                      "code": "785-6",
+                      "display": "lab_MCH RBC Qn Auto"
+                    }
+                  ]
+                }
+              ],
+              "coefficient": -0.424
+            },
+            {
+              "labcode": [
+                {
+                  "coding": [
+                    {
+                      "system": "http://loinc.org",
+                      "code": "718-7",
+                      "display": "lab_Hgb Bld-mCnc"
+                    }
+                  ]
+                }
+              ],
+              "coefficient": -0.47033
+            }
+          ]
+        }
+      }
+    },
+    {
+      "code": [
+        {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "2345-7",
+              "display": "Glucose [Mass/volume] in Serum or Plasma"
+            }
+          ]
+        }
+      ],
+      "count": 6832,
+      "frequencyPerYear": 0.2896,
+      "fractionOfSubjects": 0.1911,
+      "scalarDistribution": {
+        "units": {
+          "unit": "mg/dL",
+          "system": "http://unitsofmeasure.org",
+          "code": "mg/dL"
+        },
+        "min": 21,
+        "max": 1218,
+        "mean": 111.64,
+        "median": 94,
+        "stdDev": 61.48,
+        "decile": [
+          {
+            "nth": 10,
+            "value": 77
+          },
+          {
+            "nth": 20,
+            "value": 83
+          },
+          {
+            "nth": 30,
+            "value": 87
+          },
+          {
+            "nth": 40,
+            "value": 90
+          },
+          {
+            "nth": 50,
+            "value": 94
+          },
+          {
+            "nth": 60,
+            "value": 99
+          },
+          {
+            "nth": 70,
+            "value": 107
+          },
+          {
+            "nth": 80,
+            "value": 120
+          },
+          {
+            "nth": 90,
+            "value": 157
+          }
+        ],
+        "normalizedHigh": 106,
+        "normalizedLow": 74,
+        "fractionAboveNormal": 0.30,
+        "fractionBelowNormal": 0.06,
+        "correlatedLabs": {
+          "topn": 20,
+          "abscorrelation": 0.4,
+          "entry": [
+            {
+              "labcode": [
+                {
+                  "coding": [
+                    {
+                      "system": "http://loinc.org",
+                      "code": "5902-2",
+                      "display": "lab_Prothrombin time"
+                    }
+                  ]
+                }
+              ],
+              "coefficient": 0.86379
+            },
+            {
+              "labcode": [
+                {
+                  "coding": [
+                    {
+                      "system": "http://loinc.org",
+                      "code": "2339-0",
+                      "display": "lab_Glucose Bld-mCnc"
+                    }
+                  ]
+                }
+              ],
+              "coefficient": 0.71268
+            },
+            {
+              "labcode": [
+                {
+                  "coding": [
+                    {
+                      "system": "http://loinc.org",
+                      "code": "14749-6",
+                      "display": "lab_Glucose SerPl-sCnc"
+                    }
+                  ]
+                }
+              ],
+              "coefficient": 0.61808
+            }
+          ]
+        }
+      }
+    },
+    {
+      "code": [
+        {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "2339-0",
+              "display": "Glucose [Mass/volume] in Blood"
+            }
+          ]
+        }
+      ],
+      "count": 120,
+      "frequencyPerYear": 0.0051,
+      "fractionOfSubjects": 0.0075,
+      "scalarDistribution": {
+        "units": {
+          "unit": "mg/dL",
+          "system": "http://unitsofmeasure.org",
+          "code": "mg/dL"
+        },
+        "min": 77,
+        "max": 440,
+        "mean": 111.49,
+        "median": 99,
+        "stdDev": 45.26,
+        "decile": [
+          {
+            "nth": 10,
+            "value": 84
+          },
+          {
+            "nth": 20,
+            "value": 87
+          },
+          {
+            "nth": 30,
+            "value": 93
+          },
+          {
+            "nth": 40,
+            "value": 95
+          },
+          {
+            "nth": 50,
+            "value": 99
+          },
+          {
+            "nth": 60,
+            "value": 104
+          },
+          {
+            "nth": 70,
+            "value": 110
+          },
+          {
+            "nth": 80,
+            "value": 124
+          },
+          {
+            "nth": 90,
+            "value": 143
+          }
+        ],
+        "correlatedLabs": {
+          "topn": 20,
+          "abscorrelation": 0.4,
+          "entry": [
+            {
+              "labcode": [
+                {
+                  "coding": [
+                    {
+                      "system": "http://loinc.org",
+                      "code": "2345-7",
+                      "display": "lab_Glucose SerPl-mCnc"
+                    }
+                  ]
+                }
+              ],
+              "coefficient": 0.71268
+            },
+            {
+              "labcode": [
+                {
+                  "coding": [
+                    {
+                      "system": "http://loinc.org",
+                      "code": "2777-1",
+                      "display": "lab_Phosphate SerPl-mCnc"
+                    }
+                  ]
+                }
+              ],
+              "coefficient": 0.59994
+            },
+            {
+              "labcode": [
+                {
+                  "coding": [
+                    {
+                      "system": "http://loinc.org",
+                      "code": "19123-9",
+                      "display": "lab_Magnesium SerPl-mCnc"
+                    }
+                  ]
+                }
+              ],
+              "coefficient": -0.40898
+            }
+          ]
+        }
+      }
+    },
+    {
+      "code": [
+        {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "14749-6",
+              "display": "Glucose [Moles/volume] in Serum or Plasma"
+            }
+          ]
+        }
+      ],
+      "count": 42,
+      "frequencyPerYear": 0.0018,
+      "fractionOfSubjects": 0.0030,
+      "scalarDistribution": {
+        "units": {
+          "unit": "mg/dL",
+          "system": "http://unitsofmeasure.org",
+          "code": "mg/dL"
+        },
+        "min": 61,
+        "max": 208,
+        "mean": 110.95,
+        "median": 103,
+        "stdDev": 31.76,
+        "decile": [
+          {
+            "nth": 10,
+            "value": 84
+          },
+          {
+            "nth": 20,
+            "value": 87
+          },
+          {
+            "nth": 30,
+            "value": 94
+          },
+          {
+            "nth": 40,
+            "value": 97
+          },
+          {
+            "nth": 50,
+            "value": 103
+          },
+          {
+            "nth": 60,
+            "value": 107
+          },
+          {
+            "nth": 70,
+            "value": 110
+          },
+          {
+            "nth": 80,
+            "value": 130
+          },
+          {
+            "nth": 90,
+            "value": 147
+          }
+        ],
+        "normalizedHigh": 99,
+        "normalizedLow": 60,
+        "fractionAboveNormal": 0.52,
+        "fractionBelowNormal": 0,
+        "correlatedLabs": {
+          "topn": 20,
+          "abscorrelation": 0.4,
+          "entry": [
+            {
+              "labcode": [
+                {
+                  "coding": [
+                    {
+                      "system": "http://loinc.org",
+                      "code": "2345-7",
+                      "display": "lab_Glucose SerPl-mCnc"
+                    }
+                  ]
+                }
+              ],
+              "coefficient": 0.61808
+            },
+            {
+              "labcode": [
+                {
+                  "coding": [
+                    {
+                      "system": "http://loinc.org",
+                      "code": "pulse",
+                      "display": "pulse"
+                    }
+                  ]
+                }
+              ],
+              "coefficient": 0.55008
+            },
+            {
+              "labcode": [
+                {
+                  "coding": [
+                    {
+                      "system": "http://loinc.org",
+                      "code": "bp_systolic",
+                      "display": "bp_systolic"
+                    }
+                  ]
+                }
+              ],
+              "coefficient": 0.42097
+            },
+            {
+              "labcode": [
+                {
+                  "coding": [
+                    {
+                      "system": "http://loinc.org",
+                      "code": "2823-3",
+                      "display": "lab_Potassium SerPl-sCnc"
+                    }
+                  ]
+                }
+              ],
+              "coefficient": -0.51691
+            },
+            {
+              "labcode": [
+                {
+                  "coding": [
+                    {
+                      "system": "http://loinc.org",
+                      "code": "5905-5",
+                      "display": "lab_Monocytes/leuk NFr Bld Auto"
+                    }
+                  ]
+                }
+              ],
+              "coefficient": -0.53929
+            }
+          ]
+        }
+      }
+    },
+    {
+      "code": [
+        {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "1558-6",
+              "display": "Fasting glucose [Mass/volume] in Serum or Plasma"
+            }
+          ]
+        }
+      ],
+      "count": 21,
+      "frequencyPerYear": 0.0009,
+      "fractionOfSubjects": 0.0014,
+      "scalarDistribution": {
+        "units": {
+          "unit": "mg/dL",
+          "system": "http://unitsofmeasure.org",
+          "code": "mg/dL"
+        },
+        "min": 75,
+        "max": 111,
+        "mean": 88.19,
+        "median": 86,
+        "stdDev": 9.15,
+        "decile": [
+          {
+            "nth": 10,
+            "value": 78
+          },
+          {
+            "nth": 20,
+            "value": 79
+          },
+          {
+            "nth": 30,
+            "value": 83
+          },
+          {
+            "nth": 40,
+            "value": 84
+          },
+          {
+            "nth": 50,
+            "value": 86
+          },
+          {
+            "nth": 60,
+            "value": 88
+          },
+          {
+            "nth": 70,
+            "value": 88
+          },
+          {
+            "nth": 80,
+            "value": 96
+          },
+          {
+            "nth": 90,
+            "value": 100
+          }
+        ],
+        "normalizedHigh": 99,
+        "normalizedLow": 65,
+        "fractionAboveNormal": 0.14,
+        "fractionBelowNormal": 0,
+        "correlatedLabs": {
+          "topn": 20,
+          "abscorrelation": 0.4,
+          "entry": [
+            {
+              "labcode": [
+                {
+                  "coding": [
+                    {
+                      "system": "http://loinc.org",
+                      "code": "bp_systolic",
+                      "display": "bp_systolic"
+                    }
+                  ]
+                }
+              ],
+              "coefficient": 0.60973
+            },
+            {
+              "labcode": [
+                {
+                  "coding": [
+                    {
+                      "system": "http://loinc.org",
+                      "code": "bp_diastolic",
+                      "display": "bp_diastolic"
+                    }
+                  ]
+                }
+              ],
+              "coefficient": 0.57289
+            },
+            {
+              "labcode": [
+                {
+                  "coding": [
+                    {
+                      "system": "http://loinc.org",
+                      "code": "weight",
+                      "display": "weight"
+                    }
+                  ]
+                }
+              ],
+              "coefficient": 0.54519
+            },
+            {
+              "labcode": [
+                {
+                  "coding": [
+                    {
+                      "system": "http://loinc.org",
+                      "code": "temperature",
+                      "display": "temperature"
+                    }
+                  ]
+                }
+              ],
+              "coefficient": -0.46114
+            }
+          ]
+        }
+      }
+    },
+    {
+      "code": [
+        {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "39789-3",
+              "display": "Potassium [Moles/volume] in Venous blood"
+            }
+          ]
+        }
+      ],
+      "count": 5936,
+      "frequencyPerYear": 0.2516,
+      "fractionOfSubjects": 0.1519,
+      "scalarDistribution": {
+        "units": {
+          "unit": "mmol/L",
+          "system": "http://unitsofmeasure.org",
+          "code": "mmol/L"
+        },
+        "min": 1.90,
+        "max": 7.10,
+        "mean": 4.21,
+        "median": 4.20,
+        "stdDev": 0.52,
+        "decile": [
+          {
+            "nth": 10,
+            "value": 3.50
+          },
+          {
+            "nth": 20,
+            "value": 3.80
+          },
+          {
+            "nth": 30,
+            "value": 4
+          },
+          {
+            "nth": 40,
+            "value": 4.10
+          },
+          {
+            "nth": 50,
+            "value": 4.20
+          },
+          {
+            "nth": 60,
+            "value": 4.40
+          },
+          {
+            "nth": 70,
+            "value": 4.50
+          },
+          {
+            "nth": 80,
+            "value": 4.60
+          },
+          {
+            "nth": 90,
+            "value": 4.80
+          }
+        ],
+        "correlatedLabs": {
+          "topn": 20,
+          "abscorrelation": 0.4
+        }
+      }
+    },
+    {
+      "code": [
+        {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "2823-3",
+              "display": "Potassium [Moles/volume] in Serum or Plasma"
+            }
+          ]
+        }
+      ],
+      "count": 772,
+      "frequencyPerYear": 0.0327,
+      "fractionOfSubjects": 0.0441,
+      "scalarDistribution": {
+        "units": {
+          "unit": "mmol/L",
+          "system": "http://unitsofmeasure.org",
+          "code": "mmol/L"
+        },
+        "min": 3.10,
+        "max": 6.30,
+        "mean": 4.38,
+        "median": 4.40,
+        "stdDev": 0.37,
+        "decile": [
+          {
+            "nth": 10,
+            "value": 4
+          },
+          {
+            "nth": 20,
+            "value": 4.10
+          },
+          {
+            "nth": 30,
+            "value": 4.20
+          },
+          {
+            "nth": 40,
+            "value": 4.30
+          },
+          {
+            "nth": 50,
+            "value": 4.40
+          },
+          {
+            "nth": 60,
+            "value": 4.40
+          },
+          {
+            "nth": 70,
+            "value": 4.50
+          },
+          {
+            "nth": 80,
+            "value": 4.70
+          },
+          {
+            "nth": 90,
+            "value": 4.80
+          }
+        ],
+        "normalizedHigh": 5.2,
+        "normalizedLow": 3.5,
+        "fractionAboveNormal": 0.03,
+        "fractionBelowNormal": 0.01,
+        "correlatedLabs": {
+          "topn": 20,
+          "abscorrelation": 0.4,
+          "entry": [
+            {
+              "labcode": [
+                {
+                  "coding": [
+                    {
+                      "system": "http://loinc.org",
+                      "code": "2000-8",
+                      "display": "lab_Calcium SerPl-sCnc"
+                    }
+                  ]
+                }
+              ],
+              "coefficient": 0.60693
+            },
+            {
+              "labcode": [
+                {
+                  "coding": [
+                    {
+                      "system": "http://loinc.org",
+                      "code": "14749-6",
+                      "display": "lab_Glucose SerPl-sCnc"
+                    }
+                  ]
+                }
+              ],
+              "coefficient": -0.51691
+            }
+          ]
+        }
+      }
+    },
+    {
+      "code": [
+        {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "17861-6",
+              "display": "Calcium [Mass/volume] in Serum or Plasma"
+            }
+          ]
+        }
+      ],
+      "count": 6845,
+      "frequencyPerYear": 0.2901,
+      "fractionOfSubjects": 0.1884,
+      "scalarDistribution": {
+        "units": {
+          "unit": "mg/dL",
+          "system": "http://unitsofmeasure.org",
+          "code": "mg/dL"
+        },
+        "min": 5.50,
+        "max": 13.70,
+        "mean": 9.24,
+        "median": 9.30,
+        "stdDev": 0.69,
+        "decile": [
+          {
+            "nth": 10,
+            "value": 8.30
+          },
+          {
+            "nth": 20,
+            "value": 8.80
+          },
+          {
+            "nth": 30,
+            "value": 9
+          },
+          {
+            "nth": 40,
+            "value": 9.20
+          },
+          {
+            "nth": 50,
+            "value": 9.30
+          },
+          {
+            "nth": 60,
+            "value": 9.50
+          },
+          {
+            "nth": 70,
+            "value": 9.60
+          },
+          {
+            "nth": 80,
+            "value": 9.80
+          },
+          {
+            "nth": 90,
+            "value": 10
+          }
+        ],
+        "normalizedHigh": 10.5,
+        "normalizedLow": 9,
+        "fractionAboveNormal": 0.01,
+        "fractionBelowNormal": 0.27,
+        "correlatedLabs": {
+          "topn": 20,
+          "abscorrelation": 0.4,
+          "entry": [
+            {
+              "labcode": [
+                {
+                  "coding": [
+                    {
+                      "system": "http://loinc.org",
+                      "code": "2000-8",
+                      "display": "lab_Calcium SerPl-sCnc"
+                    }
+                  ]
+                }
+              ],
+              "coefficient": 0.49849
+            },
+            {
+              "labcode": [
+                {
+                  "coding": [
+                    {
+                      "system": "http://loinc.org",
+                      "code": "2077-6",
+                      "display": "lab_Chloride Sweat-sCnc"
+                    }
+                  ]
+                }
+              ],
+              "coefficient": -0.68542
+            }
+          ]
+        }
+      }
+    },
+    {
+      "code": [
+        {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "2000-8",
+              "display": "Calcium [Moles/volume] in Serum or Plasma"
+            }
+          ]
+        }
+      ],
+      "count": 42,
+      "frequencyPerYear": 0.0018,
+      "fractionOfSubjects": 0.0030,
+      "scalarDistribution": {
+        "units": {
+          "unit": "mg/dL",
+          "system": "http://unitsofmeasure.org",
+          "code": "mg/dL"
+        },
+        "min": 7.80,
+        "max": 10.80,
+        "mean": 9.58,
+        "median": 9.60,
+        "stdDev": 0.52,
+        "decile": [
+          {
+            "nth": 10,
+            "value": 9
+          },
+          {
+            "nth": 20,
+            "value": 9.20
+          },
+          {
+            "nth": 30,
+            "value": 9.30
+          },
+          {
+            "nth": 40,
+            "value": 9.40
+          },
+          {
+            "nth": 50,
+            "value": 9.60
+          },
+          {
+            "nth": 60,
+            "value": 9.70
+          },
+          {
+            "nth": 70,
+            "value": 9.90
+          },
+          {
+            "nth": 80,
+            "value": 10
+          },
+          {
+            "nth": 90,
+            "value": 10.20
+          }
+        ],
+        "normalizedHigh": 10.4,
+        "normalizedLow": 8.5,
+        "fractionAboveNormal": 0.05,
+        "fractionBelowNormal": 0.02,
+        "correlatedLabs": {
+          "topn": 20,
+          "abscorrelation": 0.4,
+          "entry": [
+            {
+              "labcode": [
+                {
+                  "coding": [
+                    {
+                      "system": "http://loinc.org",
+                      "code": "2823-3",
+                      "display": "lab_Potassium SerPl-sCnc"
+                    }
+                  ]
+                }
+              ],
+              "coefficient": 0.60693
+            },
+            {
+              "labcode": [
+                {
+                  "coding": [
+                    {
+                      "system": "http://loinc.org",
+                      "code": "17861-6",
+                      "display": "lab_Calcium SerPl-mCnc"
+                    }
+                  ]
+                }
+              ],
+              "coefficient": 0.49849
+            }
+          ]
+        }
+      }
+    },
+    {
+      "code": [
+        {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "2951-2",
+              "display": "Sodium [Moles/volume] in Serum or Plasma"
+            }
+          ]
+        }
+      ],
+      "count": 6861,
+      "frequencyPerYear": 0.2908,
+      "fractionOfSubjects": 0.1898,
+      "scalarDistribution": {
+        "units": {
+          "unit": "mmol/L",
+          "system": "http://unitsofmeasure.org",
+          "code": "mmol/L"
+        },
+        "min": 118,
+        "max": 174,
+        "mean": 139.77,
+        "median": 140,
+        "stdDev": 3.71,
+        "decile": [
+          {
+            "nth": 10,
+            "value": 136
+          },
+          {
+            "nth": 20,
+            "value": 138
+          },
+          {
+            "nth": 30,
+            "value": 138
+          },
+          {
+            "nth": 40,
+            "value": 139
+          },
+          {
+            "nth": 50,
+            "value": 140
+          },
+          {
+            "nth": 60,
+            "value": 140
+          },
+          {
+            "nth": 70,
+            "value": 141
+          },
+          {
+            "nth": 80,
+            "value": 142
+          },
+          {
+            "nth": 90,
+            "value": 143
+          }
+        ],
+        "normalizedHigh": 145,
+        "normalizedLow": 136,
+        "fractionAboveNormal": 0.04,
+        "fractionBelowNormal": 0.09,
+        "correlatedLabs": {
+          "topn": 20,
+          "abscorrelation": 0.4
+        }
+      }
+    },
+    {
+      "code": [
+        {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "12962-7",
+              "display": "Urea nitrogen [Mass/volume] in Venous blood"
+            }
+          ]
+        }
+      ],
+      "count": 6034,
+      "frequencyPerYear": 0.2557,
+      "fractionOfSubjects": 0.1541,
+      "scalarDistribution": {
+        "units": {
+          "unit": "mg/dL",
+          "system": "http://unitsofmeasure.org",
+          "code": "mg/dL"
+        },
+        "min": 1,
+        "max": 177,
+        "mean": 13.85,
+        "median": 11,
+        "stdDev": 13.55,
+        "decile": [
+          {
+            "nth": 10,
+            "value": 6
+          },
+          {
+            "nth": 20,
+            "value": 8
+          },
+          {
+            "nth": 30,
+            "value": 9
+          },
+          {
+            "nth": 40,
+            "value": 10
+          },
+          {
+            "nth": 50,
+            "value": 11
+          },
+          {
+            "nth": 60,
+            "value": 12
+          },
+          {
+            "nth": 70,
+            "value": 14
+          },
+          {
+            "nth": 80,
+            "value": 16
+          },
+          {
+            "nth": 90,
+            "value": 20
+          }
+        ],
+        "correlatedLabs": {
+          "topn": 20,
+          "abscorrelation": 0.4,
+          "entry": [
+            {
+              "labcode": [
+                {
+                  "coding": [
+                    {
+                      "system": "http://loinc.org",
+                      "code": "736-9",
+                      "display": "lab_Lymphocytes/leuk NFr Bld Auto"
+                    }
+                  ]
+                }
+              ],
+              "coefficient": 0.41154
+            }
+          ]
+        }
+      }
+    },
+    {
+      "code": [
+        {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "3094-0",
+              "display": "Urea nitrogen [Mass/volume] in Serum or Plasma"
+            }
+          ]
+        }
+      ],
+      "count": 773,
+      "frequencyPerYear": 0.0328,
+      "fractionOfSubjects": 0.0440,
+      "scalarDistribution": {
+        "units": {
+          "unit": "mg/dL",
+          "system": "http://unitsofmeasure.org",
+          "code": "mg/dL"
+        },
+        "min": 3,
+        "max": 30,
+        "mean": 11.66,
+        "median": 11,
+        "stdDev": 3.74,
+        "decile": [
+          {
+            "nth": 10,
+            "value": 7
+          },
+          {
+            "nth": 20,
+            "value": 8
+          },
+          {
+            "nth": 30,
+            "value": 9
+          },
+          {
+            "nth": 40,
+            "value": 10
+          },
+          {
+            "nth": 50,
+            "value": 11
+          },
+          {
+            "nth": 60,
+            "value": 12
+          },
+          {
+            "nth": 70,
+            "value": 13
+          },
+          {
+            "nth": 80,
+            "value": 15
+          },
+          {
+            "nth": 90,
+            "value": 17
+          }
+        ],
+        "normalizedHigh": 25,
+        "normalizedLow": 7,
+        "fractionAboveNormal": 0.00,
+        "fractionBelowNormal": 0.05,
+        "correlatedLabs": {
+          "topn": 20,
+          "abscorrelation": 0.4
+        }
+      }
+    },
+    {
+      "code": [
+        {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "1742-6",
+              "display": "Alanine aminotransferase [Enzymatic activity/volume] in Serum or Plasma"
+            }
+          ]
+        }
+      ],
+      "count": 5418,
+      "frequencyPerYear": 0.2296,
+      "fractionOfSubjects": 0.1762,
+      "scalarDistribution": {
+        "units": {
+          "unit": "U/L",
+          "system": "http://unitsofmeasure.org",
+          "code": "U/L"
+        },
+        "min": 4,
+        "max": 6672,
+        "mean": 34.44,
+        "median": 17,
+        "stdDev": 138.67,
+        "decile": [
+          {
+            "nth": 10,
+            "value": 9
+          },
+          {
+            "nth": 20,
+            "value": 11
+          },
+          {
+            "nth": 30,
+            "value": 13
+          },
+          {
+            "nth": 40,
+            "value": 15
+          },
+          {
+            "nth": 50,
+            "value": 17
+          },
+          {
+            "nth": 60,
+            "value": 19
+          },
+          {
+            "nth": 70,
+            "value": 23
+          },
+          {
+            "nth": 80,
+            "value": 30
+          },
+          {
+            "nth": 90,
+            "value": 52
+          }
+        ],
+        "normalizedHigh": 25,
+        "normalizedLow": 0,
+        "fractionAboveNormal": 0.25,
+        "fractionBelowNormal": 0,
+        "correlatedLabs": {
+          "topn": 20,
+          "abscorrelation": 0.4,
+          "entry": [
+            {
+              "labcode": [
+                {
+                  "coding": [
+                    {
+                      "system": "http://loinc.org",
+                      "code": "1920-8",
+                      "display": "lab_AST SerPl-cCnc"
+                    }
+                  ]
+                }
+              ],
+              "coefficient": 0.70851
+            },
+            {
+              "labcode": [
+                {
+                  "coding": [
+                    {
+                      "system": "http://loinc.org",
+                      "code": "34705-4",
+                      "display": "lab_pCO2 temp adj Bld"
+                    }
+                  ]
+                }
+              ],
+              "coefficient": 0.43978
+            }
+          ]
+        }
+      }
+    },
+    {
+      "code": [
+        {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "1920-8",
+              "display": "Aspartate aminotransferase [Enzymatic activity/volume] in Serum or Plasma"
+            }
+          ]
+        }
+      ],
+      "count": 5155,
+      "frequencyPerYear": 0.2185,
+      "fractionOfSubjects": 0.1705,
+      "scalarDistribution": {
+        "units": {
+          "unit": "IU/L",
+          "system": "http://unitsofmeasure.org",
+          "code": "IU/L"
+        },
+        "min": 5,
+        "max": 2331,
+        "mean": 33.74,
+        "median": 24,
+        "stdDev": 54.53,
+        "decile": [
+          {
+            "nth": 10,
+            "value": 15
+          },
+          {
+            "nth": 20,
+            "value": 17
+          },
+          {
+            "nth": 30,
+            "value": 19
+          },
+          {
+            "nth": 40,
+            "value": 22
+          },
+          {
+            "nth": 50,
+            "value": 24
+          },
+          {
+            "nth": 60,
+            "value": 27
+          },
+          {
+            "nth": 70,
+            "value": 30
+          },
+          {
+            "nth": 80,
+            "value": 37
+          },
+          {
+            "nth": 90,
+            "value": 52
+          }
+        ],
+        "normalizedHigh": 40,
+        "normalizedLow": 0,
+        "fractionAboveNormal": 0.17,
+        "fractionBelowNormal": 0,
+        "correlatedLabs": {
+          "topn": 20,
+          "abscorrelation": 0.4,
+          "entry": [
+            {
+              "labcode": [
+                {
+                  "coding": [
+                    {
+                      "system": "http://loinc.org",
+                      "code": "1742-6",
+                      "display": "lab_ALT SerPl-cCnc"
+                    }
+                  ]
+                }
+              ],
+              "coefficient": 0.70851
+            }
+          ]
+        }
+      }
+    },
+    {
+      "code": [
+        {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "6768-6",
+              "display": "Alkaline phosphatase [Enzymatic activity/volume] in Serum or Plasma"
+            }
+          ]
+        }
+      ],
+      "count": 5399,
+      "frequencyPerYear": 0.2288,
+      "fractionOfSubjects": 0.1737,
+      "scalarDistribution": {
+        "units": {
+          "unit": "U/L",
+          "system": "http://unitsofmeasure.org",
+          "code": "U/L"
+        },
+        "min": 28,
+        "max": 674,
+        "mean": 197.86,
+        "median": 185,
+        "stdDev": 93.31,
+        "decile": [
+          {
+            "nth": 10,
+            "value": 89
+          },
+          {
+            "nth": 20,
+            "value": 113
+          },
+          {
+            "nth": 30,
+            "value": 139
+          },
+          {
+            "nth": 40,
+            "value": 160
+          },
+          {
+            "nth": 50,
+            "value": 185
+          },
+          {
+            "nth": 60,
+            "value": 211
+          },
+          {
+            "nth": 70,
+            "value": 237
+          },
+          {
+            "nth": 80,
+            "value": 270
+          },
+          {
+            "nth": 90,
+            "value": 321
+          }
+        ],
+        "normalizedHigh": 120,
+        "normalizedLow": 30,
+        "fractionAboveNormal": 0.77,
+        "fractionBelowNormal": 0.00,
+        "correlatedLabs": {
+          "topn": 20,
+          "abscorrelation": 0.4
+        }
+      }
+    },
+    {
+      "code": [
+        {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "1975-2",
+              "display": "Bilirubin.total [Mass/volume] in Serum or Plasma"
+            }
+          ]
+        }
+      ],
+      "count": 4379,
+      "frequencyPerYear": 0.1856,
+      "fractionOfSubjects": 0.1466,
+      "scalarDistribution": {
+        "units": {
+          "unit": "mg/dL",
+          "system": "http://unitsofmeasure.org",
+          "code": "mg/dL"
+        },
+        "min": 0.10,
+        "max": 22.80,
+        "mean": 0.81,
+        "median": 0.40,
+        "stdDev": 1.38,
+        "decile": [
+          {
+            "nth": 10,
+            "value": 0.20
+          },
+          {
+            "nth": 20,
+            "value": 0.30
+          },
+          {
+            "nth": 30,
+            "value": 0.30
+          },
+          {
+            "nth": 40,
+            "value": 0.30
+          },
+          {
+            "nth": 50,
+            "value": 0.40
+          },
+          {
+            "nth": 60,
+            "value": 0.50
+          },
+          {
+            "nth": 70,
+            "value": 0.60
+          },
+          {
+            "nth": 80,
+            "value": 0.90
+          },
+          {
+            "nth": 90,
+            "value": 1.90
+          }
+        ],
+        "normalizedHigh": 1.2,
+        "normalizedLow": 0.2,
+        "fractionAboveNormal": 0.16,
+        "fractionBelowNormal": 0.00,
+        "correlatedLabs": {
+          "topn": 20,
+          "abscorrelation": 0.4,
+          "entry": [
+            {
+              "labcode": [
+                {
+                  "coding": [
+                    {
+                      "system": "http://loinc.org",
+                      "code": "788-0",
+                      "display": "lab_RDW RBC Auto-Rto"
+                    }
+                  ]
+                }
+              ],
+              "coefficient": 0.44169
+            }
+          ]
+        }
+      }
+    },
+    {
+      "code": [
+        {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "713-8",
+              "display": "Eosinophils/100 leukocytes in Blood by Automated count"
+            }
+          ]
+        }
+      ],
+      "count": 4555,
+      "frequencyPerYear": 0.1931,
+      "fractionOfSubjects": 0.1533,
+      "scalarDistribution": {
+        "units": {
+          "unit": "%",
+          "system": "http://unitsofmeasure.org",
+          "code": "%"
+        },
+        "min": 0,
+        "max": 55.10,
+        "mean": 3.63,
+        "median": 2.60,
+        "stdDev": 3.77,
+        "decile": [
+          {
+            "nth": 10,
+            "value": 0.20
+          },
+          {
+            "nth": 20,
+            "value": 0.80
+          },
+          {
+            "nth": 30,
+            "value": 1.40
+          },
+          {
+            "nth": 40,
+            "value": 2
+          },
+          {
+            "nth": 50,
+            "value": 2.60
+          },
+          {
+            "nth": 60,
+            "value": 3.30
+          },
+          {
+            "nth": 70,
+            "value": 4.30
+          },
+          {
+            "nth": 80,
+            "value": 5.80
+          },
+          {
+            "nth": 90,
+            "value": 8.30
+          }
+        ],
+        "normalizedHigh": 7,
+        "normalizedLow": 0,
+        "fractionAboveNormal": 0.14,
+        "fractionBelowNormal": 0,
+        "correlatedLabs": {
+          "topn": 20,
+          "abscorrelation": 0.4,
+          "entry": [
+            {
+              "labcode": [
+                {
+                  "coding": [
+                    {
+                      "system": "http://loinc.org",
+                      "code": "714-6",
+                      "display": "lab_Eosinophil/leuk NFr Bld Manual"
+                    }
+                  ]
+                }
+              ],
+              "coefficient": 0.47372
+            }
+          ]
+        }
+      }
+    },
+    {
+      "code": [
+        {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "706-2",
+              "display": "Basophils/100 leukocytes in Blood by Automated count"
+            }
+          ]
+        }
+      ],
+      "count": 4142,
+      "frequencyPerYear": 0.1756,
+      "fractionOfSubjects": 0.1361,
+      "scalarDistribution": {
+        "units": {
+          "unit": "%",
+          "system": "http://unitsofmeasure.org",
+          "code": "%"
+        },
+        "min": 0,
+        "max": 4,
+        "mean": 0.55,
+        "median": 0.50,
+        "stdDev": 0.37,
+        "decile": [
+          {
+            "nth": 10,
+            "value": 0.20
+          },
+          {
+            "nth": 20,
+            "value": 0.30
+          },
+          {
+            "nth": 30,
+            "value": 0.30
+          },
+          {
+            "nth": 40,
+            "value": 0.40
+          },
+          {
+            "nth": 50,
+            "value": 0.50
+          },
+          {
+            "nth": 60,
+            "value": 0.50
+          },
+          {
+            "nth": 70,
+            "value": 0.60
+          },
+          {
+            "nth": 80,
+            "value": 0.80
+          },
+          {
+            "nth": 90,
+            "value": 1
+          }
+        ],
+        "normalizedHigh": 1.0,
+        "normalizedLow": 0.0,
+        "fractionAboveNormal": 0.09,
+        "fractionBelowNormal": 0,
+        "correlatedLabs": {
+          "topn": 20,
+          "abscorrelation": 0.4
+        }
+      }
+    },
+    {
+      "code": [
+        {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "5905-5",
+              "display": "Monocytes/100 leukocytes in Blood by Automated count"
+            }
+          ]
+        }
+      ],
+      "count": 3896,
+      "frequencyPerYear": 0.1651,
+      "fractionOfSubjects": 0.1248,
+      "scalarDistribution": {
+        "units": {
+          "unit": "%",
+          "system": "http://unitsofmeasure.org",
+          "code": "%"
+        },
+        "min": 0.30,
+        "max": 61.20,
+        "mean": 8.86,
+        "median": 8,
+        "stdDev": 4.57,
+        "decile": [
+          {
+            "nth": 10,
+            "value": 5
+          },
+          {
+            "nth": 20,
+            "value": 6
+          },
+          {
+            "nth": 30,
+            "value": 6.70
+          },
+          {
+            "nth": 40,
+            "value": 7.40
+          },
+          {
+            "nth": 50,
+            "value": 8
+          },
+          {
+            "nth": 60,
+            "value": 8.70
+          },
+          {
+            "nth": 70,
+            "value": 9.60
+          },
+          {
+            "nth": 80,
+            "value": 10.90
+          },
+          {
+            "nth": 90,
+            "value": 13.30
+          }
+        ],
+        "normalizedHigh": 12,
+        "normalizedLow": 0,
+        "fractionAboveNormal": 0.14,
+        "fractionBelowNormal": 0,
+        "correlatedLabs": {
+          "topn": 20,
+          "abscorrelation": 0.4,
+          "entry": [
+            {
+              "labcode": [
+                {
+                  "coding": [
+                    {
+                      "system": "http://loinc.org",
+                      "code": "744-3",
+                      "display": "lab_Monocytes/leuk NFr Bld Manual"
+                    }
+                  ]
+                }
+              ],
+              "coefficient": 0.49228
+            },
+            {
+              "labcode": [
+                {
+                  "coding": [
+                    {
+                      "system": "http://loinc.org",
+                      "code": "14749-6",
+                      "display": "lab_Glucose SerPl-sCnc"
+                    }
+                  ]
+                }
+              ],
+              "coefficient": -0.53929
+            }
+          ]
+        }
+      }
+    },
+    {
+      "code": [
+        {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "2093-3",
+              "display": "Cholesterol [Mass/volume] in Serum or Plasma"
+            }
+          ]
+        }
+      ],
+      "count": 2195,
+      "frequencyPerYear": 0.0930,
+      "fractionOfSubjects": 0.1539,
+      "scalarDistribution": {
+        "units": {
+          "unit": "mg/dL",
+          "system": "http://unitsofmeasure.org",
+          "code": "mg/dL"
+        },
+        "min": 53,
+        "max": 402,
+        "mean": 160.21,
+        "median": 156,
+        "stdDev": 35.34,
+        "decile": [
+          {
+            "nth": 10,
+            "value": 123
+          },
+          {
+            "nth": 20,
+            "value": 133
+          },
+          {
+            "nth": 30,
+            "value": 141
+          },
+          {
+            "nth": 40,
+            "value": 148
+          },
+          {
+            "nth": 50,
+            "value": 156
+          },
+          {
+            "nth": 60,
+            "value": 164
+          },
+          {
+            "nth": 70,
+            "value": 172
+          },
+          {
+            "nth": 80,
+            "value": 183
+          },
+          {
+            "nth": 90,
+            "value": 201
+          }
+        ],
+        "normalizedHigh": 199,
+        "normalizedLow": 100,
+        "fractionAboveNormal": 0.10,
+        "fractionBelowNormal": 0.01,
+        "correlatedLabs": {
+          "topn": 20,
+          "abscorrelation": 0.4,
+          "entry": [
+            {
+              "labcode": [
+                {
+                  "coding": [
+                    {
+                      "system": "http://loinc.org",
+                      "code": "5902-2",
+                      "display": "lab_Prothrombin time"
+                    }
+                  ]
+                }
+              ],
+              "coefficient": -0.40243
+            }
+          ]
+        }
+      }
+    },
+    {
+      "code": [
+        {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "2777-1",
+              "display": "Phosphate [Mass/volume] in Serum or Plasma"
+            }
+          ]
+        }
+      ],
+      "count": 1987,
+      "frequencyPerYear": 0.0842,
+      "fractionOfSubjects": 0.0270,
+      "scalarDistribution": {
+        "units": {
+          "unit": "mg/dL",
+          "system": "http://unitsofmeasure.org",
+          "code": "mg/dL"
+        },
+        "min": 0.90,
+        "max": 11,
+        "mean": 4.16,
+        "median": 4.10,
+        "stdDev": 1.14,
+        "decile": [
+          {
+            "nth": 10,
+            "value": 2.80
+          },
+          {
+            "nth": 20,
+            "value": 3.20
+          },
+          {
+            "nth": 30,
+            "value": 3.60
+          },
+          {
+            "nth": 40,
+            "value": 3.90
+          },
+          {
+            "nth": 50,
+            "value": 4.10
+          },
+          {
+            "nth": 60,
+            "value": 4.40
+          },
+          {
+            "nth": 70,
+            "value": 4.70
+          },
+          {
+            "nth": 80,
+            "value": 4.90
+          },
+          {
+            "nth": 90,
+            "value": 5.40
+          }
+        ],
+        "normalizedHigh": 4.5,
+        "normalizedLow": 2.5,
+        "fractionAboveNormal": 0.33,
+        "fractionBelowNormal": 0.05,
+        "correlatedLabs": {
+          "topn": 20,
+          "abscorrelation": 0.4,
+          "entry": [
+            {
+              "labcode": [
+                {
+                  "coding": [
+                    {
+                      "system": "http://loinc.org",
+                      "code": "2339-0",
+                      "display": "lab_Glucose Bld-mCnc"
+                    }
+                  ]
+                }
+              ],
+              "coefficient": 0.59994
+            }
+          ]
+        }
+      }
+    },
+    {
+      "code": [
+        {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "2571-8",
+              "display": "Triglyceride [Mass/volume] in Serum or Plasma"
+            }
+          ]
+        }
+      ],
+      "count": 1958,
+      "frequencyPerYear": 0.0830,
+      "fractionOfSubjects": 0.1298,
+      "scalarDistribution": {
+        "units": {
+          "unit": "mg/dL",
+          "system": "http://unitsofmeasure.org",
+          "code": "mg/dL"
+        },
+        "min": 21,
+        "max": 2903,
+        "mean": 101.89,
+        "median": 79,
+        "stdDev": 104.01,
+        "decile": [
+          {
+            "nth": 10,
+            "value": 44
+          },
+          {
+            "nth": 20,
+            "value": 53
+          },
+          {
+            "nth": 30,
+            "value": 60
+          },
+          {
+            "nth": 40,
+            "value": 69
+          },
+          {
+            "nth": 50,
+            "value": 79
+          },
+          {
+            "nth": 60,
+            "value": 93
+          },
+          {
+            "nth": 70,
+            "value": 109
+          },
+          {
+            "nth": 80,
+            "value": 131
+          },
+          {
+            "nth": 90,
+            "value": 175
+          }
+        ],
+        "normalizedHigh": 149,
+        "normalizedLow": 0,
+        "fractionAboveNormal": 0.15,
+        "fractionBelowNormal": 0,
+        "correlatedLabs": {
+          "topn": 20,
+          "abscorrelation": 0.4,
+          "entry": [
+            {
+              "labcode": [
+                {
+                  "coding": [
+                    {
+                      "system": "http://loinc.org",
+                      "code": "19254-2",
+                      "display": "lab_pO2 temp adj Bld"
+                    }
+                  ]
+                }
+              ],
+              "coefficient": -0.62862
+            }
+          ]
+        }
+      }
+    },
+    {
+      "code": [
+        {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "2085-9",
+              "display": "Cholesterol in HDL [Mass/volume] in Serum or Plasma"
+            }
+          ]
+        }
+      ],
+      "count": 1849,
+      "frequencyPerYear": 0.0784,
+      "fractionOfSubjects": 0.1303,
+      "scalarDistribution": {
+        "units": {
+          "unit": "mg/dL",
+          "system": "http://unitsofmeasure.org",
+          "code": "mg/dL"
+        },
+        "min": 8,
+        "max": 130,
+        "mean": 53.16,
+        "median": 51,
+        "stdDev": 14.59,
+        "decile": [
+          {
+            "nth": 10,
+            "value": 36
+          },
+          {
+            "nth": 20,
+            "value": 41
+          },
+          {
+            "nth": 30,
+            "value": 45
+          },
+          {
+            "nth": 40,
+            "value": 48
+          },
+          {
+            "nth": 50,
+            "value": 51
+          },
+          {
+            "nth": 60,
+            "value": 55
+          },
+          {
+            "nth": 70,
+            "value": 59
+          },
+          {
+            "nth": 80,
+            "value": 64
+          },
+          {
+            "nth": 90,
+            "value": 72
+          }
+        ],
+        "normalizedHigh": 76,
+        "normalizedLow": 36,
+        "fractionAboveNormal": 0.06,
+        "fractionBelowNormal": 0.09,
+        "correlatedLabs": {
+          "topn": 20,
+          "abscorrelation": 0.4
+        }
+      }
+    },
+    {
+      "code": [
+        {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "19123-9",
+              "display": "Magnesium [Mass/volume] in Serum or Plasma"
+            }
+          ]
+        }
+      ],
+      "count": 1656,
+      "frequencyPerYear": 0.0702,
+      "fractionOfSubjects": 0.0240,
+      "scalarDistribution": {
+        "units": {
+          "unit": "mg/dL",
+          "system": "http://unitsofmeasure.org",
+          "code": "mg/dL"
+        },
+        "min": 0.70,
+        "max": 7.20,
+        "mean": 2,
+        "median": 2,
+        "stdDev": 0.35,
+        "decile": [
+          {
+            "nth": 10,
+            "value": 1.60
+          },
+          {
+            "nth": 20,
+            "value": 1.80
+          },
+          {
+            "nth": 30,
+            "value": 1.80
+          },
+          {
+            "nth": 40,
+            "value": 1.90
+          },
+          {
+            "nth": 50,
+            "value": 2
+          },
+          {
+            "nth": 60,
+            "value": 2
+          },
+          {
+            "nth": 70,
+            "value": 2.10
+          },
+          {
+            "nth": 80,
+            "value": 2.20
+          },
+          {
+            "nth": 90,
+            "value": 2.40
+          }
+        ],
+        "normalizedHigh": 2.3,
+        "normalizedLow": 1.6,
+        "fractionAboveNormal": 0.11,
+        "fractionBelowNormal": 0.05,
+        "correlatedLabs": {
+          "topn": 20,
+          "abscorrelation": 0.4,
+          "entry": [
+            {
+              "labcode": [
+                {
+                  "coding": [
+                    {
+                      "system": "http://loinc.org",
+                      "code": "2339-0",
+                      "display": "lab_Glucose Bld-mCnc"
+                    }
+                  ]
+                }
+              ],
+              "coefficient": -0.40898
+            }
+          ]
+        }
+      }
+    },
+    {
+      "code": [
+        {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "737-7",
+              "display": "Lymphocytes/100 leukocytes in Blood by Manual count"
+            }
+          ]
+        }
+      ],
+      "count": 959,
+      "frequencyPerYear": 0.0406,
+      "fractionOfSubjects": 0.0200,
+      "scalarDistribution": {
+        "units": {
+          "unit": "%",
+          "system": "http://unitsofmeasure.org",
+          "code": "%"
+        },
+        "min": 0,
+        "max": 100,
+        "mean": 29.15,
+        "median": 24,
+        "stdDev": 23.49,
+        "decile": [
+          {
+            "nth": 10,
+            "value": 2
+          },
+          {
+            "nth": 20,
+            "value": 7
+          },
+          {
+            "nth": 30,
+            "value": 11
+          },
+          {
+            "nth": 40,
+            "value": 18
+          },
+          {
+            "nth": 50,
+            "value": 24
+          },
+          {
+            "nth": 60,
+            "value": 32
+          },
+          {
+            "nth": 70,
+            "value": 40
+          },
+          {
+            "nth": 80,
+            "value": 50
+          },
+          {
+            "nth": 90,
+            "value": 64
+          }
+        ],
+        "normalizedHigh": 44,
+        "normalizedLow": 24,
+        "fractionAboveNormal": 0.25,
+        "fractionBelowNormal": 0.49,
+        "correlatedLabs": {
+          "topn": 20,
+          "abscorrelation": 0.4,
+          "entry": [
+            {
+              "labcode": [
+                {
+                  "coding": [
+                    {
+                      "system": "http://loinc.org",
+                      "code": "33256-9",
+                      "display": "lab_WBC nRBC cor # Bld Auto"
+                    }
+                  ]
+                }
+              ],
+              "coefficient": -0.48924
+            }
+          ]
+        }
+      }
+    },
+    {
+      "code": [
+        {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "736-9",
+              "display": "Lymphocytes/100 leukocytes in Blood by Automated count"
+            }
+          ]
+        }
+      ],
+      "count": 57,
+      "frequencyPerYear": 0.0024,
+      "fractionOfSubjects": 0.0038,
+      "scalarDistribution": {
+        "units": {
+          "unit": "%",
+          "system": "http://unitsofmeasure.org",
+          "code": "%"
+        },
+        "min": 7.80,
+        "max": 61.80,
+        "mean": 37.06,
+        "median": 37.10,
+        "stdDev": 12.00,
+        "decile": [
+          {
+            "nth": 10,
+            "value": 21.80
+          },
+          {
+            "nth": 20,
+            "value": 24.70
+          },
+          {
+            "nth": 30,
+            "value": 27.40
+          },
+          {
+            "nth": 40,
+            "value": 34.70
+          },
+          {
+            "nth": 50,
+            "value": 37.50
+          },
+          {
+            "nth": 60,
+            "value": 40.40
+          },
+          {
+            "nth": 70,
+            "value": 42.50
+          },
+          {
+            "nth": 80,
+            "value": 46.40
+          },
+          {
+            "nth": 90,
+            "value": 53.50
+          }
+        ],
+        "correlatedLabs": {
+          "topn": 20,
+          "abscorrelation": 0.4,
+          "entry": [
+            {
+              "labcode": [
+                {
+                  "coding": [
+                    {
+                      "system": "http://loinc.org",
+                      "code": "12962-7",
+                      "display": "lab_BUN BldV-mCnc"
+                    }
+                  ]
+                }
+              ],
+              "coefficient": 0.41154
+            },
+            {
+              "labcode": [
+                {
+                  "coding": [
+                    {
+                      "system": "http://loinc.org",
+                      "code": "6690-2",
+                      "display": "lab_WBC # Bld Auto"
+                    }
+                  ]
+                }
+              ],
+              "coefficient": -0.41263
+            },
+            {
+              "labcode": [
+                {
+                  "coding": [
+                    {
+                      "system": "http://loinc.org",
+                      "code": "33256-9",
+                      "display": "lab_WBC nRBC cor # Bld Auto"
+                    }
+                  ]
+                }
+              ],
+              "coefficient": -0.44339
+            }
+          ]
+        }
+      }
+    },
+    {
+      "code": [
+        {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "744-3",
+              "display": "Monocytes/100 leukocytes in Blood by Manual count"
+            }
+          ]
+        }
+      ],
+      "count": 954,
+      "frequencyPerYear": 0.0404,
+      "fractionOfSubjects": 0.0200,
+      "scalarDistribution": {
+        "units": {
+          "unit": "%",
+          "system": "http://unitsofmeasure.org",
+          "code": "%"
+        },
+        "min": 0,
+        "max": 80,
+        "mean": 9.93,
+        "median": 7,
+        "stdDev": 11.39,
+        "decile": [
+          {
+            "nth": 10,
+            "value": 1
+          },
+          {
+            "nth": 20,
+            "value": 2
+          },
+          {
+            "nth": 30,
+            "value": 4
+          },
+          {
+            "nth": 40,
+            "value": 5
+          },
+          {
+            "nth": 50,
+            "value": 7
+          },
+          {
+            "nth": 60,
+            "value": 9
+          },
+          {
+            "nth": 70,
+            "value": 10
+          },
+          {
+            "nth": 80,
+            "value": 14
+          },
+          {
+            "nth": 90,
+            "value": 22
+          }
+        ],
+        "normalizedHigh": 12,
+        "normalizedLow": 1,
+        "fractionAboveNormal": 0.23,
+        "fractionBelowNormal": 0.08,
+        "correlatedLabs": {
+          "topn": 20,
+          "abscorrelation": 0.4,
+          "entry": [
+            {
+              "labcode": [
+                {
+                  "coding": [
+                    {
+                      "system": "http://loinc.org",
+                      "code": "5905-5",
+                      "display": "lab_Monocytes/leuk NFr Bld Auto"
+                    }
+                  ]
+                }
+              ],
+              "coefficient": 0.49228
+            }
+          ]
+        }
+      }
+    },
+    {
+      "code": [
+        {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "5905-5",
+              "display": "Monocytes/100 leukocytes in Blood by Automated count"
+            }
+          ]
+        }
+      ],
+      "count": 57,
+      "frequencyPerYear": 0.0024,
+      "fractionOfSubjects": 0.0038,
+      "scalarDistribution": {
+        "units": {
+          "unit": "%",
+          "system": "http://unitsofmeasure.org",
+          "code": "%"
+        },
+        "min": 3.50,
+        "max": 19.80,
+        "mean": 8.50,
+        "median": 8.70,
+        "stdDev": 2.91,
+        "decile": [
+          {
+            "nth": 10,
+            "value": 5.10
+          },
+          {
+            "nth": 20,
+            "value": 5.70
+          },
+          {
+            "nth": 30,
+            "value": 6.50
+          },
+          {
+            "nth": 40,
+            "value": 7.50
+          },
+          {
+            "nth": 50,
+            "value": 8.80
+          },
+          {
+            "nth": 60,
+            "value": 9
+          },
+          {
+            "nth": 70,
+            "value": 9.60
+          },
+          {
+            "nth": 80,
+            "value": 10.50
+          },
+          {
+            "nth": 90,
+            "value": 11.50
+          }
+        ],
+        "normalizedHigh": 12,
+        "normalizedLow": 0,
+        "fractionAboveNormal": 0.07,
+        "fractionBelowNormal": 0,
+        "correlatedLabs": {
+          "topn": 20,
+          "abscorrelation": 0.4,
+          "entry": [
+            {
+              "labcode": [
+                {
+                  "coding": [
+                    {
+                      "system": "http://loinc.org",
+                      "code": "744-3",
+                      "display": "lab_Monocytes/leuk NFr Bld Manual"
+                    }
+                  ]
+                }
+              ],
+              "coefficient": 0.49228
+            },
+            {
+              "labcode": [
+                {
+                  "coding": [
+                    {
+                      "system": "http://loinc.org",
+                      "code": "14749-6",
+                      "display": "lab_Glucose SerPl-sCnc"
+                    }
+                  ]
+                }
+              ],
+              "coefficient": -0.53929
+            }
+          ]
+        }
+      }
+    },
+    {
+      "code": [
+        {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "714-6",
+              "display": "Eosinophils/100 leukocytes in Blood by Manual count"
+            }
+          ]
+        }
+      ],
+      "count": 921,
+      "frequencyPerYear": 0.0390,
+      "fractionOfSubjects": 0.0198,
+      "scalarDistribution": {
+        "units": {
+          "unit": "%",
+          "system": "http://unitsofmeasure.org",
+          "code": "%"
+        },
+        "min": 0,
+        "max": 81,
+        "mean": 3.14,
+        "median": 1,
+        "stdDev": 7.15,
+        "decile": [
+          {
+            "nth": 10,
+            "value": 0
+          },
+          {
+            "nth": 20,
+            "value": 0
+          },
+          {
+            "nth": 30,
+            "value": 0
+          },
+          {
+            "nth": 40,
+            "value": 0
+          },
+          {
+            "nth": 50,
+            "value": 1
+          },
+          {
+            "nth": 60,
+            "value": 2
+          },
+          {
+            "nth": 70,
+            "value": 3
+          },
+          {
+            "nth": 80,
+            "value": 4
+          },
+          {
+            "nth": 90,
+            "value": 8
+          }
+        ],
+        "normalizedHigh": 7,
+        "normalizedLow": 0,
+        "fractionAboveNormal": 0.11,
+        "fractionBelowNormal": 0,
+        "correlatedLabs": {
+          "topn": 20,
+          "abscorrelation": 0.4,
+          "entry": [
+            {
+              "labcode": [
+                {
+                  "coding": [
+                    {
+                      "system": "http://loinc.org",
+                      "code": "713-8",
+                      "display": "lab_Eosinophil/leuk NFr Bld Auto"
+                    }
+                  ]
+                }
+              ],
+              "coefficient": 0.47372
+            }
+          ]
+        }
+      }
+    },
+    {
+      "code": [
+        {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "713-8",
+              "display": "Eosinophils/100 leukocytes in Blood by Automated count"
+            }
+          ]
+        }
+      ],
+      "count": 57,
+      "frequencyPerYear": 0.0024,
+      "fractionOfSubjects": 0.0038,
+      "scalarDistribution": {
+        "units": {
+          "unit": "%",
+          "system": "http://unitsofmeasure.org",
+          "code": "%"
+        },
+        "min": 0,
+        "max": 15,
+        "mean": 4.60,
+        "median": 4,
+        "stdDev": 3.68,
+        "decile": [
+          {
+            "nth": 10,
+            "value": 1.20
+          },
+          {
+            "nth": 20,
+            "value": 1.40
+          },
+          {
+            "nth": 30,
+            "value": 2
+          },
+          {
+            "nth": 40,
+            "value": 3.10
+          },
+          {
+            "nth": 50,
+            "value": 4
+          },
+          {
+            "nth": 60,
+            "value": 4.20
+          },
+          {
+            "nth": 70,
+            "value": 5.10
+          },
+          {
+            "nth": 80,
+            "value": 6.20
+          },
+          {
+            "nth": 90,
+            "value": 9.90
+          }
+        ],
+        "normalizedHigh": 7,
+        "normalizedLow": 0,
+        "fractionAboveNormal": 0.18,
+        "fractionBelowNormal": 0,
+        "correlatedLabs": {
+          "topn": 20,
+          "abscorrelation": 0.4,
+          "entry": [
+            {
+              "labcode": [
+                {
+                  "coding": [
+                    {
+                      "system": "http://loinc.org",
+                      "code": "714-6",
+                      "display": "lab_Eosinophil/leuk NFr Bld Manual"
+                    }
+                  ]
+                }
+              ],
+              "coefficient": 0.47372
+            }
+          ]
+        }
+      }
+    },
+    {
+      "code": [
+        {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "19254-2",
+              "display": "Oxygen [Partial pressure] adjusted to patient's actual temperature in Blood"
+            }
+          ]
+        }
+      ],
+      "count": 941,
+      "frequencyPerYear": 0.0399,
+      "fractionOfSubjects": 0.0045,
+      "scalarDistribution": {
+        "units": {
+          "unit": "mmHg",
+          "system": "http://unitsofmeasure.org",
+          "code": "mmHg"
+        },
+        "min": 42,
+        "max": 567,
+        "mean": 148.38,
+        "median": 125,
+        "stdDev": 88.96,
+        "decile": [
+          {
+            "nth": 10,
+            "value": 65
+          },
+          {
+            "nth": 20,
+            "value": 78
+          },
+          {
+            "nth": 30,
+            "value": 94
+          },
+          {
+            "nth": 40,
+            "value": 111
+          },
+          {
+            "nth": 50,
+            "value": 125
+          },
+          {
+            "nth": 60,
+            "value": 141
+          },
+          {
+            "nth": 70,
+            "value": 163
+          },
+          {
+            "nth": 80,
+            "value": 196
+          },
+          {
+            "nth": 90,
+            "value": 259
+          }
+        ],
+        "normalizedHigh": 100,
+        "normalizedLow": 75,
+        "fractionAboveNormal": 0.66,
+        "fractionBelowNormal": 0.17,
+        "correlatedLabs": {
+          "topn": 20,
+          "abscorrelation": 0.4,
+          "entry": [
+            {
+              "labcode": [
+                {
+                  "coding": [
+                    {
+                      "system": "http://loinc.org",
+                      "code": "2571-8",
+                      "display": "lab_Trigl SerPl-mCnc"
+                    }
+                  ]
+                }
+              ],
+              "coefficient": -0.62862
+            }
+          ]
+        }
+      }
+    },
+    {
+      "code": [
+        {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "49701-6",
+              "display": "pH of Blood adjusted to patient's actual temperature"
+            }
+          ]
+        }
+      ],
+      "count": 867,
+      "frequencyPerYear": 0.0367,
+      "fractionOfSubjects": 0.0045,
+      "scalarDistribution": {
+        "units": {
+          "unit": "UNK",
+          "system": "http://unitsofmeasure.org",
+          "code": "UNK"
+        },
+        "min": 6.99,
+        "max": 7.61,
+        "mean": 7.36,
+        "median": 7.37,
+        "stdDev": 0.09,
+        "decile": [
+          {
+            "nth": 10,
+            "value": 7.25
+          },
+          {
+            "nth": 20,
+            "value": 7.30
+          },
+          {
+            "nth": 30,
+            "value": 7.33
+          },
+          {
+            "nth": 40,
+            "value": 7.35
+          },
+          {
+            "nth": 50,
+            "value": 7.37
+          },
+          {
+            "nth": 60,
+            "value": 7.39
+          },
+          {
+            "nth": 70,
+            "value": 7.41
+          },
+          {
+            "nth": 80,
+            "value": 7.43
+          },
+          {
+            "nth": 90,
+            "value": 7.46
+          }
+        ],
+        "normalizedHigh": 7.45,
+        "normalizedLow": 7.35,
+        "fractionAboveNormal": 0.14,
+        "fractionBelowNormal": 0.43,
+        "correlatedLabs": {
+          "topn": 20,
+          "abscorrelation": 0.4,
+          "entry": [
+            {
+              "labcode": [
+                {
+                  "coding": [
+                    {
+                      "system": "http://loinc.org",
+                      "code": "19996-8",
+                      "display": "lab_FIO2 on vent"
+                    }
+                  ]
+                }
+              ],
+              "coefficient": -0.41807
+            },
+            {
+              "labcode": [
+                {
+                  "coding": [
+                    {
+                      "system": "http://loinc.org",
+                      "code": "34705-4",
+                      "display": "lab_pCO2 temp adj Bld"
+                    }
+                  ]
+                }
+              ],
+              "coefficient": -0.62156
+            }
+          ]
+        }
+      }
+    },
+    {
+      "code": [
+        {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "34705-4",
+              "display": "Carbon dioxide [Partial pressure] adjusted to patient's actual temperature in Blood"
+            }
+          ]
+        }
+      ],
+      "count": 862,
+      "frequencyPerYear": 0.0365,
+      "fractionOfSubjects": 0.0045,
+      "scalarDistribution": {
+        "units": {
+          "unit": "mmHg",
+          "system": "http://unitsofmeasure.org",
+          "code": "mmHg"
+        },
+        "min": 21,
+        "max": 121,
+        "mean": 46.66,
+        "median": 43,
+        "stdDev": 12.87,
+        "decile": [
+          {
+            "nth": 10,
+            "value": 35
+          },
+          {
+            "nth": 20,
+            "value": 37
+          },
+          {
+            "nth": 30,
+            "value": 39
+          },
+          {
+            "nth": 40,
+            "value": 41
+          },
+          {
+            "nth": 50,
+            "value": 43
+          },
+          {
+            "nth": 60,
+            "value": 45
+          },
+          {
+            "nth": 70,
+            "value": 49
+          },
+          {
+            "nth": 80,
+            "value": 54
+          },
+          {
+            "nth": 90,
+            "value": 65
+          }
+        ],
+        "normalizedHigh": 45,
+        "normalizedLow": 35,
+        "fractionAboveNormal": 0.40,
+        "fractionBelowNormal": 0.08,
+        "correlatedLabs": {
+          "topn": 20,
+          "abscorrelation": 0.4,
+          "entry": [
+            {
+              "labcode": [
+                {
+                  "coding": [
+                    {
+                      "system": "http://loinc.org",
+                      "code": "1959-6",
+                      "display": "lab_HCO3 Bld-sCnc"
+                    }
+                  ]
+                }
+              ],
+              "coefficient": 0.59308
+            },
+            {
+              "labcode": [
+                {
+                  "coding": [
+                    {
+                      "system": "http://loinc.org",
+                      "code": "1742-6",
+                      "display": "lab_ALT SerPl-cCnc"
+                    }
+                  ]
+                }
+              ],
+              "coefficient": 0.43978
+            },
+            {
+              "labcode": [
+                {
+                  "coding": [
+                    {
+                      "system": "http://loinc.org",
+                      "code": "19996-8",
+                      "display": "lab_FIO2 on vent"
+                    }
+                  ]
+                }
+              ],
+              "coefficient": 0.41774
+            },
+            {
+              "labcode": [
+                {
+                  "coding": [
+                    {
+                      "system": "http://loinc.org",
+                      "code": "49701-6",
+                      "display": "lab_pH temp adj Bld"
+                    }
+                  ]
+                }
+              ],
+              "coefficient": -0.62156
+            }
+          ]
+        }
+      }
+    },
+    {
+      "code": [
+        {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "5964-2",
+              "display": "Prothrombin time (PT) in Blood by Coagulation assay"
+            }
+          ]
+        }
+      ],
+      "count": 642,
+      "frequencyPerYear": 0.0272,
+      "fractionOfSubjects": 0.0196,
+      "scalarDistribution": {
+        "units": {
+          "unit": "Seconds",
+          "system": "http://unitsofmeasure.org",
+          "code": "Seconds"
+        },
+        "min": 9.50,
+        "max": 51.10,
+        "mean": 12.67,
+        "median": 11.70,
+        "stdDev": 3.53,
+        "decile": [
+          {
+            "nth": 10,
+            "value": 10.40
+          },
+          {
+            "nth": 20,
+            "value": 10.80
+          },
+          {
+            "nth": 30,
+            "value": 11.10
+          },
+          {
+            "nth": 40,
+            "value": 11.40
+          },
+          {
+            "nth": 50,
+            "value": 11.70
+          },
+          {
+            "nth": 60,
+            "value": 12
+          },
+          {
+            "nth": 70,
+            "value": 12.40
+          },
+          {
+            "nth": 80,
+            "value": 13.30
+          },
+          {
+            "nth": 90,
+            "value": 16.30
+          }
+        ],
+        "correlatedLabs": {
+          "topn": 20,
+          "abscorrelation": 0.4
+        }
+      }
+    },
+    {
+      "code": [
+        {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "5902-2",
+              "display": "Prothrombin time (PT)"
+            }
+          ]
+        }
+      ],
+      "count": 82,
+      "frequencyPerYear": 0.0035,
+      "fractionOfSubjects": 0.0025,
+      "scalarDistribution": {
+        "units": {
+          "unit": "sec",
+          "system": "http://unitsofmeasure.org",
+          "code": "sec"
+        },
+        "min": 10,
+        "max": 39.80,
+        "mean": 17.96,
+        "median": 16.50,
+        "stdDev": 7.32,
+        "decile": [
+          {
+            "nth": 10,
+            "value": 10.60
+          },
+          {
+            "nth": 20,
+            "value": 11
+          },
+          {
+            "nth": 30,
+            "value": 11.60
+          },
+          {
+            "nth": 40,
+            "value": 12.40
+          },
+          {
+            "nth": 50,
+            "value": 16.50
+          },
+          {
+            "nth": 60,
+            "value": 19
+          },
+          {
+            "nth": 70,
+            "value": 20.60
+          },
+          {
+            "nth": 80,
+            "value": 24
+          },
+          {
+            "nth": 90,
+            "value": 27.30
+          }
+        ],
+        "normalizedHigh": 12.0,
+        "normalizedLow": 9.1,
+        "fractionAboveNormal": 0.63,
+        "fractionBelowNormal": 0,
+        "correlatedLabs": {
+          "topn": 20,
+          "abscorrelation": 0.4,
+          "entry": [
+            {
+              "labcode": [
+                {
+                  "coding": [
+                    {
+                      "system": "http://loinc.org",
+                      "code": "2345-7",
+                      "display": "lab_Glucose SerPl-mCnc"
+                    }
+                  ]
+                }
+              ],
+              "coefficient": 0.86379
+            },
+            {
+              "labcode": [
+                {
+                  "coding": [
+                    {
+                      "system": "http://loinc.org",
+                      "code": "2093-3",
+                      "display": "lab_Cholest SerPl-mCnc"
+                    }
+                  ]
+                }
+              ],
+              "coefficient": -0.40243
+            },
+            {
+              "labcode": [
+                {
+                  "coding": [
+                    {
+                      "system": "http://loinc.org",
+                      "code": "6690-2",
+                      "display": "lab_WBC # Bld Auto"
+                    }
+                  ]
+                }
+              ],
+              "coefficient": -0.51331
+            }
+          ]
+        }
+      }
+    },
+    {
+      "code": [
+        {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "1959-6",
+              "display": "Bicarbonate [Moles/volume] in Blood"
+            }
+          ]
+        }
+      ],
+      "count": 665,
+      "frequencyPerYear": 0.0282,
+      "fractionOfSubjects": 0.0045,
+      "scalarDistribution": {
+        "units": {
+          "unit": "mmol/L",
+          "system": "http://unitsofmeasure.org",
+          "code": "mmol/L"
+        },
+        "min": 12,
+        "max": 51,
+        "mean": 25.24,
+        "median": 24,
+        "stdDev": 5.69,
+        "decile": [
+          {
+            "nth": 10,
+            "value": 20
+          },
+          {
+            "nth": 20,
+            "value": 22
+          },
+          {
+            "nth": 30,
+            "value": 23
+          },
+          {
+            "nth": 40,
+            "value": 23
+          },
+          {
+            "nth": 50,
+            "value": 24
+          },
+          {
+            "nth": 60,
+            "value": 25
+          },
+          {
+            "nth": 70,
+            "value": 26
+          },
+          {
+            "nth": 80,
+            "value": 27
+          },
+          {
+            "nth": 90,
+            "value": 33
+          }
+        ],
+        "normalizedHigh": 26,
+        "normalizedLow": 22,
+        "fractionAboveNormal": 0.25,
+        "fractionBelowNormal": 0.19,
+        "correlatedLabs": {
+          "topn": 20,
+          "abscorrelation": 0.4,
+          "entry": [
+            {
+              "labcode": [
+                {
+                  "coding": [
+                    {
+                      "system": "http://loinc.org",
+                      "code": "34705-4",
+                      "display": "lab_pCO2 temp adj Bld"
+                    }
+                  ]
+                }
+              ],
+              "coefficient": 0.59308
+            }
+          ]
+        }
+      }
+    },
+    {
+      "code": [
+        {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "706-2",
+              "display": "Basophils/100 leukocytes in Blood by Automated count"
+            }
+          ]
+        }
+      ],
+      "count": 399,
+      "frequencyPerYear": 0.0169,
+      "fractionOfSubjects": 0.0231,
+      "scalarDistribution": {
+        "units": {
+          "unit": "%",
+          "system": "http://unitsofmeasure.org",
+          "code": "%"
+        },
+        "min": 0,
+        "max": 3,
+        "mean": 0.41,
+        "median": 0,
+        "stdDev": 0.53,
+        "decile": [
+          {
+            "nth": 10,
+            "value": 0
+          },
+          {
+            "nth": 20,
+            "value": 0
+          },
+          {
+            "nth": 30,
+            "value": 0
+          },
+          {
+            "nth": 40,
+            "value": 0
+          },
+          {
+            "nth": 50,
+            "value": 0
+          },
+          {
+            "nth": 60,
+            "value": 0
+          },
+          {
+            "nth": 70,
+            "value": 1
+          },
+          {
+            "nth": 80,
+            "value": 1
+          },
+          {
+            "nth": 90,
+            "value": 1
+          }
+        ],
+        "normalizedHigh": 1.0,
+        "normalizedLow": 0.0,
+        "fractionAboveNormal": 0.02,
+        "fractionBelowNormal": 0,
+        "correlatedLabs": {
+          "topn": 20,
+          "abscorrelation": 0.4
+        }
+      }
+    },
+    {
+      "code": [
+        {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "19996-8",
+              "display": "Oxygen/Inspired gas Respiratory system --on ventilator"
+            }
+          ]
+        }
+      ],
+      "count": 302,
+      "frequencyPerYear": 0.0128,
+      "fractionOfSubjects": 0.0063,
+      "scalarDistribution": {
+        "units": {
+          "unit": "%",
+          "system": "http://unitsofmeasure.org",
+          "code": "%"
+        },
+        "min": 0,
+        "max": 100,
+        "mean": 53.19,
+        "median": 46,
+        "stdDev": 28.00,
+        "decile": [
+          {
+            "nth": 10,
+            "value": 21
+          },
+          {
+            "nth": 20,
+            "value": 30
+          },
+          {
+            "nth": 30,
+            "value": 30
+          },
+          {
+            "nth": 40,
+            "value": 35
+          },
+          {
+            "nth": 50,
+            "value": 46
+          },
+          {
+            "nth": 60,
+            "value": 60
+          },
+          {
+            "nth": 70,
+            "value": 65
+          },
+          {
+            "nth": 80,
+            "value": 90
+          },
+          {
+            "nth": 90,
+            "value": 100
+          }
+        ],
+        "correlatedLabs": {
+          "topn": 20,
+          "abscorrelation": 0.4,
+          "entry": [
+            {
+              "labcode": [
+                {
+                  "coding": [
+                    {
+                      "system": "http://loinc.org",
+                      "code": "34705-4",
+                      "display": "lab_pCO2 temp adj Bld"
+                    }
+                  ]
+                }
+              ],
+              "coefficient": 0.41774
+            },
+            {
+              "labcode": [
+                {
+                  "coding": [
+                    {
+                      "system": "http://loinc.org",
+                      "code": "49701-6",
+                      "display": "lab_pH temp adj Bld"
+                    }
+                  ]
+                }
+              ],
+              "coefficient": -0.41807
+            }
+          ]
+        }
+      }
+    },
+    {
+      "code": [
+        {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "736-9",
+              "display": "Lymphocytes/100 leukocytes in Blood by Automated count"
+            }
+          ]
+        }
+      ],
+      "count": 265,
+      "frequencyPerYear": 0.0112,
+      "fractionOfSubjects": 0.0136,
+      "scalarDistribution": {
+        "units": {
+          "unit": "%",
+          "system": "http://unitsofmeasure.org",
+          "code": "%"
+        },
+        "min": 5.80,
+        "max": 66,
+        "mean": 39.41,
+        "median": 38.95,
+        "stdDev": 11.87,
+        "decile": [
+          {
+            "nth": 10,
+            "value": 24
+          },
+          {
+            "nth": 20,
+            "value": 29.50
+          },
+          {
+            "nth": 30,
+            "value": 33.60
+          },
+          {
+            "nth": 40,
+            "value": 36.20
+          },
+          {
+            "nth": 50,
+            "value": 39
+          },
+          {
+            "nth": 60,
+            "value": 42
+          },
+          {
+            "nth": 70,
+            "value": 45
+          },
+          {
+            "nth": 80,
+            "value": 49.60
+          },
+          {
+            "nth": 90,
+            "value": 55.30
+          }
+        ],
+        "correlatedLabs": {
+          "topn": 20,
+          "abscorrelation": 0.4,
+          "entry": [
+            {
+              "labcode": [
+                {
+                  "coding": [
+                    {
+                      "system": "http://loinc.org",
+                      "code": "12962-7",
+                      "display": "lab_BUN BldV-mCnc"
+                    }
+                  ]
+                }
+              ],
+              "coefficient": 0.41154
+            },
+            {
+              "labcode": [
+                {
+                  "coding": [
+                    {
+                      "system": "http://loinc.org",
+                      "code": "6690-2",
+                      "display": "lab_WBC # Bld Auto"
+                    }
+                  ]
+                }
+              ],
+              "coefficient": -0.41263
+            },
+            {
+              "labcode": [
+                {
+                  "coding": [
+                    {
+                      "system": "http://loinc.org",
+                      "code": "33256-9",
+                      "display": "lab_WBC nRBC cor # Bld Auto"
+                    }
+                  ]
+                }
+              ],
+              "coefficient": -0.44339
+            }
+          ]
+        }
+      }
+    },
+    {
+      "code": [
+        {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "20448-7",
+              "display": "Insulin [Units/volume] in Serum or Plasma"
+            }
+          ]
+        }
+      ],
+      "count": 135,
+      "frequencyPerYear": 0.0057,
+      "fractionOfSubjects": 0.0103,
+      "scalarDistribution": {
+        "units": {
+          "unit": "uIU/mL",
+          "system": "http://unitsofmeasure.org",
+          "code": "uIU/mL"
+        },
+        "min": 2.70,
+        "max": 703,
+        "mean": 39.46,
+        "median": 22.90,
+        "stdDev": 69.11,
+        "decile": [
+          {
+            "nth": 10,
+            "value": 10.20
+          },
+          {
+            "nth": 20,
+            "value": 13.40
+          },
+          {
+            "nth": 30,
+            "value": 16.10
+          },
+          {
+            "nth": 40,
+            "value": 19.80
+          },
+          {
+            "nth": 50,
+            "value": 23.10
+          },
+          {
+            "nth": 60,
+            "value": 28.90
+          },
+          {
+            "nth": 70,
+            "value": 35.50
+          },
+          {
+            "nth": 80,
+            "value": 46.60
+          },
+          {
+            "nth": 90,
+            "value": 62.60
+          }
+        ],
+        "normalizedHigh": 24.9,
+        "normalizedLow": 2.6,
+        "fractionAboveNormal": 0.47,
+        "fractionBelowNormal": 0,
+        "correlatedLabs": {
+          "topn": 20,
+          "abscorrelation": 0.4
+        }
+      }
+    },
+    {
+      "code": [
+        {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "2077-6",
+              "display": "Chloride [Moles/volume] in Sweat"
+            }
+          ]
+        }
+      ],
+      "count": 43,
+      "frequencyPerYear": 0.0018,
+      "fractionOfSubjects": 0.0030,
+      "scalarDistribution": {
+        "units": {
+          "unit": "mmol/L",
+          "system": "http://unitsofmeasure.org",
+          "code": "mmol/L"
+        },
+        "min": 10,
+        "max": 53,
+        "mean": 19.53,
+        "median": 15.50,
+        "stdDev": 9.71,
+        "decile": [
+          {
+            "nth": 10,
+            "value": 11
+          },
+          {
+            "nth": 20,
+            "value": 12
+          },
+          {
+            "nth": 30,
+            "value": 13
+          },
+          {
+            "nth": 40,
+            "value": 14
+          },
+          {
+            "nth": 50,
+            "value": 16
+          },
+          {
+            "nth": 60,
+            "value": 19
+          },
+          {
+            "nth": 70,
+            "value": 21
+          },
+          {
+            "nth": 80,
+            "value": 24
+          },
+          {
+            "nth": 90,
+            "value": 32
+          }
+        ],
+        "correlatedLabs": {
+          "topn": 20,
+          "abscorrelation": 0.4,
+          "entry": [
+            {
+              "labcode": [
+                {
+                  "coding": [
+                    {
+                      "system": "http://loinc.org",
+                      "code": "785-6",
+                      "display": "lab_MCH RBC Qn Auto"
+                    }
+                  ]
+                }
+              ],
+              "coefficient": -0.40443
+            },
+            {
+              "labcode": [
+                {
+                  "coding": [
+                    {
+                      "system": "http://loinc.org",
+                      "code": "787-2",
+                      "display": "lab_MCV RBC Auto"
+                    }
+                  ]
+                }
+              ],
+              "coefficient": -0.44025
+            },
+            {
+              "labcode": [
+                {
+                  "coding": [
+                    {
+                      "system": "http://loinc.org",
+                      "code": "17861-6",
+                      "display": "lab_Calcium SerPl-mCnc"
+                    }
+                  ]
+                }
+              ],
+              "coefficient": -0.68542
+            }
+          ]
+        }
+      }
+    },
+    {
+      "code": [
+        {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "1995-0",
+              "display": "Calcium.ionized [Moles/volume] in Serum or Plasma"
+            }
+          ]
+        }
+      ],
+      "count": 11,
+      "frequencyPerYear": 0.0005,
+      "fractionOfSubjects": 0.0004,
+      "scalarDistribution": {
+        "units": {
+          "unit": "mmol/L",
+          "system": "http://unitsofmeasure.org",
+          "code": "mmol/L"
+        },
+        "min": 0.84,
+        "max": 1.34,
+        "mean": 1.10,
+        "median": 1.05,
+        "stdDev": 0.20,
+        "decile": [
+          {
+            "nth": 10,
+            "value": 0.84
+          },
+          {
+            "nth": 20,
+            "value": 0.87
+          },
+          {
+            "nth": 30,
+            "value": 0.88
+          },
+          {
+            "nth": 40,
+            "value": 0.96
+          },
+          {
+            "nth": 50,
+            "value": 1.07
+          },
+          {
+            "nth": 60,
+            "value": 1.24
+          },
+          {
+            "nth": 70,
+            "value": 1.25
+          },
+          {
+            "nth": 80,
+            "value": 1.29
+          },
+          {
+            "nth": 90,
+            "value": 1.33
+          }
+        ],
+        "correlatedLabs": {
+          "topn": 20,
+          "abscorrelation": 0.4
+        }
+      }
+    }
+  ]
+}
