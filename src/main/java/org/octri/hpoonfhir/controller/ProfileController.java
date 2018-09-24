@@ -21,6 +21,7 @@ import org.monarchinitiative.phenol.ontology.data.Term;
 import org.monarchinitiative.phenol.ontology.data.TermId;
 import org.monarchinitiative.phenol.ontology.data.TermPrefix;
 import org.octri.hpoonfhir.service.FhirService;
+import org.octri.hpoonfhir.service.JhuGroupService;
 import org.octri.hpoonfhir.service.ReferenceRangeService;
 import org.octri.hpoonfhir.view.DecileModel;
 import org.octri.hpoonfhir.view.LabSummaryModel;
@@ -55,6 +56,9 @@ public class ProfileController {
 	@Autowired
 	ReferenceRangeService referenceRangeService;
 	
+	@Autowired
+	JhuGroupService jhuGroupService;
+	
 	@GetMapping("profile")
 	public String getProfiles(Map<String, Object> model) throws JsonParseException, JsonMappingException, IOException {
 		List<Map<String,Object>> labs = new ArrayList<>();
@@ -64,6 +68,8 @@ public class ProfileController {
 			lab.put("id", id);
 			Map<String, Object> map = getResourceAsMap(id);
 			lab.put("description", getProfileDescription((Map<String,Object>) map.get("text")));			
+			Map<String,String> group = jhuGroupService.getAsthmaGroupForId(id);
+			lab.putAll(group);
 			labs.add(lab);
 		}
 		model.put("labs", labs);
