@@ -10,10 +10,12 @@ import java.util.stream.Collectors;
 
 import org.hl7.fhir.dstu3.model.Observation;
 import org.monarchinitiative.fhir2hpo.hpo.LoincConversionResult;
+import org.monarchinitiative.fhir2hpo.hpo.AugmentedConversionResult;
 import org.monarchinitiative.fhir2hpo.hpo.HpoTermWithNegation;
 import org.monarchinitiative.fhir2hpo.service.HpoService;
 import org.monarchinitiative.fhir2hpo.service.ObservationAnalysisService;
 import org.monarchinitiative.phenol.ontology.data.Term;
+import org.monarchinitiative.phenol.ontology.data.TermId;
 import org.octri.hpoonfhir.view.ObservationModel;
 import org.octri.hpoonfhir.view.PhenotypeModel;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -64,6 +66,21 @@ public class PhenotypeSummaryService {
 			Term termInfo = hpoService.getTermForTermId(term.getHpoTermId());
 			phenotypes.add(new PhenotypeModel(term, termInfo, observations));
 		}
+		
+		//TODO: Obviously we want to do this in the step above, not analyze everything again
+		// Also add augmented results with fake observations
+		List<AugmentedConversionResult> augmentedResults = fhirObservations.stream()
+			.flatMap(fhirObservation -> observationAnalysisService.analyzeObservation(fhirObservation).getAugmentedConversionResults().stream())
+			.collect(Collectors.toList());
+		
+		for (AugmentedConversionResult result : augmentedResults) {
+			// Get the term information from the HPO service
+			Term termInfo = hpoService.getTermForTermId(result.getHpoTerm().getHpoTermId());
+			// Fakin this, but here are some observations so the code doesn't break
+			HpoTermWithNegation elevatedCreatinine = new HpoTermWithNegation(TermId.constructWithPrefix("HP:0003259"), false);
+			List<ObservationModel> observations = observationsByPhenotype.get(elevatedCreatinine);
+			phenotypes.add(new PhenotypeModel(result.getHpoTerm(), termInfo, observations));
+		}		
 		
 		// Sort phenotypes by name
 		Collections.sort(phenotypes, (x, y) -> x.getHpoTermName().compareTo(y.getHpoTermName()));
