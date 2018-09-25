@@ -2,8 +2,12 @@
 
 
 <div class="container vertical-space">
+	<div class="alert alert-warning" role="alert">
+		This application demonstrates the conversion of FHIR Observation resources to terms in the Human Phenotype Ontology. 
+		{{caveats}}		
+	</div>
 	<h3>Patient Search</h3>
-	<small class="text-muted">Search the {{fhirServiceName}} EHR system for a patient.</small>
+	<p class="text-muted">Search the {{fhirServiceName}} EHR system for a patient. </p>
 	<form method="POST" action="{{req.contextPath}}/">
 		{{#patientSearchForm}}
 		<div class="form-group row vertical-space">
