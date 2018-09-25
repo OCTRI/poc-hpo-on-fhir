@@ -59,19 +59,38 @@ public class ProfileController {
 	@Autowired
 	JhuGroupService jhuGroupService;
 	
-	@GetMapping("profile")
-	public String getProfiles(Map<String, Object> model) throws JsonParseException, JsonMappingException, IOException {
+	@GetMapping("asthma")
+	public String getAsthmaProfiles(Map<String, Object> model) throws JsonParseException, JsonMappingException, IOException {
 		List<Map<String,Object>> labs = new ArrayList<>();
 		for (int i=1; i<=96; i++) {
 			Long id = new Long(i);
 			Map<String,Object> lab = new HashMap<>();
 			lab.put("id", id);
-			Map<String, Object> map = getResourceAsMap(id);
+			Map<String, Object> map = getResourceAsMap("json/jhu-asthma-lab-", id);
 			lab.put("description", getProfileDescription((Map<String,Object>) map.get("text")));			
 			Map<String,String> group = jhuGroupService.getAsthmaGroupForId(id);
 			lab.putAll(group);
 			labs.add(lab);
 		}
+		model.put("diagnosis", "Asthma");
+		model.put("labs", labs);
+		return "profile/list";
+	}
+
+	@GetMapping("eds")
+	public String getEdsProfiles(Map<String, Object> model) throws JsonParseException, JsonMappingException, IOException {
+		List<Map<String,Object>> labs = new ArrayList<>();
+		for (int i=2; i<=32; i++) {
+			Long id = new Long(i);
+			Map<String,Object> lab = new HashMap<>();
+			lab.put("id", id);
+			Map<String, Object> map = getResourceAsMap("json/jhu-eds-lab-", id);
+			lab.put("description", getProfileDescription((Map<String,Object>) map.get("text")));			
+			//Map<String,String> group = jhuGroupService.getEdsGroupForId(id);
+			//lab.putAll(group);
+			labs.add(lab);
+		}
+		model.put("diagnosis", "EDS");
 		model.put("labs", labs);
 		return "profile/list";
 	}
@@ -95,14 +114,23 @@ public class ProfileController {
 	}
 
 
-	@GetMapping("/profile/{id}")
-	public String getProfiles(Map<String, Object> model, @PathVariable Long id) throws JsonParseException, JsonMappingException, IOException {
-		Map<String, Object> map = getResourceAsMap(id);
+	@GetMapping("/profile/{diagnosis}/{id}")
+	public String getProfiles(Map<String, Object> model, @PathVariable String diagnosis, @PathVariable Long id) throws JsonParseException, JsonMappingException, IOException {
+		String prefix = null;
+		if (diagnosis.equals("Asthma")) {
+			prefix = "json/jhu-asthma-lab-";
+		} else if (diagnosis.equals("EDS")) {
+			prefix = "json/jhu-eds-lab-";
+		}
+		Map<String, Object> map = getResourceAsMap(prefix, id);
 		model.put("description", getProfileDescription((Map<String,Object>) map.get("text")));
 		List<Map<String, Object>> labs = (List<Map<String, Object>>) map.get("lab");
 		List<LabSummaryModel> labSummaries = summarizeLabs(labs);
 		Collections.sort(labSummaries, (o, n) -> o.getCount().compareTo(n.getCount()));
 		Collections.reverse(labSummaries);
+		labSummaries.stream().filter(it -> !it.getAnnotated()).forEach( summary -> {
+			System.out.println(summary.getLoincId() + "," + summary.getDescription() + "," + summary.getCount());
+		});
 		model.put("id", id);
 		model.put("labs", labSummaries);
 		model.put("includeProfilesJs", true);
@@ -117,10 +145,10 @@ public class ProfileController {
 	 * @throws JsonParseException
 	 * @throws JsonMappingException
 	 */
-	private Map<String, Object> getResourceAsMap(Long id)
+	private Map<String, Object> getResourceAsMap(String prefix, Long id)
 		throws IOException, JsonParseException, JsonMappingException {
 		ClassLoader classLoader = getClass().getClassLoader();
-		InputStream stream = classLoader.getResourceAsStream("json/jhu-asthma-lab-" + id + ".json");
+		InputStream stream = classLoader.getResourceAsStream(prefix + id + ".json");
 		ObjectMapper om = new ObjectMapper();
 		TypeReference<HashMap<String, Object>> typeRef = new TypeReference<HashMap<String, Object>>() {
 		};

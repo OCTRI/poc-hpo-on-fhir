@@ -14,6 +14,7 @@ public class JhuGroupService {
 	
 	// Map from the JHU Lab Id to a map representing the selection criteria
 	Map<Long, Map<String,String>> asthmaGroupMap = new HashMap<>();
+	Map<Long, Map<String,String>> edsGroupMap = new HashMap<>();
 	
 	public JhuGroupService() throws IOException {
 		ClassLoader classLoader = getClass().getClassLoader();
@@ -31,10 +32,30 @@ public class JhuGroupService {
 			i++;
 			line = reader.readLine();
 		};
+		
+		reader.close();
+//		stream = classLoader.getResourceAsStream("json/JHU-EDS-Groups.csv");
+//		reader = new BufferedReader(new InputStreamReader(stream));
+//		i = 1;
+//		line = reader.readLine();
+//		while (line != null) {
+//			Map<String,String> group = new HashMap<>();
+//			String[] elements = line.split(",");
+//			group.put("gender", elements[1]);
+//			group.put("race", elements[2]);
+//			group.put("age", elements[3]);
+//			edsGroupMap.put(new Long(i), group);
+//			i++;
+//			line = reader.readLine();
+//		};
 	}
 	
 	public Map<String,String> getAsthmaGroupForId(Long id) {
 		return asthmaGroupMap.get(id);
+	}
+
+	public Map<String,String> getEdsGroupForId(Long id) {
+		return edsGroupMap.get(id);
 	}
 
 }

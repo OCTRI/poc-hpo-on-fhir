@@ -2,7 +2,7 @@
 
 <div class="container vertical-space">
     <h1>Clinical Profiles</h1>
-    <p>Aggregated Laboratory Tests of Asthma Patients provided by Johns Hopkins University</p>
+    <p>Aggregated Laboratory Tests of {{diagnosis}} Patients provided by Johns Hopkins University</p>
      <table class='table table-striped table-bordered'>
     	<thead>
     	<tr>    		
@@ -22,7 +22,7 @@
     			<td>{{race}}</td>
     			<td>{{age}}</td>
     			<td>{{description}}</td>
-    			<td><a href='{{req.contextPath}}profile/{{id}}'>View</a></td>
+    			<td><a href='{{req.contextPath}}profile/{{diagnosis}}/{{id}}'>View</a></td>
     		</tr>
 	    {{/labs}}
     	</tbody>
