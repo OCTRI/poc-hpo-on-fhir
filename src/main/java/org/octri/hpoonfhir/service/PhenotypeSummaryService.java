@@ -10,7 +10,7 @@ import java.util.stream.Collectors;
 
 import org.hl7.fhir.dstu3.model.Observation;
 import org.monarchinitiative.fhir2hpo.hpo.LoincConversionResult;
-import org.monarchinitiative.fhir2hpo.hpo.AugmentedConversionResult;
+import org.monarchinitiative.fhir2hpo.hpo.InferredConversionResult;
 import org.monarchinitiative.fhir2hpo.hpo.HpoTermWithNegation;
 import org.monarchinitiative.fhir2hpo.service.HpoService;
 import org.monarchinitiative.fhir2hpo.service.ObservationAnalysisService;
@@ -69,11 +69,11 @@ public class PhenotypeSummaryService {
 		
 		//TODO: Obviously we want to do this in the step above, not analyze everything again
 		// Also add augmented results with fake observations
-		List<AugmentedConversionResult> augmentedResults = fhirObservations.stream()
-			.flatMap(fhirObservation -> observationAnalysisService.analyzeObservation(fhirObservation).getAugmentedConversionResults().stream())
+		List<InferredConversionResult> augmentedResults = fhirObservations.stream()
+			.flatMap(fhirObservation -> observationAnalysisService.analyzeObservation(fhirObservation).getInferredConversionResults().stream())
 			.collect(Collectors.toList());
 		
-		for (AugmentedConversionResult result : augmentedResults) {
+		for (InferredConversionResult result : augmentedResults) {
 			// Get the term information from the HPO service
 			Term termInfo = hpoService.getTermForTermId(result.getHpoTerm().getHpoTermId());
 			// Fakin this, but here are some observations so the code doesn't break
