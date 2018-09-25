@@ -41,7 +41,20 @@ public class MainController {
 	@GetMapping("/")
 	public String home(Map<String, Object> model, HttpServletRequest request) {
 
+		// Load text describing caveats for the FHIR Service. This is
+		// temporary but will help users if we decide to deploy this to a public location.
+		String caveats = null;
+		if (fhirService.getServiceName().equals("SmartHealth IT")) {
+			caveats = "Note that many patients in this sandbox do not have Observations or the Observations do not "
+				+ "provide enough information to infer a phenotype. For a good demonstration, try Frank Taylor "
+				+ "or Kristyn Walker.";
+		} else if (fhirService.getServiceName().equals("Open Epic")) {
+			caveats = "Note that Open Epic only has a half dozen patients, and the API enforces both a first and "
+				+ "last name be used to search. Try Jason Argonaut, then select the id beginning with Tbt3KuC...";
+		}
+		
 		model.put("fhirServiceName", fhirService.getServiceName());
+		model.put("caveats", caveats);
 		model.put("patientSearchForm", new PatientModel());
 		model.put("results", false);
 		return "search";
