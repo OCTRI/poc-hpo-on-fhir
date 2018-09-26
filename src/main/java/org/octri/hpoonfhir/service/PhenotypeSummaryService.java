@@ -10,13 +10,14 @@ import java.util.stream.Collectors;
 
 import org.hl7.fhir.dstu3.model.Observation;
 import org.monarchinitiative.fhir2hpo.hpo.LoincConversionResult;
+import org.monarchinitiative.fhir2hpo.hpo.ObservationConversionResult;
 import org.monarchinitiative.fhir2hpo.hpo.InferredConversionResult;
 import org.monarchinitiative.fhir2hpo.hpo.HpoTermWithNegation;
 import org.monarchinitiative.fhir2hpo.service.HpoService;
 import org.monarchinitiative.fhir2hpo.service.ObservationAnalysisService;
 import org.monarchinitiative.phenol.ontology.data.Term;
 import org.monarchinitiative.phenol.ontology.data.TermId;
-import org.octri.hpoonfhir.view.ObservationModel;
+import org.octri.hpoonfhir.view.LoincObservationModel;
 import org.octri.hpoonfhir.view.PhenotypeModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -36,30 +37,54 @@ public class PhenotypeSummaryService {
 	HpoService hpoService;
 	
 	public List<PhenotypeModel> summarizePhenotypes(List<Observation> fhirObservations) {
-		// Try to convert all observations and gather successes
-		List<LoincConversionResult> results = fhirObservations.stream()
-				.flatMap(fhirObservation -> observationAnalysisService.analyzeObservation(fhirObservation).getLoincConversionResults().stream())
-				.filter(result -> result.hasSuccess())
+		// Try to convert all observations
+		List<ObservationConversionResult> results = fhirObservations.stream()
+				.map(fhirObservation -> observationAnalysisService.analyzeObservation(fhirObservation))
 				.collect(Collectors.toList());
 		
-		Map<HpoTermWithNegation, List<ObservationModel>> observationsByPhenotype = new HashMap<>();
-		for (LoincConversionResult result : results ) {
-			for (HpoTermWithNegation term : result.getHpoTerms()) {
-				ObservationModel observationModel = new ObservationModel(result.getLoincId().getCode(), result.getObservationLoincInfo());
-				List<ObservationModel> observations = observationsByPhenotype.get(term);
+		Map<HpoTermWithNegation, List<LoincObservationModel>> observationsByPhenotype = new HashMap<>();
+		Map<HpoTermWithNegation, List<LoincObservationModel>> inferencesByPhenotype = new HashMap<>();
+		for (ObservationConversionResult result : results ) {
+			
+			// First go through the direct successful results
+			List<LoincConversionResult> successfulLoincResults = result.getLoincConversionResults().stream().filter(r -> r.hasSuccess()).collect(Collectors.toList());			
+			for (LoincConversionResult loincResult : successfulLoincResults) {
+				for (HpoTermWithNegation term : loincResult.getHpoTerms()) {
+					LoincObservationModel observationModel = new LoincObservationModel(loincResult.getLoincId().getCode(), loincResult.getObservationLoincInfo());
+					List<LoincObservationModel> observations = observationsByPhenotype.get(term);
+					
+					if (observations == null) {
+						observations = new ArrayList<>(Arrays.asList(observationModel));					
+					} else {
+						observations.add(observationModel);
+					}
+					observationsByPhenotype.put(term, observations);
+				}
+			}
+			
+			// Now go through the inferred results
+			List<InferredConversionResult> inferredConversionResults = result.getInferredConversionResults();
+			for (InferredConversionResult inferredResult : inferredConversionResults) {
+				// TODO: Create an ObservationModel using any successful LoincResult. This allows us to use the 
+				// date parsing logic needed for display. We need a better solution than this.
+				LoincConversionResult loincResult = successfulLoincResults.get(0);
+				LoincObservationModel observationModel = new LoincObservationModel(loincResult.getLoincId().getCode(), loincResult.getObservationLoincInfo());
+				List<LoincObservationModel> observations = inferencesByPhenotype.get(inferredResult.getHpoTerm());
 				
 				if (observations == null) {
 					observations = new ArrayList<>(Arrays.asList(observationModel));					
 				} else {
 					observations.add(observationModel);
 				}
-				observationsByPhenotype.put(term, observations);
-			}			
+				inferencesByPhenotype.put(inferredResult.getHpoTerm(), observations);
+			}
+
+			
 		}
 		
 		List<PhenotypeModel> phenotypes = new ArrayList<>();
 		for (HpoTermWithNegation term : observationsByPhenotype.keySet()) {
-			List<ObservationModel> observations = observationsByPhenotype.get(term);
+			List<LoincObservationModel> observations = observationsByPhenotype.get(term);
 			// Sort observations by start date
 			Collections.sort(observations, (x, y) -> x.getStartDate().compareTo(y.getStartDate()));
 			// Get the term information from the HPO service
@@ -67,20 +92,15 @@ public class PhenotypeSummaryService {
 			phenotypes.add(new PhenotypeModel(term, termInfo, observations));
 		}
 		
-		//TODO: Obviously we want to do this in the step above, not analyze everything again
-		// Also add augmented results with fake observations
-		List<InferredConversionResult> augmentedResults = fhirObservations.stream()
-			.flatMap(fhirObservation -> observationAnalysisService.analyzeObservation(fhirObservation).getInferredConversionResults().stream())
-			.collect(Collectors.toList());
-		
-		for (InferredConversionResult result : augmentedResults) {
+
+		for (HpoTermWithNegation term : inferencesByPhenotype.keySet()) {
+			List<LoincObservationModel> observations = inferencesByPhenotype.get(term);
+			// Sort observations by start date
+			Collections.sort(observations, (x, y) -> x.getStartDate().compareTo(y.getStartDate()));
 			// Get the term information from the HPO service
-			Term termInfo = hpoService.getTermForTermId(result.getHpoTerm().getHpoTermId());
-			// Fakin this, but here are some observations so the code doesn't break
-			HpoTermWithNegation elevatedCreatinine = new HpoTermWithNegation(TermId.constructWithPrefix("HP:0003259"), false);
-			List<ObservationModel> observations = observationsByPhenotype.get(elevatedCreatinine);
-			phenotypes.add(new PhenotypeModel(result.getHpoTerm(), termInfo, observations));
-		}		
+			Term termInfo = hpoService.getTermForTermId(term.getHpoTermId());
+			phenotypes.add(new PhenotypeModel(term, termInfo, observations));
+		}
 		
 		// Sort phenotypes by name
 		Collections.sort(phenotypes, (x, y) -> x.getHpoTermName().compareTo(y.getHpoTermName()));

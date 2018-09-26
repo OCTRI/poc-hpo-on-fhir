@@ -7,12 +7,12 @@ import java.text.SimpleDateFormat;
 import org.monarchinitiative.fhir2hpo.fhir.util.ObservationLoincInfo;
 
 /**
- * The model representing the fields on the observation that will be displayed.
+ * The model representing the fields on the observation relevant to the LOINC that will be displayed.
  * 
  * @author yateam
  *
  */
-public class ObservationModel implements Serializable {
+public class LoincObservationModel implements Serializable {
 
 	private static final long serialVersionUID = -3076629390459562137L;
 
@@ -23,7 +23,7 @@ public class ObservationModel implements Serializable {
 	private final String endDate;
 	private final String value;
 
-	public ObservationModel(String loincId, ObservationLoincInfo observationLoincInfo) {
+	public LoincObservationModel(String loincId, ObservationLoincInfo observationLoincInfo) {
 		DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
 		this.fhirId = observationLoincInfo.getFhirId();
 		this.loincId = loincId;

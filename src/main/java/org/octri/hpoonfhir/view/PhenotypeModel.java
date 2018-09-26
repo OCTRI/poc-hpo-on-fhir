@@ -21,12 +21,23 @@ public class PhenotypeModel implements Serializable {
 	private final String hpoTermId;
 	private final String first;
 	private final String last;
-	private final List<ObservationModel> observations;
 	
-	public PhenotypeModel(HpoTermWithNegation hpoTerm, Term termInfo, List<ObservationModel> observations) {
+	// The phenotype may be derived from a list of observations relevant to a LOINC or may be inferred from other HPOs 
+	// in which case there are only inference descriptions, Need to account for possibility of both.
+	private final List<LoincObservationModel> loincObservations;
+	private final List<String> inferences;
+	
+	/**
+	 * Use this constructor for first-level analysis phenotypes derived from LOINCs
+	 * @param hpoTerm
+	 * @param termInfo
+	 * @param observations
+	 */
+	public PhenotypeModel(HpoTermWithNegation hpoTerm, Term termInfo, List<LoincObservationModel> observations) {
 		this.hpoTermName = constructTermName(hpoTerm, termInfo);
 		this.hpoTermId = hpoTerm.getHpoTermId().getIdWithPrefix();
-		this.observations = observations;
+		this.loincObservations = observations;
+		this.inferences = null;
 		// Get the earliest/latest start or end date
 		this.first = observations.stream().flatMap(o -> Stream.of(o.getStartDate(), o.getEndDate())).filter(s -> !s.isEmpty()).min(String::compareTo).get();
 		this.last = observations.stream().flatMap(o -> Stream.of(o.getStartDate(), o.getEndDate())).filter(s -> !s.isEmpty()).max(String::compareTo).get();
@@ -34,7 +45,7 @@ public class PhenotypeModel implements Serializable {
 
 	private String constructTermName(HpoTermWithNegation hpoTerm, Term termInfo) {
 		if (termInfo != null) {
-			return (hpoTerm.isNegated()?"NOT ":"") + termInfo.getName();
+			return (hpoTerm.isNegated()?"EXCLUDED ":"") + termInfo.getName();
 		}
 		
 		// Tests in the fhir2hpo library should prevent a null termInfo, but just in case
@@ -57,12 +68,16 @@ public class PhenotypeModel implements Serializable {
 		return last;
 	}
 	
-	public List<ObservationModel> getObservations() {
-		return observations;
+	public List<LoincObservationModel> getObservations() {
+		return loincObservations;
+	}
+	
+	public List<String> getInferences() {
+		return inferences;
 	}
 	
 	public Integer getCount() {
-		return observations.size();
+		return loincObservations.size();
 	}
 
 }
