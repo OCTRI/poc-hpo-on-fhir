@@ -22,22 +22,22 @@ public class PhenotypeModel implements Serializable {
 	private final String first;
 	private final String last;
 	
+	// TODO: Currently inferences are passed in with a corresponding Loinc Observation, so start and end dates are accurate.
 	// The phenotype may be derived from a list of observations relevant to a LOINC or may be inferred from other HPOs 
 	// in which case there are only inference descriptions, Need to account for possibility of both.
 	private final List<LoincObservationModel> loincObservations;
 	private final List<String> inferences;
 	
 	/**
-	 * Use this constructor for first-level analysis phenotypes derived from LOINCs
 	 * @param hpoTerm
 	 * @param termInfo
 	 * @param observations
 	 */
-	public PhenotypeModel(HpoTermWithNegation hpoTerm, Term termInfo, List<LoincObservationModel> observations) {
+	public PhenotypeModel(HpoTermWithNegation hpoTerm, Term termInfo, List<LoincObservationModel> observations, List<String> inferences) {
 		this.hpoTermName = constructTermName(hpoTerm, termInfo);
 		this.hpoTermId = hpoTerm.getHpoTermId().getIdWithPrefix();
 		this.loincObservations = observations;
-		this.inferences = null;
+		this.inferences = inferences;
 		// Get the earliest/latest start or end date
 		this.first = observations.stream().flatMap(o -> Stream.of(o.getStartDate(), o.getEndDate())).filter(s -> !s.isEmpty()).min(String::compareTo).get();
 		this.last = observations.stream().flatMap(o -> Stream.of(o.getStartDate(), o.getEndDate())).filter(s -> !s.isEmpty()).max(String::compareTo).get();

@@ -23,17 +23,22 @@ public class LoincObservationModel implements Serializable {
 	private final String endDate;
 	private final String value;
 
+	/**
+	 * Use this constructor for LoincConversionResults when the observation has been parsed specific to a LOINC
+	 * @param loincId
+	 * @param observationLoincInfo
+	 */
 	public LoincObservationModel(String loincId, ObservationLoincInfo observationLoincInfo) {
 		DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
 		this.fhirId = observationLoincInfo.getFhirId();
 		this.loincId = loincId;
 		this.description = observationLoincInfo.getDescription();
-		this.startDate = observationLoincInfo.getStartDate().map(d -> df.format(d)).orElse("");
-		this.endDate = observationLoincInfo.getEndDate().map(d -> df.format(d)).orElse("");
+		this.startDate = observationLoincInfo.getObservationPeriod().getStartDate().map(d -> df.format(d)).orElse("");
+		this.endDate = observationLoincInfo.getObservationPeriod().getEndDate().map(d -> df.format(d)).orElse("");
 		this.value = observationLoincInfo.getValueDescription();
 
 	}
-
+	
 	/**
 	 * The Observation FHIR Id
 	 * @return

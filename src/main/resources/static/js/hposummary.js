@@ -3,22 +3,30 @@
 $(document).ready(function() {
 	function showLabs(d) {
 		// `d` is the original data object for the row
-		let table = "<div class='card details-card'>"
+		let html = "<div class='card details-card'><h3>Observations</h3>"
 				+ "<table class='table-bordered'>"
 				+ "<thead>"
 				+ "<tr class='table-warning'><th>FHIR Id</th><th>LOINC</th><th>Description</th><th>Value</th><th>Start Date</th><th>End Date</th></tr>"
 				+ "</thead>" + "<tbody>";
 		for (i = 0; i < d.observations.length; i++) {
 			let observation = d.observations[i];
-			table += "<tr>" + "<td>" + observation.fhirId + "</td><td>"
+			html += "<tr>" + "<td>" + observation.fhirId + "</td><td>"
 					+ observation.loincId + "</td><td>"
 					+ observation.description + "</td><td>"
 					+ observation.value + "</td><td>" 
 					+ observation.startDate + "</td><td>" 
 					+ observation.endDate+ "</td></tr>";
 		}
-		table += "</tbody></table></div>";
-		return table;
+		html += "</tbody></table>";
+		if (d.inferences.length > 0) {
+			html += "<h3>Inferences</h3><ul>"
+			for (i=0; i < d.inferences.length; i++) {
+				html += "<li>" + d.inferences[i] + "</li>"
+			}
+			html += "</ul>";
+		}
+		html += "</div>";
+		return html;
 	}
 
 	let patientId = $("#patient_id").html();

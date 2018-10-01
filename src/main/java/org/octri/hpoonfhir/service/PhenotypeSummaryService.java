@@ -9,14 +9,17 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 import org.hl7.fhir.dstu3.model.Observation;
+import org.monarchinitiative.fhir2hpo.fhir.util.ObservationLoincInfo;
+import org.monarchinitiative.fhir2hpo.fhir.util.ObservationUtil;
+import org.monarchinitiative.fhir2hpo.hpo.HpoTermWithNegation;
+import org.monarchinitiative.fhir2hpo.hpo.InferredConversionResult;
 import org.monarchinitiative.fhir2hpo.hpo.LoincConversionResult;
 import org.monarchinitiative.fhir2hpo.hpo.ObservationConversionResult;
-import org.monarchinitiative.fhir2hpo.hpo.InferredConversionResult;
-import org.monarchinitiative.fhir2hpo.hpo.HpoTermWithNegation;
+import org.monarchinitiative.fhir2hpo.loinc.LoincId;
+import org.monarchinitiative.fhir2hpo.loinc.exception.MismatchedLoincIdException;
 import org.monarchinitiative.fhir2hpo.service.HpoService;
 import org.monarchinitiative.fhir2hpo.service.ObservationAnalysisService;
 import org.monarchinitiative.phenol.ontology.data.Term;
-import org.monarchinitiative.phenol.ontology.data.TermId;
 import org.octri.hpoonfhir.view.LoincObservationModel;
 import org.octri.hpoonfhir.view.PhenotypeModel;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,7 +46,7 @@ public class PhenotypeSummaryService {
 				.collect(Collectors.toList());
 		
 		Map<HpoTermWithNegation, List<LoincObservationModel>> observationsByPhenotype = new HashMap<>();
-		Map<HpoTermWithNegation, List<LoincObservationModel>> inferencesByPhenotype = new HashMap<>();
+		Map<HpoTermWithNegation, List<String>> inferencesByPhenotype = new HashMap<>();
 		for (ObservationConversionResult result : results ) {
 			
 			// First go through the direct successful results
@@ -65,18 +68,33 @@ public class PhenotypeSummaryService {
 			// Now go through the inferred results
 			List<InferredConversionResult> inferredConversionResults = result.getInferredConversionResults();
 			for (InferredConversionResult inferredResult : inferredConversionResults) {
-				// TODO: Create an ObservationModel using any successful LoincResult. This allows us to use the 
-				// date parsing logic needed for display. We need a better solution than this.
-				LoincConversionResult loincResult = successfulLoincResults.get(0);
-				LoincObservationModel observationModel = new LoincObservationModel(loincResult.getLoincId().getCode(), loincResult.getObservationLoincInfo());
-				List<LoincObservationModel> observations = inferencesByPhenotype.get(inferredResult.getHpoTerm());
-				
-				if (observations == null) {
-					observations = new ArrayList<>(Arrays.asList(observationModel));					
-				} else {
-					observations.add(observationModel);
+				try {
+					// TODO: The creation of an ObservationLoincInfo here is very contrived, but we need some way to
+					// tell the phenotype model to consider the dates for this observation when determining
+					// the phenotype start and end dates
+					// Get the main LOINC in the code section of the observation
+					LoincId mainLoinc = ObservationUtil.getCodeSectionLoincIdsOfObservation(result.getObservation()).iterator().next();
+					ObservationLoincInfo observationLoincInfo = new ObservationLoincInfo(mainLoinc, result.getObservation());
+					LoincObservationModel observationModel = new LoincObservationModel(mainLoinc.getCode(), observationLoincInfo);
+					List<LoincObservationModel> observations = observationsByPhenotype.get(inferredResult.getHpoTerm());
+					
+					if (observations == null) {
+						observations = new ArrayList<>(Arrays.asList(observationModel));					
+					} else {
+						observations.add(observationModel);
+					}
+					observationsByPhenotype.put(inferredResult.getHpoTerm(), observations);
+					
+					List<String> inferences = inferencesByPhenotype.get(inferredResult.getHpoTerm());
+					if (inferences == null) {
+						inferences = new ArrayList<>(Arrays.asList(inferredResult.getDescription()));
+					} else {
+						inferences.add(inferredResult.getDescription());
+					}
+					inferencesByPhenotype.put(inferredResult.getHpoTerm(), inferences);
+				} catch (MismatchedLoincIdException e) {
+					// This can't happen because we extracted the LOINC from the observation before creating a new ObservationLoincInfo
 				}
-				inferencesByPhenotype.put(inferredResult.getHpoTerm(), observations);
 			}
 
 			
@@ -85,23 +103,14 @@ public class PhenotypeSummaryService {
 		List<PhenotypeModel> phenotypes = new ArrayList<>();
 		for (HpoTermWithNegation term : observationsByPhenotype.keySet()) {
 			List<LoincObservationModel> observations = observationsByPhenotype.get(term);
+			List<String> inferences = inferencesByPhenotype.get(term);
 			// Sort observations by start date
 			Collections.sort(observations, (x, y) -> x.getStartDate().compareTo(y.getStartDate()));
 			// Get the term information from the HPO service
 			Term termInfo = hpoService.getTermForTermId(term.getHpoTermId());
-			phenotypes.add(new PhenotypeModel(term, termInfo, observations));
+			phenotypes.add(new PhenotypeModel(term, termInfo, observations, inferences));
 		}
-		
-
-		for (HpoTermWithNegation term : inferencesByPhenotype.keySet()) {
-			List<LoincObservationModel> observations = inferencesByPhenotype.get(term);
-			// Sort observations by start date
-			Collections.sort(observations, (x, y) -> x.getStartDate().compareTo(y.getStartDate()));
-			// Get the term information from the HPO service
-			Term termInfo = hpoService.getTermForTermId(term.getHpoTermId());
-			phenotypes.add(new PhenotypeModel(term, termInfo, observations));
-		}
-		
+				
 		// Sort phenotypes by name
 		Collections.sort(phenotypes, (x, y) -> x.getHpoTermName().compareTo(y.getHpoTermName()));
 		return phenotypes;
