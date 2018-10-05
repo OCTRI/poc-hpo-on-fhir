@@ -6,7 +6,7 @@ $(document).ready(function() {
 		let table = "<div class='card details-card'>"
 				+ "<table class='table-bordered'>"
 				+ "<thead>"
-				+ "<tr class='table-warning'><th>FHIR Id</th><th>LOINC</th><th>Description</th><th>Value</th><th>Start Date</th><th>End Date</th></tr>"
+				+ "<tr class='table-warning'><th>Resource Id</th><th>LOINC</th><th>Description</th><th>Value</th><th>Start Date</th><th>End Date</th></tr>"
 				+ "</thead>" + "<tbody>";
 		for (i = 0; i < d.observations.length; i++) {
 			let observation = d.observations[i];
