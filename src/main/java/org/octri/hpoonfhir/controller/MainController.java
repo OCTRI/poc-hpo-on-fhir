@@ -12,6 +12,7 @@ import org.monarchinitiative.fhir2hpo.loinc.DefaultLoinc2HpoAnnotation;
 import org.monarchinitiative.fhir2hpo.loinc.Loinc2HpoAnnotation;
 import org.monarchinitiative.fhir2hpo.loinc.LoincId;
 import org.monarchinitiative.fhir2hpo.service.AnnotationService;
+import org.octri.hpoonfhir.service.AuthenticationService;
 import org.octri.hpoonfhir.service.FhirService;
 import org.octri.hpoonfhir.view.PatientModel;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +32,9 @@ public class MainController {
 
 	@Autowired
 	FhirService fhirService;
+	
+	@Autowired
+	AuthenticationService authenticationService;
 
 	/**
 	 * Return to a clean search form with no results.
@@ -58,6 +62,7 @@ public class MainController {
 		model.put("caveats", caveats);
 		model.put("patientSearchForm", new PatientModel());
 		model.put("results", false);
+		
 		return "search";
 	}
 
@@ -69,11 +74,12 @@ public class MainController {
 	 * @return
 	 */
 	@PostMapping("/")
-	public String search(Map<String, Object> model, @ModelAttribute PatientModel form) {
+	public String search(Map<String, Object> model, OAuth2AuthenticationToken authentication, @ModelAttribute PatientModel form) {
 		model.put("fhirServiceName", fhirService.getServiceName());
 		model.put("patientSearchForm", form);
 		try {
-			List<Patient> patients = fhirService.findPatientsByFullName(form.getFirstName(), form.getLastName());
+			String token = authenticationService.getTokenString(authentication);
+			List<Patient> patients = fhirService.findPatientsByFullName(token, form.getFirstName(), form.getLastName());
 			List<PatientModel> patientModels = patients.stream()
 					.map(fhirPatient -> new PatientModel(fhirPatient))
 					.collect(Collectors.toList());
@@ -94,10 +100,11 @@ public class MainController {
 	 * @return the patient found
 	 */
 	@GetMapping("/patient/{id:.+}")
-	public String patient(Map<String, Object> model, @PathVariable String id) {
+	public String patient(Map<String, Object> model, OAuth2AuthenticationToken authentication, @PathVariable String id) {
 		try {
+			String token = authenticationService.getTokenString(authentication);
 			// Get the patient again so information can be displayed
-			Patient fhirPatient = fhirService.findPatientById(id);
+			Patient fhirPatient = fhirService.findPatientById(token, id);
 			PatientModel patientModel = new PatientModel(fhirPatient);
 			model.put("patient", patientModel);
 			model.put("includeHpoSummaryJs", true);

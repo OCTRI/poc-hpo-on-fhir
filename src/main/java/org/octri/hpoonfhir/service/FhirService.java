@@ -22,25 +22,28 @@ public interface FhirService {
 	
 	/**
 	 * Find the patient by an identifier.
-	 * @param id
+	 * @param token the authentication token
+	 * @param id the patient id
 	 * @return the single patient or null if none exists
 	 * @throws FHIRException 
 	 */
-	public Patient findPatientById(String id) throws FHIRException;
+	public Patient findPatientById(String token, String id) throws FHIRException;
 
 	/**
 	 * Return a list of patients that loosely match the first and last name provided.
-	 * @param firstName
-	 * @param lastName
+	 * @param token the authentication token
+	 * @param firstName the first name
+	 * @param lastName the last name
 	 * @return the list of patients
 	 */
-	public List<Patient> findPatientsByFullName(String firstName, String lastName) throws FHIRException;
+	public List<Patient> findPatientsByFullName(String token, String firstName, String lastName) throws FHIRException;
 
 	/**
 	 * Return the observations for the given patient id.
-	 * @param patientId
+	 * @param the authentication token
+	 * @param patientId the id of the patient
 	 * @return the list of observations
 	 */
-	public List<Observation> findObservationsForPatient(String patientId) throws FHIRException;
+	public List<Observation> findObservationsForPatient(String token, String patientId) throws FHIRException;
 
 }
