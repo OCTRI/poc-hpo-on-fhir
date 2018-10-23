@@ -9,9 +9,9 @@ public class FhirServiceBuilder {
 	
 	public static FhirService build(FhirConfig config) {
 		if (config.getVersion().equals(STU2_VERSION)) {
-			return new Stu2FhirService(config.getName(), config.getUrl());
+			return new Stu2FhirService(config);
 		} else if (config.getVersion().equals(STU3_VERSION)) {
-			return new Stu3FhirService(config.getName(), config.getUrl());
+			return new Stu3FhirService(config);
 		}
 		
 		throw new IllegalArgumentException("The FHIR version " + config.getVersion() + " is not supported.");

@@ -13,6 +13,7 @@ import org.monarchinitiative.fhir2hpo.loinc.Loinc2HpoAnnotation;
 import org.monarchinitiative.fhir2hpo.loinc.LoincId;
 import org.monarchinitiative.fhir2hpo.service.AnnotationService;
 import org.octri.hpoonfhir.service.FhirService;
+import org.octri.hpoonfhir.service.FhirSessionService;
 import org.octri.hpoonfhir.view.PatientModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -30,6 +31,9 @@ public class MainController {
 
 	@Autowired
 	FhirService fhirService;
+	
+	@Autowired
+	FhirSessionService fhirSessionService;
 
 	/**
 	 * Return to a clean search form with no results.
@@ -68,11 +72,12 @@ public class MainController {
 	 * @return
 	 */
 	@PostMapping("/")
-	public String search(Map<String, Object> model, @ModelAttribute PatientModel form) {
+	public String search(HttpServletRequest request, Map<String, Object> model, @ModelAttribute PatientModel form) {
+		String token = fhirSessionService.getSessionToken(request);
 		model.put("fhirServiceName", fhirService.getServiceName());
 		model.put("patientSearchForm", form);
 		try {
-			List<Patient> patients = fhirService.findPatientsByFullName(form.getFirstName(), form.getLastName());
+			List<Patient> patients = fhirService.findPatientsByFullName(token, form.getFirstName(), form.getLastName());
 			List<PatientModel> patientModels = patients.stream()
 					.map(fhirPatient -> new PatientModel(fhirPatient))
 					.collect(Collectors.toList());
@@ -93,10 +98,10 @@ public class MainController {
 	 * @return the patient found
 	 */
 	@GetMapping("/patient/{id:.+}")
-	public String patient(Map<String, Object> model, @PathVariable String id) {
+	public String patient(HttpServletRequest request, Map<String, Object> model, @PathVariable String id) {
 		try {
-			// Get the patient again so information can be displayed
-			Patient fhirPatient = fhirService.findPatientById(id);
+			String token = fhirSessionService.getSessionToken(request);
+			Patient fhirPatient = fhirService.findPatientById(token, id);
 			PatientModel patientModel = new PatientModel(fhirPatient);
 			model.put("patient", patientModel);
 			model.put("includeHpoSummaryJs", true);

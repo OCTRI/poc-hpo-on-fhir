@@ -21,12 +21,48 @@ public interface FhirService {
 	public String getServiceName();
 	
 	/**
+	 * The service uri
+	 * @return
+	 */
+	public String getServiceEndpoint();
+	
+	/**
+	 * The endpoint to hit for authorization
+	 * @return
+	 */
+	public String getAuthorizeEndpoint();
+	
+	/**
+	 * The endpoint to hit for token exchange
+	 * @return
+	 */
+	public String getTokenEndpoint();
+	
+	/**
+	 * The redirect uri for the application
+	 * @return
+	 */
+	public String getRedirectUri();
+	
+	/**
+	 * Get the client id for the FHIR server
+	 * @return
+	 */
+	public String getClientId();
+	
+	/**
+	 * Get the client secret for the FHIR server
+	 * @return
+	 */
+	public String getClientSecret();
+
+	/**
 	 * Find the patient by an identifier.
 	 * @param id
 	 * @return the single patient or null if none exists
 	 * @throws FHIRException 
 	 */
-	public Patient findPatientById(String id) throws FHIRException;
+	public Patient findPatientById(String token, String id) throws FHIRException;
 
 	/**
 	 * Return a list of patients that loosely match the first and last name provided.
@@ -34,13 +70,13 @@ public interface FhirService {
 	 * @param lastName
 	 * @return the list of patients
 	 */
-	public List<Patient> findPatientsByFullName(String firstName, String lastName) throws FHIRException;
+	public List<Patient> findPatientsByFullName(String token, String firstName, String lastName) throws FHIRException;
 
 	/**
 	 * Return the observations for the given patient id.
 	 * @param patientId
 	 * @return the list of observations
 	 */
-	public List<Observation> findObservationsForPatient(String patientId) throws FHIRException;
+	public List<Observation> findObservationsForPatient(String token, String patientId) throws FHIRException;
 
 }

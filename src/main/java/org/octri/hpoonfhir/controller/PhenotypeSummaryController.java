@@ -3,8 +3,13 @@ package org.octri.hpoonfhir.controller;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.hl7.fhir.exceptions.FHIRException;
 import org.octri.hpoonfhir.service.FhirService;
+import org.octri.hpoonfhir.service.FhirSessionService;
 import org.octri.hpoonfhir.service.PhenotypeSummaryService;
 import org.octri.hpoonfhir.view.PhenotypeModel;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,8 +29,13 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 @RestController
 public class PhenotypeSummaryController {
 
+	private static final Logger logger = LogManager.getLogger();
+
 	@Autowired
 	FhirService fhirService;
+
+	@Autowired
+	FhirSessionService fhirSessionService;
 
 	@Autowired
 	PhenotypeSummaryService phenotypeSummaryService;
@@ -37,10 +47,11 @@ public class PhenotypeSummaryController {
 	 * @return a JSON string representing the summary of phenotypes found
 	 */
 	@GetMapping("/summary/{id:.+}")
-	public String labs(Map<String, Object> model, @PathVariable String id) {
+	public String labs(HttpServletRequest request, Map<String, Object> model, @PathVariable String id) {
 		String json = "";
 		try {
-			List<PhenotypeModel> phenotypes = phenotypeSummaryService.summarizePhenotypes(fhirService.findObservationsForPatient(id));
+			String token = fhirSessionService.getSessionToken(request);
+			List<PhenotypeModel> phenotypes = phenotypeSummaryService.summarizePhenotypes(fhirService.findObservationsForPatient(token, id));
 			model.put("data", phenotypes);
 			ObjectMapper objectMapper = new ObjectMapper();
 			json = objectMapper.writeValueAsString(model);
@@ -48,7 +59,7 @@ public class PhenotypeSummaryController {
 			e.printStackTrace();
 		} catch (JsonProcessingException e) {
 			e.printStackTrace();
-		} 
+		}
 		return json;
 	}
 

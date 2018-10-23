@@ -9,6 +9,7 @@ import org.hl7.fhir.dstu3.model.Bundle;
 import org.hl7.fhir.dstu3.model.Observation;
 import org.hl7.fhir.dstu3.model.Patient;
 import org.hl7.fhir.exceptions.FHIRException;
+import org.octri.hpoonfhir.config.FhirConfig;
 
 import ca.uhn.fhir.context.FhirContext;
 
@@ -24,8 +25,8 @@ public class Stu2FhirService extends AbstractFhirService {
 	private static final FhirContext ctx = FhirContext.forDstu2Hl7Org();
 	private final VersionConvertor_10_30 converter = new VersionConvertor_10_30(new NullVersionConverterAdvisor30());
 
-	public Stu2FhirService(String serviceName, String url) {
-		super(serviceName, url);
+	public Stu2FhirService(FhirConfig config) {
+		super(config);
 	}
 
 	@Override
@@ -34,29 +35,29 @@ public class Stu2FhirService extends AbstractFhirService {
 	}
 	
 	@Override
-	public Patient findPatientById(String id) throws FHIRException {
-		org.hl7.fhir.instance.model.Patient stu2Patient = getClient().read().resource(org.hl7.fhir.instance.model.Patient.class).withId(id).execute();
+	public Patient findPatientById(String token, String id) throws FHIRException {
+		org.hl7.fhir.instance.model.Patient stu2Patient = getClient(token).read().resource(org.hl7.fhir.instance.model.Patient.class).withId(id).execute();
 		return (Patient) converter.convertPatient(stu2Patient);
 	}
 
 	@Override
-	public List<Patient> findPatientsByFullName(String firstName, String lastName) throws FHIRException {
-		org.hl7.fhir.instance.model.Bundle patientBundle = getClient().search().forResource(org.hl7.fhir.instance.model.Patient.class).where(Patient.FAMILY.matches().value(lastName)).and(Patient.GIVEN.matches().value(firstName)).returnBundle(org.hl7.fhir.instance.model.Bundle.class).execute();
+	public List<Patient> findPatientsByFullName(String token, String firstName, String lastName) throws FHIRException {
+		org.hl7.fhir.instance.model.Bundle patientBundle = getClient(token).search().forResource(org.hl7.fhir.instance.model.Patient.class).where(Patient.FAMILY.matches().value(lastName)).and(Patient.GIVEN.matches().value(firstName)).returnBundle(org.hl7.fhir.instance.model.Bundle.class).execute();
 		return processPatientBundle(patientBundle);
 		
 	}
 	
 	@Override
-	public List<Observation> findObservationsForPatient(String patientId) throws FHIRException {
+	public List<Observation> findObservationsForPatient(String token, String patientId) throws FHIRException {
 		List<Observation> allObservations = new ArrayList<>();
 		// Epic sandbox query will fail if category is not provided
-		org.hl7.fhir.instance.model.Bundle observationBundle = getClient().search()
+		org.hl7.fhir.instance.model.Bundle observationBundle = getClient(token).search()
 				.byUrl("Observation?patient=" + patientId + "&category=vital-signs,laboratory")
 				.returnBundle(org.hl7.fhir.instance.model.Bundle.class).execute();
 		
 		while (observationBundle != null) {
 			allObservations.addAll(processObservationBundle(observationBundle));
-			observationBundle = (observationBundle.getLink(Bundle.LINK_NEXT) != null) ? getClient().loadPage().next(observationBundle).execute() : null;
+			observationBundle = (observationBundle.getLink(Bundle.LINK_NEXT) != null) ? getClient(token).loadPage().next(observationBundle).execute() : null;
 		}
 		
 		return allObservations;
@@ -87,6 +88,5 @@ public class Stu2FhirService extends AbstractFhirService {
 		
 		return stu3Observations;		
 	}
-
-
+	
 }
