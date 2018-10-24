@@ -24,10 +24,10 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 public class LaunchController {
 	
 	@Autowired
-	FhirService fhirService;
+	private FhirService fhirService;
 	
 	@Autowired
-	FhirSessionService fhirSessionService;
+	private FhirSessionService fhirSessionService;
 
 	/**
 	 * Get the launch request from the EHR and use it to initiate the authorization

@@ -32,13 +32,13 @@ public class PhenotypeSummaryController {
 	private static final Logger logger = LogManager.getLogger();
 
 	@Autowired
-	FhirService fhirService;
+	private FhirService fhirService;
 
 	@Autowired
-	FhirSessionService fhirSessionService;
+	private FhirSessionService fhirSessionService;
 
 	@Autowired
-	PhenotypeSummaryService phenotypeSummaryService;
+	private PhenotypeSummaryService phenotypeSummaryService;
 
 	/**
 	 * Get the patient observations and convert them to HPO if possible.

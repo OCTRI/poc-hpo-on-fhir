@@ -21,7 +21,7 @@ import org.springframework.stereotype.Service;
 public class FhirSessionService {
 	
 	// Simple map from the JSESSIONID to the authentication token
-	Map<String,String> sessionMap = new HashMap<String,String>();
+	private Map<String,String> sessionMap = new HashMap<String,String>();
 	
 	public void putSession(HttpServletRequest request, String authToken) {
 		Cookie[] cookies = request.getCookies();

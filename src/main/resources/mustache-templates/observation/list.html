@@ -1,0 +1,28 @@
+{{>layout/header}}
+<div class='container'>
+
+    <h3>Observation List</h3>
+    <table class='table table-striped table-bordered'>
+    	<thead>
+    	<tr>    		
+    		<th>Resource Id</th>
+    		<th>LOINC</th>
+    		<th>Description</th>
+    		<th>Start</th>
+    		<th>End</th>
+    	</tr>
+    	</thead>
+    	<tbody>
+    	{{#observations}}
+    		<tr>    			
+    			<td><a href='{{req.contextPath}}{{patient}}/observation/{{fhirId}}'>View</a></td>
+    			<td>{{loincId}}</td>
+    			<td>{{description}}</td>
+    			<td>{{startDate}}</td>
+    			<td>{{endDate}}</td>
+    		</tr>
+	    {{/observations}}
+    	</tbody>
+    </table>
+</div>
+{{>layout/footer}}

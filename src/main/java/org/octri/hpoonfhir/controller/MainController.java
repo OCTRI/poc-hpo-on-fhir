@@ -1,20 +1,26 @@
 package org.octri.hpoonfhir.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.hl7.fhir.dstu3.model.Observation;
 import org.hl7.fhir.dstu3.model.Patient;
 import org.hl7.fhir.exceptions.FHIRException;
+import org.monarchinitiative.fhir2hpo.fhir.util.ObservationLoincInfo;
+import org.monarchinitiative.fhir2hpo.fhir.util.ObservationUtil;
 import org.monarchinitiative.fhir2hpo.loinc.DefaultLoinc2HpoAnnotation;
 import org.monarchinitiative.fhir2hpo.loinc.Loinc2HpoAnnotation;
 import org.monarchinitiative.fhir2hpo.loinc.LoincId;
+import org.monarchinitiative.fhir2hpo.loinc.exception.MismatchedLoincIdException;
 import org.monarchinitiative.fhir2hpo.service.AnnotationService;
-import org.octri.hpoonfhir.controller.exception.UnauthorizedException;
 import org.octri.hpoonfhir.service.FhirService;
 import org.octri.hpoonfhir.service.FhirSessionService;
+import org.octri.hpoonfhir.view.ObservationModel;
 import org.octri.hpoonfhir.view.PatientModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -28,13 +34,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class MainController {
 	
 	@Autowired
-	AnnotationService annotationService;
+	private AnnotationService annotationService;
 
 	@Autowired
-	FhirService fhirService;
+	private FhirService fhirService;
 	
 	@Autowired
-	FhirSessionService fhirSessionService;
+	private FhirSessionService fhirSessionService;
 
 	/**
 	 * Return to a clean search form with no results.
@@ -113,6 +119,40 @@ public class MainController {
 		return "phenotypes";
 	}
 
+	/**
+	 * Get the patient information and return to the phenotypes view
+	 * @param model
+	 * @param id the patient id
+	 * @return the patient found
+	 * @throws MismatchedLoincIdException 
+	 */
+	@GetMapping("/patient/{id:.+}/observation")
+	public String observations(HttpServletRequest request, Map<String, Object> model, @PathVariable String id) throws MismatchedLoincIdException {
+		try {
+			String token = fhirSessionService.getSessionToken(request);
+			List<Observation> observations = fhirService.findObservationsForPatient(token, id);
+			List<ObservationModel> observationModels = new ArrayList<>();
+			for (Observation o : observations) {
+				Set<LoincId> loincs = ObservationUtil.getAllLoincIdsOfObservation(o);
+				for (LoincId loinc : loincs) {
+					ObservationModel observationModel = new ObservationModel(loinc.getCode(), new ObservationLoincInfo(loinc, o));
+					observationModels.add(observationModel);
+				}
+			}
+			model.put("patient", id);
+			model.put("observations", observationModels);
+			model.put("includeHpoSummaryJs", true);
+		} catch (FHIRException e) {
+			e.printStackTrace();
+		}
+		return "observation/list";
+	}
+
+	@GetMapping("/patient/{patient:.+}/observation/{observation:.+}")
+	public String observation(HttpServletRequest request, Map<String, Object> model, @PathVariable String patient, @PathVariable String observation) {
+		return "observation/show";
+	}
+	
 	@RequestMapping("/annotations")
 	public String annotations(Map<String, Object> model) throws Exception {
 		Map<LoincId, Loinc2HpoAnnotation> annotations = annotationService.getAnnotationsMap();

@@ -28,10 +28,10 @@ import org.springframework.stereotype.Service;
 public class PhenotypeSummaryService {
 
 	@Autowired
-	ObservationAnalysisService observationAnalysisService;
+	private ObservationAnalysisService observationAnalysisService;
 	
 	@Autowired
-	HpoService hpoService;
+	private HpoService hpoService;
 	
 	public List<PhenotypeModel> summarizePhenotypes(List<Observation> fhirObservations) {
 		// Try to convert all observations and gather successes
