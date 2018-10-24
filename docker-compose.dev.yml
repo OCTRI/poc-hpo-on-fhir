@@ -1,0 +1,16 @@
+# dev/stage server configuration
+#
+# This configuration is intended for environments that use a
+# non-container MySQL database. For those deployments, copy
+# this file to the server as docker-compose.override.yml and
+# also copy over docker-compose.yml. Then you can start the
+# containers with,
+#
+#     docker-compose up -d
+version: "2"
+services:
+  app:
+    ports:
+      - "${APP_PORT}:8080"
+    volumes:
+      - ./app.jar:/app.jar
