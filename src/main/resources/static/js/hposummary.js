@@ -1,6 +1,11 @@
 // Javascript for the hposummary table on phenotypes view
 
 $(document).ready(function() {
+	
+	function getContextPath() {
+		return window.location.pathname.substring(0, window.location.pathname.indexOf("/",2));
+	}
+	
 	function showLabs(d) {
 		// `d` is the original data object for the row
 		let table = "<div class='card details-card'>"
@@ -26,7 +31,7 @@ $(document).ready(function() {
 	// Set up table
 	let table = $("#hposummary").DataTable({
 		ajax : {
-			"url" : "/summary/" + patientId
+			"url" : getContextPath() + "/summary/" + patientId
 		},
 		info: true,
 		paging : true,
