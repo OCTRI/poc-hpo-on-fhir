@@ -17,6 +17,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Controller
@@ -45,7 +46,6 @@ public class LaunchController {
 		// managing multiple launches
 		// TODO: Should probably be saving the state and checking the auth response for a match
 		String state = new Long(Math.round(Math.random() * 100000000)).toString();
-
 
 		response.setStatus(HttpServletResponse.SC_TEMPORARY_REDIRECT);
 		StringBuilder stringBuilder = new StringBuilder();
@@ -89,22 +89,34 @@ public class LaunchController {
 		}
 	}
 
+	/**
+	 * Exchange the code for a token and return the response
+	 * @param code
+	 * @return
+	 * @throws Exception
+	 */
 	private AccessTokenResponse getToken(String code) throws Exception {
-
-        String authHeader = String.format("%s:%s", fhirService.getClientId(), fhirService.getClientSecret());
-        String encoded = new String(org.apache.commons.codec.binary.Base64.encodeBase64(authHeader.getBytes()));
 		
 		URL obj = new URL(fhirService.getTokenEndpoint());
 		HttpURLConnection con = (HttpURLConnection) obj.openConnection();
 
 		// Setting basic post request
 		con.setRequestMethod("POST");
-		con.setRequestProperty ("Authorization", String.format("Basic %s", encoded));
 		con.setRequestProperty("Content-Language", "en-US");
 		con.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
 
 		String postData = "code=" + code
 			+ "&grant_type=authorization_code&redirect_uri=" + fhirService.getRedirectUri();
+
+		if (fhirService.getClientSecret() != null) {
+			// If there is a client secret, add an authorization
+	        String authHeader = String.format("%s:%s", fhirService.getClientId(), fhirService.getClientSecret());
+	        String encoded = new String(org.apache.commons.codec.binary.Base64.encodeBase64(authHeader.getBytes()));
+			con.setRequestProperty ("Authorization", String.format("Basic %s", encoded));
+		} else {
+			// If no client secret, pass the client id in the post
+			postData += "&client_id=" + fhirService.getClientId();
+		}
 
 		// Send post request
 		con.setDoOutput(true);
@@ -126,7 +138,8 @@ public class LaunchController {
 		}
 		in.close();
 
-		ObjectMapper om = new ObjectMapper();
+		// Different servers may return additional parameters. Ignore them.
+		ObjectMapper om = new ObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);;
 		AccessTokenResponse token = om.readValue(response.toString(), AccessTokenResponse.class);
 		return token;
 	}
