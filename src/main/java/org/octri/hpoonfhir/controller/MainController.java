@@ -12,6 +12,7 @@ import org.monarchinitiative.fhir2hpo.loinc.DefaultLoinc2HpoAnnotation;
 import org.monarchinitiative.fhir2hpo.loinc.Loinc2HpoAnnotation;
 import org.monarchinitiative.fhir2hpo.loinc.LoincId;
 import org.monarchinitiative.fhir2hpo.service.AnnotationService;
+import org.octri.hpoonfhir.controller.exception.UnauthorizedException;
 import org.octri.hpoonfhir.service.FhirService;
 import org.octri.hpoonfhir.service.FhirSessionService;
 import org.octri.hpoonfhir.view.PatientModel;
@@ -44,7 +45,8 @@ public class MainController {
 	 */
 	@GetMapping("/")
 	public String home(Map<String, Object> model, HttpServletRequest request) {
-
+		// Make sure token is present even though we won't use
+		String token = fhirSessionService.getSessionToken(request);
 		// Load text describing caveats for the FHIR Service. This is
 		// temporary but will help users if we decide to deploy this to a public location.
 		String caveats = null;

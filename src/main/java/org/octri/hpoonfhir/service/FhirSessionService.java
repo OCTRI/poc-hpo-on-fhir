@@ -8,6 +8,7 @@ import java.util.Optional;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 
+import org.octri.hpoonfhir.controller.exception.UnauthorizedException;
 import org.springframework.stereotype.Service;
 
 
@@ -31,12 +32,18 @@ public class FhirSessionService {
 	}
 	
 	public String getSessionToken(HttpServletRequest request) {
+		String token = null;
 		Cookie[] cookies = request.getCookies();
 		Optional<Cookie> cookie = Arrays.stream(cookies).filter(c -> c.getName().equals("JSESSIONID")).findFirst();
 		if (cookie.isPresent()) {
-			return sessionMap.get(cookie.get().getValue());
+			token = sessionMap.get(cookie.get().getValue());
 		}
-		return null;
+		if (token == null) {
+			throw new UnauthorizedException();
+		} else {
+			return token;
+		}
+
 	}
 	
 }
