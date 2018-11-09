@@ -2,8 +2,8 @@
 
 $(document).ready(function() {
 	
-	function getContextPath() {
-		return window.location.pathname.substring(0, window.location.pathname.indexOf("/",2));
+	function getContextPath() {		
+		return '/' + window.location.pathname.split('/')[1];
 	}
 	
 	function showLabs(d) {
