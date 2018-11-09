@@ -62,7 +62,7 @@ public interface FhirService {
 	 * @return the single patient or null if none exists
 	 * @throws FHIRException 
 	 */
-	public Patient findPatientById(String token, String id) throws FHIRException;
+	public Patient findPatientById(String token, String id);
 
 	/**
 	 * Return a list of patients that loosely match the first and last name provided.
@@ -70,14 +70,14 @@ public interface FhirService {
 	 * @param lastName
 	 * @return the list of patients
 	 */
-	public List<Patient> findPatientsByFullName(String token, String firstName, String lastName) throws FHIRException;
+	public List<Patient> findPatientsByFullName(String token, String firstName, String lastName);
 
 	/**
 	 * Return the observations for the given patient id.
 	 * @param patientId
 	 * @return the list of observations
 	 */
-	public List<Observation> findObservationsForPatient(String token, String patientId) throws FHIRException;
+	public List<Observation> findObservationsForPatient(String token, String patientId);
 
 	/**
 	 * Find the observation by an identifier.
@@ -85,6 +85,6 @@ public interface FhirService {
 	 * @return the single observation or null if none exists
 	 * @throws FHIRException 
 	 */
-	public Observation findObservationById(String token, String id) throws FHIRException;
+	public Observation findObservationById(String token, String id);
 
 }

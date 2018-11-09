@@ -7,7 +7,6 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.hl7.fhir.exceptions.FHIRException;
 import org.octri.hpoonfhir.service.FhirService;
 import org.octri.hpoonfhir.service.FhirSessionService;
 import org.octri.hpoonfhir.service.PhenotypeSummaryService;
@@ -55,10 +54,9 @@ public class PhenotypeSummaryController {
 			model.put("data", phenotypes);
 			ObjectMapper objectMapper = new ObjectMapper();
 			json = objectMapper.writeValueAsString(model);
-		} catch (FHIRException e) {
-			e.printStackTrace();
 		} catch (JsonProcessingException e) {
-			e.printStackTrace();
+			logger.error("Could not map the phenotypes to json. This is likely a developer error with the serialization of PhenotypeModel.");
+			return "[]";
 		}
 		return json;
 	}

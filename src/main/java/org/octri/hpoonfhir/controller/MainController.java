@@ -10,15 +10,12 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.hl7.fhir.dstu3.model.Observation;
 import org.hl7.fhir.dstu3.model.Patient;
-import org.hl7.fhir.exceptions.FHIRException;
 import org.monarchinitiative.fhir2hpo.fhir.util.ObservationLoincInfo;
 import org.monarchinitiative.fhir2hpo.fhir.util.ObservationUtil;
 import org.monarchinitiative.fhir2hpo.loinc.LoincId;
 import org.monarchinitiative.fhir2hpo.loinc.exception.MismatchedLoincIdException;
-import org.monarchinitiative.fhir2hpo.service.AnnotationService;
 import org.octri.hpoonfhir.service.FhirService;
 import org.octri.hpoonfhir.service.FhirSessionService;
-import org.octri.hpoonfhir.service.Stu2FhirService;
 import org.octri.hpoonfhir.view.ObservationModel;
 import org.octri.hpoonfhir.view.PatientModel;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,9 +30,6 @@ import ca.uhn.fhir.context.FhirContext;
 @Controller
 public class MainController {
 	
-	@Autowired
-	private AnnotationService annotationService;
-
 	@Autowired
 	private FhirService fhirService;
 	
@@ -84,18 +78,12 @@ public class MainController {
 		String token = fhirSessionService.getSessionToken(request);
 		model.put("fhirServiceName", fhirService.getServiceName());
 		model.put("patientSearchForm", form);
-		try {
-			List<Patient> patients = fhirService.findPatientsByFullName(token, form.getFirstName(), form.getLastName());
-			List<PatientModel> patientModels = patients.stream()
-					.map(fhirPatient -> new PatientModel(fhirPatient))
-					.collect(Collectors.toList());
-			model.put("patients", patientModels);
-			model.put("results", true);
-		} catch (FHIRException e) {
-			// TODO: Decide how to handle FHIRException which is only thrown if there's an error in the conversion of V2
-			// messages
-			e.printStackTrace();
-		}
+		List<Patient> patients = fhirService.findPatientsByFullName(token, form.getFirstName(), form.getLastName());
+		List<PatientModel> patientModels = patients.stream()
+				.map(fhirPatient -> new PatientModel(fhirPatient))
+				.collect(Collectors.toList());
+		model.put("patients", patientModels);
+		model.put("results", true);
 		return "search";
 	}
 
@@ -107,14 +95,10 @@ public class MainController {
 	 */
 	@GetMapping("/patient/{id:.+}")
 	public String patient(HttpServletRequest request, Map<String, Object> model, @PathVariable String id) {
-		try {
-			String token = fhirSessionService.getSessionToken(request);
-			Patient fhirPatient = fhirService.findPatientById(token, id);
-			PatientModel patientModel = new PatientModel(fhirPatient);
-			model.put("patient", patientModel);
-		} catch (FHIRException e) {
-			e.printStackTrace();
-		}
+		String token = fhirSessionService.getSessionToken(request);
+		Patient fhirPatient = fhirService.findPatientById(token, id);
+		PatientModel patientModel = new PatientModel(fhirPatient);
+		model.put("patient", patientModel);
 		return "patient";
 	}
 
@@ -126,15 +110,11 @@ public class MainController {
 	 */
 	@GetMapping("/patient/{id:.+}/phenotype")
 	public String phenoytype(HttpServletRequest request, Map<String, Object> model, @PathVariable String id) {
-		try {
-			String token = fhirSessionService.getSessionToken(request);
-			Patient fhirPatient = fhirService.findPatientById(token, id);
-			PatientModel patientModel = new PatientModel(fhirPatient);
-			model.put("patient", patientModel);
-			model.put("includeHpoSummaryJs", true);
-		} catch (FHIRException e) {
-			e.printStackTrace();
-		}
+		String token = fhirSessionService.getSessionToken(request);
+		Patient fhirPatient = fhirService.findPatientById(token, id);
+		PatientModel patientModel = new PatientModel(fhirPatient);
+		model.put("patient", patientModel);
+		model.put("includeHpoSummaryJs", true);
 		return "phenotypes";
 	}
 
@@ -147,25 +127,21 @@ public class MainController {
 	 */
 	@GetMapping("/patient/{id:.+}/observation")
 	public String observations(HttpServletRequest request, Map<String, Object> model, @PathVariable String id) throws MismatchedLoincIdException {
-		try {
-			String token = fhirSessionService.getSessionToken(request);
-			Patient fhirPatient = fhirService.findPatientById(token, id);
-			PatientModel patientModel = new PatientModel(fhirPatient);
-			List<Observation> observations = fhirService.findObservationsForPatient(token, id);
-			List<ObservationModel> observationModels = new ArrayList<>();
-			for (Observation o : observations) {
-				Set<LoincId> loincs = ObservationUtil.getAllLoincIdsOfObservation(o);
-				for (LoincId loinc : loincs) {
-					ObservationModel observationModel = new ObservationModel(loinc.getCode(), new ObservationLoincInfo(loinc, o));
-					observationModels.add(observationModel);
-				}
+		String token = fhirSessionService.getSessionToken(request);
+		Patient fhirPatient = fhirService.findPatientById(token, id);
+		PatientModel patientModel = new PatientModel(fhirPatient);
+		List<Observation> observations = fhirService.findObservationsForPatient(token, id);
+		List<ObservationModel> observationModels = new ArrayList<>();
+		for (Observation o : observations) {
+			Set<LoincId> loincs = ObservationUtil.getAllLoincIdsOfObservation(o);
+			for (LoincId loinc : loincs) {
+				ObservationModel observationModel = new ObservationModel(loinc.getCode(), new ObservationLoincInfo(loinc, o));
+				observationModels.add(observationModel);
 			}
-			model.put("patient", patientModel);
-			model.put("observations", observationModels);
-			model.put("includeHpoSummaryJs", true);
-		} catch (FHIRException e) {
-			e.printStackTrace();
 		}
+		model.put("patient", patientModel);
+		model.put("observations", observationModels);
+		model.put("includeHpoSummaryJs", true);
 		return "observation/list";
 	}
 
@@ -180,17 +156,13 @@ public class MainController {
 	@GetMapping("/patient/{patient:.+}/observation/{observation:.+}")
 	public String observation(HttpServletRequest request, Map<String, Object> model, @PathVariable String patient, @PathVariable String observation) {
 		String token = fhirSessionService.getSessionToken(request);
-		try {
-			Patient fhirPatient = fhirService.findPatientById(token, patient);
-			PatientModel patientModel = new PatientModel(fhirPatient);
-			Observation o = fhirService.findObservationById(token, observation);
-			String json = FhirContext.forDstu3().newJsonParser().setPrettyPrint(true).encodeResourceToString(o);
-			model.put("patient", patientModel);
-			model.put("observation", observation);
-			model.put("json", json);
-		} catch (FHIRException e) {
-			e.printStackTrace();
-		}
+		Patient fhirPatient = fhirService.findPatientById(token, patient);
+		PatientModel patientModel = new PatientModel(fhirPatient);
+		Observation o = fhirService.findObservationById(token, observation);
+		String json = FhirContext.forDstu3().newJsonParser().setPrettyPrint(true).encodeResourceToString(o);
+		model.put("patient", patientModel);
+		model.put("observation", observation);
+		model.put("json", json);
 		return "observation/show";
 	}
 	
