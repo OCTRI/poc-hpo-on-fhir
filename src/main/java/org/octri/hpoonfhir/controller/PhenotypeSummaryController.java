@@ -46,7 +46,7 @@ public class PhenotypeSummaryController {
 	 * @param request
 	 * @return a JSON string representing the summary of phenotypes found
 	 */
-	@GetMapping("/summary/{id:.+}")
+	@GetMapping("/patient/{id:.+}/summary")
 	public String labs(HttpServletRequest request, Map<String, Object> model, @PathVariable String id) {
 		String json = "";
 		try {

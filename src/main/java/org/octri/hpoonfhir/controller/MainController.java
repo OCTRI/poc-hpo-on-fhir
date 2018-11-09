@@ -13,8 +13,6 @@ import org.hl7.fhir.dstu3.model.Patient;
 import org.hl7.fhir.exceptions.FHIRException;
 import org.monarchinitiative.fhir2hpo.fhir.util.ObservationLoincInfo;
 import org.monarchinitiative.fhir2hpo.fhir.util.ObservationUtil;
-import org.monarchinitiative.fhir2hpo.loinc.DefaultLoinc2HpoAnnotation;
-import org.monarchinitiative.fhir2hpo.loinc.Loinc2HpoAnnotation;
 import org.monarchinitiative.fhir2hpo.loinc.LoincId;
 import org.monarchinitiative.fhir2hpo.loinc.exception.MismatchedLoincIdException;
 import org.monarchinitiative.fhir2hpo.service.AnnotationService;
@@ -28,7 +26,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 public class MainController {
@@ -153,24 +150,4 @@ public class MainController {
 		return "observation/show";
 	}
 	
-	@RequestMapping("/annotations")
-	public String annotations(Map<String, Object> model) throws Exception {
-		Map<LoincId, Loinc2HpoAnnotation> annotations = annotationService.getAnnotationsMap();
-		List<LoincId> loincs = annotations.entrySet().stream()
-				.filter(x -> x.getValue() instanceof DefaultLoinc2HpoAnnotation).map(x -> x.getKey())
-				.collect(Collectors.toList());
-		model.put("loincs", loincs);
-
-		return "annotations";
-	}
-
-	@RequestMapping("/hpo")
-	public String hpo(Map<String, Object> model, HttpServletRequest request) throws Exception {
-		String loincId = request.getParameter("loinc_id");
-		Loinc2HpoAnnotation annotation = annotationService.getAnnotations(new LoincId(loincId));
-		model.put("annotation", annotation.toString());
-
-		return "hpo";
-	}
-
 }
