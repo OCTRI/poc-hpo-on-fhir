@@ -79,4 +79,12 @@ public interface FhirService {
 	 */
 	public List<Observation> findObservationsForPatient(String token, String patientId) throws FHIRException;
 
+	/**
+	 * Find the observation by an identifier.
+	 * @param id
+	 * @return the single observation or null if none exists
+	 * @throws FHIRException 
+	 */
+	public Observation findObservationById(String token, String id) throws FHIRException;
+
 }

@@ -18,6 +18,7 @@ import org.monarchinitiative.fhir2hpo.loinc.exception.MismatchedLoincIdException
 import org.monarchinitiative.fhir2hpo.service.AnnotationService;
 import org.octri.hpoonfhir.service.FhirService;
 import org.octri.hpoonfhir.service.FhirSessionService;
+import org.octri.hpoonfhir.service.Stu2FhirService;
 import org.octri.hpoonfhir.view.ObservationModel;
 import org.octri.hpoonfhir.view.PatientModel;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +27,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+
+import ca.uhn.fhir.context.FhirContext;
 
 @Controller
 public class MainController {
@@ -109,6 +112,25 @@ public class MainController {
 			Patient fhirPatient = fhirService.findPatientById(token, id);
 			PatientModel patientModel = new PatientModel(fhirPatient);
 			model.put("patient", patientModel);
+		} catch (FHIRException e) {
+			e.printStackTrace();
+		}
+		return "patient";
+	}
+
+	/**
+	 * Get the patient information and return to the phenotypes view
+	 * @param model
+	 * @param id the patient id
+	 * @return the patient found
+	 */
+	@GetMapping("/patient/{id:.+}/phenotype")
+	public String phenoytype(HttpServletRequest request, Map<String, Object> model, @PathVariable String id) {
+		try {
+			String token = fhirSessionService.getSessionToken(request);
+			Patient fhirPatient = fhirService.findPatientById(token, id);
+			PatientModel patientModel = new PatientModel(fhirPatient);
+			model.put("patient", patientModel);
 			model.put("includeHpoSummaryJs", true);
 		} catch (FHIRException e) {
 			e.printStackTrace();
@@ -127,6 +149,8 @@ public class MainController {
 	public String observations(HttpServletRequest request, Map<String, Object> model, @PathVariable String id) throws MismatchedLoincIdException {
 		try {
 			String token = fhirSessionService.getSessionToken(request);
+			Patient fhirPatient = fhirService.findPatientById(token, id);
+			PatientModel patientModel = new PatientModel(fhirPatient);
 			List<Observation> observations = fhirService.findObservationsForPatient(token, id);
 			List<ObservationModel> observationModels = new ArrayList<>();
 			for (Observation o : observations) {
@@ -136,7 +160,7 @@ public class MainController {
 					observationModels.add(observationModel);
 				}
 			}
-			model.put("patient", id);
+			model.put("patient", patientModel);
 			model.put("observations", observationModels);
 			model.put("includeHpoSummaryJs", true);
 		} catch (FHIRException e) {
@@ -145,8 +169,28 @@ public class MainController {
 		return "observation/list";
 	}
 
+	/**
+	 * Show the observation
+	 * @param request
+	 * @param model
+	 * @param patient
+	 * @param observation
+	 * @return
+	 */
 	@GetMapping("/patient/{patient:.+}/observation/{observation:.+}")
 	public String observation(HttpServletRequest request, Map<String, Object> model, @PathVariable String patient, @PathVariable String observation) {
+		String token = fhirSessionService.getSessionToken(request);
+		try {
+			Patient fhirPatient = fhirService.findPatientById(token, patient);
+			PatientModel patientModel = new PatientModel(fhirPatient);
+			Observation o = fhirService.findObservationById(token, observation);
+			String json = FhirContext.forDstu3().newJsonParser().setPrettyPrint(true).encodeResourceToString(o);
+			model.put("patient", patientModel);
+			model.put("observation", observation);
+			model.put("json", json);
+		} catch (FHIRException e) {
+			e.printStackTrace();
+		}
 		return "observation/show";
 	}
 	

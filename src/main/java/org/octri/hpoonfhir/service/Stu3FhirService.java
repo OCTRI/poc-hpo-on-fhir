@@ -74,4 +74,9 @@ public class Stu3FhirService extends AbstractFhirService {
 		return new ArrayList<>();
 	}
 
+	@Override
+	public Observation findObservationById(String token, String id) throws FHIRException {
+		return getClient(token).read().resource(Observation.class).withId(id).execute();
+	}
+
 }

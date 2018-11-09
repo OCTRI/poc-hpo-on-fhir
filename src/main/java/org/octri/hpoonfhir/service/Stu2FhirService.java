@@ -88,5 +88,11 @@ public class Stu2FhirService extends AbstractFhirService {
 		
 		return stu3Observations;		
 	}
+
+	@Override
+	public Observation findObservationById(String token, String id) throws FHIRException {
+		org.hl7.fhir.instance.model.Observation stu2Observation = getClient(token).read().resource(org.hl7.fhir.instance.model.Observation.class).withId(id).execute();
+		return (Observation) converter.convertObservation(stu2Observation);
+	}
 	
 }
