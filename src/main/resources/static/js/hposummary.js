@@ -31,7 +31,7 @@ $(document).ready(function() {
 	// Set up table
 	let table = $("#hposummary").DataTable({
 		ajax : {
-			"url" : getContextPath() + "/summary/" + patientId
+			"url" : getContextPath() + "/" + patientId + "/summary"
 		},
 		info: true,
 		paging : true,

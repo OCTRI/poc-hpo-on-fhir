@@ -1,6 +1,9 @@
 {{>layout/header}}
 
 <div class="container vertical-space">
+    <div class="vertical-space">
+    	<a href="{{req.contextPath}}/patient/{{#patient}}{{id}}{{/patient}}">Back to Patient</a>
+    </div>
 	<h3>Patient Info</h3>
 	<ul class="list-unstyled">
 		{{#patient}}
@@ -21,6 +24,9 @@
 			</tr>
 		</thead>
 	</table>
+    <div class="vertical-space">
+    	<a href="{{req.contextPath}}/patient/{{#patient}}{{id}}{{/patient}}">Back to Patient</a>
+    </div>
 </div>
 
 {{>layout/footer}}
