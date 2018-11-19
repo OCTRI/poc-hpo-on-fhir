@@ -1,7 +1,20 @@
 {{>layout/header}}
 <div class='container'>
 
-    <h3>Not Yet</h3>
-    <p>Y'all come back now, you hear.</p>
+    <div class="vertical-space">
+    	<a href="{{req.contextPath}}/patient/{{#patient}}{{id}}{{/patient}}/observation">Back to Patient Observations</a>
+    </div>
+	<h3>Patient Info</h3>
+	<ul class="list-unstyled">
+		{{#patient}}
+		<li>Name: <span>{{firstName}} {{lastName}}</span></li>
+		<li>Id: <span id="patient_id">{{id}}</span></li> 
+		{{/patient}}
+	</ul>
+    <h3>Observation Id: {{observation}}</h3>
+    <pre><code>{{json}}</code></pre>
+    <div class="vertical-space">
+    	<a href="{{req.contextPath}}/patient/{{#patient}}{{id}}{{/patient}}/observation">Back to Patient Observations</a>
+	</div>
 </div>
 {{>layout/footer}}

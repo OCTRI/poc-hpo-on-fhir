@@ -7,7 +7,6 @@ import java.util.stream.Collectors;
 import org.hl7.fhir.dstu3.model.Bundle;
 import org.hl7.fhir.dstu3.model.Observation;
 import org.hl7.fhir.dstu3.model.Patient;
-import org.hl7.fhir.exceptions.FHIRException;
 import org.octri.hpoonfhir.config.FhirConfig;
 
 import ca.uhn.fhir.context.FhirContext;
@@ -34,19 +33,19 @@ public class Stu3FhirService extends AbstractFhirService {
 	}
 	
 	@Override
-	public Patient findPatientById(String token, String id) throws FHIRException {
+	public Patient findPatientById(String token, String id) {
 		return getClient(token).read().resource(Patient.class).withId(id).execute();
 	}
 
 	@Override
-	public List<Patient> findPatientsByFullName(String token, String firstName, String lastName) throws FHIRException {
+	public List<Patient> findPatientsByFullName(String token, String firstName, String lastName) {
 		//TODO: Check for a next link and more bundles
 		Bundle patientBundle = getClient(token).search().forResource(Patient.class).where(Patient.FAMILY.matches().value(lastName)).and(Patient.GIVEN.matches().value(firstName)).returnBundle(Bundle.class).execute();
 		return processPatientBundle(patientBundle);
 	}
 	
 	@Override
-	public List<Observation> findObservationsForPatient(String token, String patientId) throws FHIRException {
+	public List<Observation> findObservationsForPatient(String token, String patientId) {
 		List<Observation> allObservations = new ArrayList<>();
 		Bundle observationBundle = getClient(token).search().forResource(Observation.class).where(new ReferenceClientParam("patient").hasId(patientId)).returnBundle(Bundle.class).execute();
 		
@@ -56,6 +55,11 @@ public class Stu3FhirService extends AbstractFhirService {
 		}
 		
 		return allObservations;
+	}
+
+	@Override
+	public Observation findObservationById(String token, String id) {
+		return getClient(token).read().resource(Observation.class).withId(id).execute();
 	}
 
 	private List<Patient> processPatientBundle(Bundle patientBundle) {
