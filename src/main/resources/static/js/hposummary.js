@@ -2,8 +2,8 @@
 
 $(document).ready(function() {
 	
-	function getContextPath() {		
-		return '/' + window.location.pathname.split('/')[1];
+	function getContextPath() {
+		return $("meta[name='ctx']").attr("content");
 	}
 	
 	function showLabs(d) {
@@ -31,7 +31,7 @@ $(document).ready(function() {
 	// Set up table
 	let table = $("#hposummary").DataTable({
 		ajax : {
-			"url" : getContextPath() + "/" + patientId + "/summary"
+			"url" : getContextPath() + "patient/" + patientId + "/summary"
 		},
 		info: true,
 		paging : true,
