@@ -6,6 +6,7 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -15,8 +16,8 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.octri.hpoonfhir.controller.exception.AuthorizationFailedException;
 import org.octri.hpoonfhir.domain.AccessTokenResponse;
+import org.octri.hpoonfhir.domain.FhirSessionInfo;
 import org.octri.hpoonfhir.service.FhirService;
-import org.octri.hpoonfhir.service.FhirSessionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.Assert;
@@ -37,8 +38,8 @@ public class LaunchController {
 	private FhirService fhirService;
 	
 	@Autowired
-	private FhirSessionService fhirSessionService;
-
+	private FhirSessionInfo fhirSessionInfo;
+	
 	/**
 	 * Get the launch request from the EHR and use it to initiate the authorization
 	 * 
@@ -61,7 +62,8 @@ public class LaunchController {
 		// From http://docs.smarthealthit.org/tutorials/authorization/ - Just a way of keeping track of state for
 		// managing multiple launches
 		// TODO: Should probably be saving the state and checking the auth response for a match
-		String state = new Long(Math.round(Math.random() * 100000000)).toString();
+		String state = UUID.randomUUID().toString();
+		fhirSessionInfo.setState(state);
 
 		response.setStatus(HttpServletResponse.SC_TEMPORARY_REDIRECT);
 		StringBuilder stringBuilder = new StringBuilder();
@@ -96,14 +98,19 @@ public class LaunchController {
 	public void authorize(HttpServletRequest request, HttpServletResponse response) {
 		
 		try {
+			// Extract and escape the state parameter and make sure it matches
+			String state = request.getParameter("state");
+			Assert.isTrue(state != null, "A state must be passed to complete authorization.");
+			Assert.isTrue(fhirSessionInfo.hasState() && fhirSessionInfo.getState().equals(state), "The state does not match expectations.");
+			
 			// Extract and escape the code parameter
 			String code = request.getParameter("code");
 			Assert.isTrue(code != null, "A code must be passed to complete authorization.");
 			code = StringEscapeUtils.escapeHtml4(code);
 			
-			// Get the token and store it in the session for subsequent requests
+			// Get the token and store it in the session info for subsequent requests
 			AccessTokenResponse tokenResponse = getToken(code);
-			fhirSessionService.putSession(request, tokenResponse.getAccessToken());
+			fhirSessionInfo.setToken(tokenResponse.getAccessToken());
 	
 			if (tokenResponse.getPatient() != null) {
 				// Ensure no HTML in patient id

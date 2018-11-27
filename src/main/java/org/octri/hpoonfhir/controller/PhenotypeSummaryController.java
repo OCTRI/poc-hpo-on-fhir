@@ -7,8 +7,8 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.octri.hpoonfhir.domain.FhirSessionInfo;
 import org.octri.hpoonfhir.service.FhirService;
-import org.octri.hpoonfhir.service.FhirSessionService;
 import org.octri.hpoonfhir.service.PhenotypeSummaryService;
 import org.octri.hpoonfhir.view.PhenotypeModel;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,7 +34,7 @@ public class PhenotypeSummaryController {
 	private FhirService fhirService;
 
 	@Autowired
-	private FhirSessionService fhirSessionService;
+	private FhirSessionInfo fhirSessionInfo;
 
 	@Autowired
 	private PhenotypeSummaryService phenotypeSummaryService;
@@ -49,7 +49,7 @@ public class PhenotypeSummaryController {
 	public String labs(HttpServletRequest request, Map<String, Object> model, @PathVariable String id) {
 		String json = "";
 		try {
-			String token = fhirSessionService.getSessionToken(request);
+			String token = fhirSessionInfo.assertToken();
 			List<PhenotypeModel> phenotypes = phenotypeSummaryService.summarizePhenotypes(fhirService.findObservationsForPatient(token, id));
 			model.put("data", phenotypes);
 			ObjectMapper objectMapper = new ObjectMapper();
