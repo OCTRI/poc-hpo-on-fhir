@@ -117,7 +117,7 @@ public class LaunchController {
 				String patient = StringEscapeUtils.escapeHtml4(tokenResponse.getPatient());
 				response.sendRedirect(request.getContextPath() + "/patient/" + patient);
 			} else {
-				response.sendRedirect("/");
+				response.sendRedirect(request.getContextPath() + "/");
 			}
 		} catch (Exception e) {
 			throw new AuthorizationFailedException();
