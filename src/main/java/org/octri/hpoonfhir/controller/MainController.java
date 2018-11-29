@@ -14,8 +14,8 @@ import org.monarchinitiative.fhir2hpo.fhir.util.ObservationLoincInfo;
 import org.monarchinitiative.fhir2hpo.fhir.util.ObservationUtil;
 import org.monarchinitiative.fhir2hpo.loinc.LoincId;
 import org.monarchinitiative.fhir2hpo.loinc.exception.MismatchedLoincIdException;
+import org.octri.hpoonfhir.domain.FhirSessionInfo;
 import org.octri.hpoonfhir.service.FhirService;
-import org.octri.hpoonfhir.service.FhirSessionService;
 import org.octri.hpoonfhir.view.ObservationModel;
 import org.octri.hpoonfhir.view.PatientModel;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,7 +34,7 @@ public class MainController {
 	private FhirService fhirService;
 	
 	@Autowired
-	private FhirSessionService fhirSessionService;
+	private FhirSessionInfo fhirSessionInfo;
 
 	/**
 	 * Return to a clean search form with no results.
@@ -46,7 +46,7 @@ public class MainController {
 	@GetMapping("/")
 	public String home(Map<String, Object> model, HttpServletRequest request) {
 		// Make sure token is present even though we won't use
-		String token = fhirSessionService.getSessionToken(request);
+		fhirSessionInfo.assertToken();
 		// Load text describing caveats for the FHIR Service. This is
 		// temporary but will help users if we decide to deploy this to a public location.
 		String caveats = null;
@@ -75,7 +75,7 @@ public class MainController {
 	 */
 	@PostMapping("/")
 	public String search(HttpServletRequest request, Map<String, Object> model, @ModelAttribute PatientModel form) {
-		String token = fhirSessionService.getSessionToken(request);
+		String token = fhirSessionInfo.assertToken();
 		model.put("fhirServiceName", fhirService.getServiceName());
 		model.put("patientSearchForm", form);
 		List<Patient> patients = fhirService.findPatientsByFullName(token, form.getFirstName(), form.getLastName());
@@ -95,7 +95,7 @@ public class MainController {
 	 */
 	@GetMapping("/patient/{id:.+}")
 	public String patient(HttpServletRequest request, Map<String, Object> model, @PathVariable String id) {
-		String token = fhirSessionService.getSessionToken(request);
+		String token = fhirSessionInfo.assertToken();
 		Patient fhirPatient = fhirService.findPatientById(token, id);
 		PatientModel patientModel = new PatientModel(fhirPatient);
 		model.put("patient", patientModel);
@@ -110,7 +110,7 @@ public class MainController {
 	 */
 	@GetMapping("/patient/{id:.+}/phenotype")
 	public String phenoytype(HttpServletRequest request, Map<String, Object> model, @PathVariable String id) {
-		String token = fhirSessionService.getSessionToken(request);
+		String token = fhirSessionInfo.assertToken();
 		Patient fhirPatient = fhirService.findPatientById(token, id);
 		PatientModel patientModel = new PatientModel(fhirPatient);
 		model.put("patient", patientModel);
@@ -127,7 +127,7 @@ public class MainController {
 	 */
 	@GetMapping("/patient/{id:.+}/observation")
 	public String observations(HttpServletRequest request, Map<String, Object> model, @PathVariable String id) throws MismatchedLoincIdException {
-		String token = fhirSessionService.getSessionToken(request);
+		String token = fhirSessionInfo.assertToken();
 		Patient fhirPatient = fhirService.findPatientById(token, id);
 		PatientModel patientModel = new PatientModel(fhirPatient);
 		List<Observation> observations = fhirService.findObservationsForPatient(token, id);
@@ -155,7 +155,7 @@ public class MainController {
 	 */
 	@GetMapping("/patient/{patient:.+}/observation/{observation:.+}")
 	public String observation(HttpServletRequest request, Map<String, Object> model, @PathVariable String patient, @PathVariable String observation) {
-		String token = fhirSessionService.getSessionToken(request);
+		String token = fhirSessionInfo.assertToken();
 		Patient fhirPatient = fhirService.findPatientById(token, patient);
 		PatientModel patientModel = new PatientModel(fhirPatient);
 		Observation o = fhirService.findObservationById(token, observation);

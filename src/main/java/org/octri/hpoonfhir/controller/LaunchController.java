@@ -4,14 +4,20 @@ import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.text.StringEscapeUtils;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.octri.hpoonfhir.controller.exception.AuthorizationFailedException;
 import org.octri.hpoonfhir.domain.AccessTokenResponse;
+import org.octri.hpoonfhir.domain.FhirSessionInfo;
 import org.octri.hpoonfhir.service.FhirService;
-import org.octri.hpoonfhir.service.FhirSessionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.Assert;
@@ -22,12 +28,17 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Controller
 public class LaunchController {
-	
+
+	private static final Logger logger = LogManager.getLogger();
+
+	private static final String ISSUER_PARAMETER = "iss";
+	private static final String LAUNCH_ID_PARAMETER = "launch";
+
 	@Autowired
 	private FhirService fhirService;
-	
+
 	@Autowired
-	private FhirSessionService fhirSessionService;
+	private FhirSessionInfo fhirSessionInfo;
 
 	/**
 	 * Get the launch request from the EHR and use it to initiate the authorization
@@ -38,14 +49,22 @@ public class LaunchController {
 	@GetMapping("/launch")
 	public void launch(HttpServletRequest request, HttpServletResponse response) {
 
-		String launch = request.getParameter("launch");
-		String serviceUri = request.getParameter("iss");
-		Assert.isTrue(fhirService.getServiceEndpoint().equals(serviceUri), "This application is only configured to authenticate to the FHIR service " + fhirService.getServiceName());
-		
+		String launch = request.getParameter(LAUNCH_ID_PARAMETER);
+		String serviceUri = request.getParameter(ISSUER_PARAMETER);
+		Assert.isTrue(fhirService.getServiceEndpoint().equals(serviceUri),
+			"This application is only configured to authenticate to the FHIR service " + fhirService.getServiceName());
+		Assert.isTrue(launch != null, "A launch parameter must be passed to initiate authorization.");
+
+		// Escape the request parameters. FHIR does not proscribe any format for these parameters, but we
+		// can safely assume they shouldn't have HTML in them.
+		launch = StringEscapeUtils.escapeHtml4(launch);
+		serviceUri = StringEscapeUtils.escapeHtml4(serviceUri);
+
 		// From http://docs.smarthealthit.org/tutorials/authorization/ - Just a way of keeping track of state for
 		// managing multiple launches
 		// TODO: Should probably be saving the state and checking the auth response for a match
-		String state = new Long(Math.round(Math.random() * 100000000)).toString();
+		String state = UUID.randomUUID().toString();
+		fhirSessionInfo.setState(state);
 
 		response.setStatus(HttpServletResponse.SC_TEMPORARY_REDIRECT);
 		StringBuilder stringBuilder = new StringBuilder();
@@ -72,32 +91,58 @@ public class LaunchController {
 	/**
 	 * The FHIR server will redirect here and provide a code after authorize step. If a patient context is provided,
 	 * navigate to the patient. Otherwise, go to search.
+	 * 
 	 * @param request
 	 * @param response
 	 * @throws Exception
 	 */
 	@GetMapping("/authorize")
-	public void authorize(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		// Get the token and store it in the session for subsequent requests
-		AccessTokenResponse tokenResponse = getToken(request.getParameter("code"));
-		fhirSessionService.putSession(request, tokenResponse.getAccessToken());
+	public void authorize(HttpServletRequest request, HttpServletResponse response) {
 
-		if (tokenResponse.getPatient() != null) {
-			response.sendRedirect("/patient/" + tokenResponse.getPatient());
-		} else {
-			response.sendRedirect("/");
+		try {
+			// Extract and escape the state parameter and make sure it matches
+			String state = request.getParameter("state");
+			Assert.isTrue(state != null, "A state must be passed to complete authorization.");
+			Assert.isTrue(fhirSessionInfo.hasState() && fhirSessionInfo.getState().equals(state),
+				"The state does not match expectations.");
+
+			// Extract and escape the code parameter
+			String code = request.getParameter("code");
+			Assert.isTrue(code != null, "A code must be passed to complete authorization.");
+			code = StringEscapeUtils.escapeHtml4(code);
+
+			// Get the token and store it in the session info for subsequent requests
+			AccessTokenResponse tokenResponse = getToken(code);
+			fhirSessionInfo.setToken(tokenResponse.getAccessToken());
+
+			if (tokenResponse.getPatient() != null) {
+				// Ensure no HTML in patient id
+				String patient = StringEscapeUtils.escapeHtml4(tokenResponse.getPatient());
+				response.sendRedirect(request.getContextPath() + "/patient/" + patient);
+			} else {
+				response.sendRedirect(request.getContextPath() + "/");
+			}
+		} catch (Exception e) {
+			throw new AuthorizationFailedException();
 		}
 	}
 
 	/**
 	 * Exchange the code for a token and return the response
+	 * 
 	 * @param code
 	 * @return
 	 * @throws Exception
 	 */
 	private AccessTokenResponse getToken(String code) throws Exception {
-		
-		URL obj = new URL(fhirService.getTokenEndpoint());
+		URL obj = null;
+
+		try {
+			obj = new URL(fhirService.getTokenEndpoint());
+		} catch (MalformedURLException e) {
+			logger.error("The token endpoint is misconfigured and cannot be converted to a URL");
+			throw new RuntimeException("Error reading token endpoint");
+		}
 		HttpURLConnection con = (HttpURLConnection) obj.openConnection();
 
 		// Setting basic post request
@@ -110,9 +155,9 @@ public class LaunchController {
 
 		if (fhirService.getClientSecret() != null) {
 			// If there is a client secret, add an authorization
-	        String authHeader = String.format("%s:%s", fhirService.getClientId(), fhirService.getClientSecret());
-	        String encoded = new String(org.apache.commons.codec.binary.Base64.encodeBase64(authHeader.getBytes()));
-			con.setRequestProperty ("Authorization", String.format("Basic %s", encoded));
+			String authHeader = String.format("%s:%s", fhirService.getClientId(), fhirService.getClientSecret());
+			String encoded = new String(org.apache.commons.codec.binary.Base64.encodeBase64(authHeader.getBytes()));
+			con.setRequestProperty("Authorization", String.format("Basic %s", encoded));
 		} else {
 			// If no client secret, pass the client id in the post
 			postData += "&client_id=" + fhirService.getClientId();
@@ -139,8 +184,14 @@ public class LaunchController {
 		in.close();
 
 		// Different servers may return additional parameters. Ignore them.
-		ObjectMapper om = new ObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);;
-		AccessTokenResponse token = om.readValue(response.toString(), AccessTokenResponse.class);
-		return token;
+		ObjectMapper om = new ObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+		;
+		try {
+			AccessTokenResponse token = om.readValue(response.toString(), AccessTokenResponse.class);
+			return token;
+		} catch (Exception e) {
+			logger.error("Could not deserialize token response from FHIR server.");
+			throw new RuntimeException("Error reading token response");
+		}
 	}
 }

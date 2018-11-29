@@ -17,7 +17,8 @@ public class FhirConfig {
 	private String token;
 	private String redirect;
 	private String clientId;
-	private String clientSecret;
+	// While this class is not Serializable, declaring this transient will protect against accidental exposure if it becomes so.
+	private transient String clientSecret;
 
 	public FhirConfig() {
 
