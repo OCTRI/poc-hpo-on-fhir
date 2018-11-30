@@ -9,3 +9,4 @@ services:
       - ./target/hpoOnFhir.jar:/app.jar
     environment:
       - SERVER_SERVLET_CONTEXTPATH
+      - CLIENT_SECRET
