@@ -156,11 +156,13 @@ public class LaunchController {
 			+ "&grant_type=authorization_code&redirect_uri=" + fhirService.getRedirectUri();
 
 		if (fhirService.getClientSecret() != null) {
+			logger.info("Configuring with client secret: " + fhirService.getClientSecret());
 			// If there is a client secret, add an authorization
 			String authHeader = String.format("%s:%s", fhirService.getClientId(), fhirService.getClientSecret());
 			String encoded = new String(org.apache.commons.codec.binary.Base64.encodeBase64(authHeader.getBytes()));
 			con.setRequestProperty("Authorization", String.format("Basic %s", encoded));
 		} else {
+			logger.info("No client secret is configured");
 			// If no client secret, pass the client id in the post
 			postData += "&client_id=" + fhirService.getClientId();
 		}
