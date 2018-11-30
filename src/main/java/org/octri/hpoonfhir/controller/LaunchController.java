@@ -52,7 +52,7 @@ public class LaunchController {
 		String launch = request.getParameter(LAUNCH_ID_PARAMETER);
 		String serviceUri = request.getParameter(ISSUER_PARAMETER);
 		Assert.isTrue(fhirService.getServiceEndpoint().equals(serviceUri),
-			"This application is only configured to authenticate to the FHIR service " + fhirService.getServiceName());
+			"This application is not configured to authenticate to the FHIR service " + serviceUri);
 		Assert.isTrue(launch != null, "A launch parameter must be passed to initiate authorization.");
 
 		// Escape the request parameters. FHIR does not proscribe any format for these parameters, but we
