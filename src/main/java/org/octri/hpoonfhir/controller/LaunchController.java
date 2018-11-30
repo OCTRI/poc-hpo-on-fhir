@@ -123,6 +123,8 @@ public class LaunchController {
 				response.sendRedirect(request.getContextPath() + "/");
 			}
 		} catch (Exception e) {
+			logger.error(e.getMessage());
+			e.printStackTrace();
 			throw new AuthorizationFailedException();
 		}
 	}
