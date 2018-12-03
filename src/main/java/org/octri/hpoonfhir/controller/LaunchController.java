@@ -20,7 +20,6 @@ import org.octri.hpoonfhir.domain.FhirSessionInfo;
 import org.octri.hpoonfhir.service.FhirService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import com.fasterxml.jackson.databind.DeserializationFeature;
@@ -51,9 +50,16 @@ public class LaunchController {
 
 		String launch = request.getParameter(LAUNCH_ID_PARAMETER);
 		String serviceUri = request.getParameter(ISSUER_PARAMETER);
-		Assert.isTrue(fhirService.getServiceEndpoint().equals(serviceUri),
-			"This application is not configured to authenticate to the FHIR service " + serviceUri);
-		Assert.isTrue(launch != null, "A launch parameter must be passed to initiate authorization.");
+		
+		if (!fhirService.getServiceEndpoint().equals(serviceUri)) {
+			logger.error("This application is not configured to authenticate to the FHIR service " + serviceUri);
+			throw new AuthorizationFailedException("This application is not configured to authenticate to the FHIR service " + serviceUri);
+		}
+		
+		if (launch == null) {
+			logger.error("A launch parameter must be passed to initiate authorization.");
+			throw new AuthorizationFailedException("A launch parameter must be passed to initiate authorization.");
+		}
 
 		// Escape the request parameters. FHIR does not proscribe any format for these parameters, but we
 		// can safely assume they shouldn't have HTML in them.
@@ -62,7 +68,6 @@ public class LaunchController {
 
 		// From http://docs.smarthealthit.org/tutorials/authorization/ - Just a way of keeping track of state for
 		// managing multiple launches
-		// TODO: Should probably be saving the state and checking the auth response for a match
 		String state = UUID.randomUUID().toString();
 		fhirSessionInfo.setState(state);
 
@@ -102,13 +107,22 @@ public class LaunchController {
 		try {
 			// Extract and escape the state parameter and make sure it matches
 			String state = request.getParameter("state");
-			Assert.isTrue(state != null, "A state must be passed to complete authorization.");
-			Assert.isTrue(fhirSessionInfo.hasState() && fhirSessionInfo.getState().equals(state),
-				"The state does not match expectations.");
+			
+			if (state == null) {
+				logger.error("The request did not contain a state parameter.");
+				throw new AuthorizationFailedException("A state must be passed to the authorize endpoint to complete authorization.");
+			}
+			if (!fhirSessionInfo.hasState() || !fhirSessionInfo.getState().equals(state)) {
+				logger.error("The session state was lost or did not match the request parameter.");
+				throw new AuthorizationFailedException("The state parameter does not match expectations.");
+			}
 
 			// Extract and escape the code parameter
 			String code = request.getParameter("code");
-			Assert.isTrue(code != null, "A code must be passed to complete authorization.");
+			if (code == null) {
+				logger.error("The request did not contain a code parameter.");
+				throw new AuthorizationFailedException("A code must be passed to the authorize endpoint to complete authorization.");
+			}
 			code = StringEscapeUtils.escapeHtml4(code);
 
 			// Get the token and store it in the session info for subsequent requests
@@ -122,9 +136,11 @@ public class LaunchController {
 			} else {
 				response.sendRedirect(request.getContextPath() + "/");
 			}
+		} catch (AuthorizationFailedException e) {
+			throw e;
 		} catch (Exception e) {
+			// General exceptions will be thrown with a generic message
 			logger.error(e.getMessage());
-			e.printStackTrace();
 			throw new AuthorizationFailedException();
 		}
 	}
@@ -143,7 +159,7 @@ public class LaunchController {
 			obj = new URL(fhirService.getTokenEndpoint());
 		} catch (MalformedURLException e) {
 			logger.error("The token endpoint is misconfigured and cannot be converted to a URL");
-			throw new RuntimeException("Error reading token endpoint");
+			throw new AuthorizationFailedException("Error reading token endpoint. Check configuration.");
 		}
 		HttpURLConnection con = (HttpURLConnection) obj.openConnection();
 
@@ -173,7 +189,9 @@ public class LaunchController {
 		wr.close();
 
 		int responseCode = con.getResponseCode();
-		// TODO: Handle response code <> 200
+		if (responseCode != 200) {
+			throw new AuthorizationFailedException("Authorization token exchange failed with response code " + responseCode);
+		}
 
 		BufferedReader in = new BufferedReader(
 			new InputStreamReader(con.getInputStream()));
@@ -187,13 +205,12 @@ public class LaunchController {
 
 		// Different servers may return additional parameters. Ignore them.
 		ObjectMapper om = new ObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-		;
 		try {
 			AccessTokenResponse token = om.readValue(response.toString(), AccessTokenResponse.class);
 			return token;
 		} catch (Exception e) {
 			logger.error("Could not deserialize token response from FHIR server.");
-			throw new RuntimeException("Error reading token response");
+			throw new AuthorizationFailedException("Error reading token response");
 		}
 	}
 }

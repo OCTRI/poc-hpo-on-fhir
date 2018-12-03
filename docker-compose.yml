@@ -9,4 +9,11 @@ services:
       - ./target/hpoOnFhir.jar:/app.jar
     environment:
       - SERVER_SERVLET_CONTEXTPATH
-      - CLIENT_SECRET
+      - FHIR_SERVER_NAME
+      - FHIR_SERVER_URL
+      - FHIR_SERVER_VERSION
+      - FHIR_SERVER_AUTHORIZE
+      - FHIR_SERVER_TOKEN
+      - FHIR_SERVER_REDIRECT
+      - FHIR_SERVER_CLIENT_ID
+      - FHIR_SERVER_CLIENT_SECRET

@@ -17,4 +17,12 @@ public class AuthorizationFailedException extends RuntimeException {
 		super("Authorization to the FHIR server failed.");
 	}
 	
+	/**
+	 * Use this constructor to pass a more specific message, taking care not to expose too much to the client.
+	 * @param message
+	 */
+	public AuthorizationFailedException(String message) {
+		super(message);
+	}
+	
 }
