@@ -1,5 +1,8 @@
 package org.octri.hpoonfhir.config;
 
+import org.apache.commons.lang3.StringUtils;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.octri.hpoonfhir.service.FhirService;
 import org.octri.hpoonfhir.service.FhirServiceBuilder;
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -9,6 +12,8 @@ import org.springframework.context.annotation.Configuration;
 @ConfigurationProperties(prefix = "fhir-server-configuration")
 @Configuration
 public class FhirConfig {
+
+	private static final Logger logger = LogManager.getLogger();
 
 	private String name;
 	private String url;
@@ -32,7 +37,7 @@ public class FhirConfig {
 		this.token = token;
 		this.redirect = redirect;
 		this.clientId = clientId;
-		this.clientSecret = clientSecret;
+		setClientSecret(clientSecret);
 	}
 
 	public String getName() {
@@ -106,7 +111,12 @@ public class FhirConfig {
 
 	
 	public void setClientSecret(String clientSecret) {
-		this.clientSecret = clientSecret;
+		if (StringUtils.isBlank(clientSecret) || clientSecret.equals("none")) {
+			logger.info("Configuring the FHIR server without a client secret.");
+			this.clientSecret = null;
+		} else {
+			this.clientSecret = clientSecret;
+		}
 	}
 
 	/**
