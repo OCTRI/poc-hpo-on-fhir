@@ -141,7 +141,6 @@ public class MainController {
 		}
 		model.put("patient", patientModel);
 		model.put("observations", observationModels);
-		model.put("includeHpoSummaryJs", true);
 		return "observation/list";
 	}
 
