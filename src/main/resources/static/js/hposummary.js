@@ -8,13 +8,13 @@ $(document).ready(function() {
 	
 	function showLabs(d) {
 		// `d` is the original data object for the row
-		let table = "<div class='card details-card'>"
+		var table = "<div class='card details-card'>"
 				+ "<table class='table-bordered'>"
 				+ "<thead>"
 				+ "<tr class='table-warning'><th>Resource Id</th><th>LOINC</th><th>Description</th><th>Value</th><th>Start Date</th><th>End Date</th></tr>"
 				+ "</thead>" + "<tbody>";
 		for (i = 0; i < d.observations.length; i++) {
-			let observation = d.observations[i];
+			var observation = d.observations[i];
 			table += "<tr>" + "<td>" + observation.fhirId + "</td><td>"
 					+ observation.loincId + "</td><td>"
 					+ observation.description + "</td><td>"
@@ -26,10 +26,10 @@ $(document).ready(function() {
 		return table;
 	}
 
-	let patientId = $("#patient_id").html();
+	var patientId = $("#patient_id").html();
 
 	// Set up table
-	let table = $("#hposummary").DataTable({
+	var table = $("#hposummary").DataTable({
 		ajax : {
 			"url" : getContextPath() + "patient/" + patientId + "/summary"
 		},
@@ -56,8 +56,8 @@ $(document).ready(function() {
 	
 	// Add event listener for opening and closing details
 	$('#hposummary tbody').on('click', 'td.details-control', function() {
-		let tr = $(this).closest('tr');
-		let row = table.row(tr);
+		var tr = $(this).closest('tr');
+		var row = table.row(tr);
 
 		if (row.child.isShown()) {
 			// This row is already open - close it
