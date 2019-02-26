@@ -18,8 +18,10 @@ import org.monarchinitiative.fhir2hpo.loinc.exception.MismatchedLoincIdException
 import org.monarchinitiative.fhir2hpo.service.ObservationAnalysisService;
 import org.octri.hpoonfhir.domain.FhirSessionInfo;
 import org.octri.hpoonfhir.service.FhirService;
+import org.octri.hpoonfhir.service.PhenotypeSummaryService;
 import org.octri.hpoonfhir.view.ObservationModel;
 import org.octri.hpoonfhir.view.PatientModel;
+import org.octri.hpoonfhir.view.PhenotypeModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -40,6 +42,9 @@ public class MainController {
 
 	@Autowired
 	private ObservationAnalysisService observationAnalysisService;
+
+	@Autowired
+	private PhenotypeSummaryService phenotypeSummaryService;
 
 	/**
 	 * Return to a clean search form with no results.
@@ -118,9 +123,13 @@ public class MainController {
 		String token = fhirSessionInfo.assertToken();
 		Patient fhirPatient = fhirService.findPatientById(token, id);
 		PatientModel patientModel = new PatientModel(fhirPatient);
+
 		model.put("patient", patientModel);
-		model.put("includeHpoSummaryJs", true);
-		return "phenotypes";
+		// Epic's browser can't handle js and data tables, so we'll do a raw table for testing
+		//model.put("includeHpoSummaryJs", true);
+		List<PhenotypeModel> phenotypes = phenotypeSummaryService.summarizePhenotypes(fhirService.findObservationsForPatient(token, id));
+		model.put("phenotypes", phenotypes);
+		return "phenotypes-epic";
 	}
 
 	/**
