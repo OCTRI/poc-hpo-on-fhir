@@ -12,8 +12,10 @@ import org.hl7.fhir.dstu3.model.Observation;
 import org.hl7.fhir.dstu3.model.Patient;
 import org.monarchinitiative.fhir2hpo.fhir.util.ObservationLoincInfo;
 import org.monarchinitiative.fhir2hpo.fhir.util.ObservationUtil;
+import org.monarchinitiative.fhir2hpo.hpo.LoincConversionResult;
 import org.monarchinitiative.fhir2hpo.loinc.LoincId;
 import org.monarchinitiative.fhir2hpo.loinc.exception.MismatchedLoincIdException;
+import org.monarchinitiative.fhir2hpo.service.ObservationAnalysisService;
 import org.octri.hpoonfhir.domain.FhirSessionInfo;
 import org.octri.hpoonfhir.service.FhirService;
 import org.octri.hpoonfhir.view.ObservationModel;
@@ -35,6 +37,9 @@ public class MainController {
 	
 	@Autowired
 	private FhirSessionInfo fhirSessionInfo;
+
+	@Autowired
+	private ObservationAnalysisService observationAnalysisService;
 
 	/**
 	 * Return to a clean search form with no results.
@@ -159,9 +164,12 @@ public class MainController {
 		PatientModel patientModel = new PatientModel(fhirPatient);
 		Observation o = fhirService.findObservationById(token, observation);
 		String json = FhirContext.forDstu3().newJsonParser().setPrettyPrint(true).encodeResourceToString(o);
+		List<LoincConversionResult> loincConversionResults = observationAnalysisService.analyzeObservation(o).getLoincConversionResults();
+		loincConversionResults.get(0).hasException();
 		model.put("patient", patientModel);
 		model.put("observation", observation);
 		model.put("json", json);
+		model.put("results", loincConversionResults);
 		return "observation/show";
 	}
 	

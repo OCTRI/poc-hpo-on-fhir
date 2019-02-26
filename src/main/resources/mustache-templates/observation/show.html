@@ -13,6 +13,19 @@
 	</ul>
     <h3>Observation Id: {{observation}}</h3>
     <pre><code>{{json}}</code></pre>
+    <h3>Results: </h3>
+    {{#results}}
+    	<ul>
+    		{{#hasException}}<li>General Error: {{exception.message}}</li>{{/hasException}}
+    		{{^hasException}}
+    			{{#hasSuccess}}<li>Terms Found: {{#hpoTerms}}{{hpoTermId}}:{{negated}}{{/hpoTerms}}</li>{{/hasSuccess}}
+    			{{#methodResults.entrySet}}    			    
+    				{{#value.hasException}}<li><strong>Method: {{key}}</strong>, Error: {{value.exception.message}}</li>{{/value.hasException}}
+    				{{#value.hasTerm}}<li><strong>Method: {{key}}</strong>, Term: {{#value.hpoTerm}}{{hpoTermId}}:{{negated}}{{/value.hpoTerm}}</li>{{/value.hasTerm}}
+    			{{/methodResults.entrySet}}
+    		{{/hasException}}
+    	</ul>
+    {{/results}}
     <div class="vertical-space">
     	<a href="{{req.contextPath}}/patient/{{#patient}}{{id}}{{/patient}}/observation">Back to Patient Observations</a>
 	</div>
