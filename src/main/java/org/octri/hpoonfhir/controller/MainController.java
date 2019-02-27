@@ -1,6 +1,7 @@
 package org.octri.hpoonfhir.controller;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -153,6 +154,7 @@ public class MainController {
 				observationModels.add(observationModel);
 			}
 		}
+		Collections.sort(observationModels);
 		model.put("patient", patientModel);
 		model.put("observations", observationModels);
 		return "observation/list";
@@ -168,6 +170,7 @@ public class MainController {
 	 */
 	@GetMapping("/patient/{patient:.+}/observation/{observation:.+}")
 	public String observation(HttpServletRequest request, Map<String, Object> model, @PathVariable String patient, @PathVariable String observation) {
+		String param = request.getParameter("phenotypeList");
 		String token = fhirSessionInfo.assertToken();
 		Patient fhirPatient = fhirService.findPatientById(token, patient);
 		PatientModel patientModel = new PatientModel(fhirPatient);
@@ -179,6 +182,7 @@ public class MainController {
 		model.put("observation", observation);
 		model.put("json", json);
 		model.put("results", loincConversionResults);
+		model.put("phenotypeList", param);
 		return "observation/show";
 	}
 	

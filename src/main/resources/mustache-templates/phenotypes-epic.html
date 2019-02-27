@@ -31,7 +31,7 @@
 					<td>{{count}}</td>
 					<td>{{first}}</td>
 					<td>{{last}}</td>
-					<td>{{#observations}}{{loincId}}: {{description}} {{/observations}}</td>
+					<td>{{#observations}}<a href="{{req.contextPath}}/patient/{{#patient}}{{id}}{{/patient}}/observation/{{fhirId}}?phenotypeList">{{loincId}}: {{description}}</a>{{/observations}}</td>
 				</tr>
 			{{/phenotypes}}
 		</tbody>

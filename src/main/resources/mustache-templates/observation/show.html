@@ -2,7 +2,12 @@
 <div class='container'>
 
     <div class="vertical-space">
-    	<a href="{{req.contextPath}}/patient/{{#patient}}{{id}}{{/patient}}/observation">Back to Patient Observations</a>
+    	{{#phenotypeList}}
+    		<a href="{{req.contextPath}}/patient/{{#patient}}{{id}}{{/patient}}/phenotype">Back to Patient Phenotypes</a>
+    	{{/phenotypeList}}
+    	{{^phenotypeList}}
+    		<a href="{{req.contextPath}}/patient/{{#patient}}{{id}}{{/patient}}/observation">Back to Patient Observations</a>
+   		{{/phenotypeList}}
     </div>
 	<h3>Patient Info</h3>
 	<ul class="list-unstyled">
@@ -11,8 +16,6 @@
 		<li>Id: <span id="patient_id">{{id}}</span></li> 
 		{{/patient}}
 	</ul>
-    <h3>Observation Id: {{observation}}</h3>
-    <pre><code>{{json}}</code></pre>
     <h3>Results: </h3>
     {{#results}}
     	<ul>
@@ -26,8 +29,15 @@
     		{{/hasException}}
     	</ul>
     {{/results}}
+    <h3>Observation Id: {{observation}}</h3>
+    <pre><code>{{json}}</code></pre>
     <div class="vertical-space">
-    	<a href="{{req.contextPath}}/patient/{{#patient}}{{id}}{{/patient}}/observation">Back to Patient Observations</a>
+    	{{#phenotypeList}}
+    		<a href="{{req.contextPath}}/patient/{{#patient}}{{id}}{{/patient}}/phenotype">Back to Patient Phenotypes</a>
+    	{{/phenotypeList}}
+    	{{^phenotypeList}}
+    		<a href="{{req.contextPath}}/patient/{{#patient}}{{id}}{{/patient}}/observation">Back to Patient Observations</a>
+   		{{/phenotypeList}}
 	</div>
 </div>
 {{>layout/footer}}

@@ -12,7 +12,7 @@ import org.monarchinitiative.fhir2hpo.fhir.util.ObservationLoincInfo;
  * @author yateam
  *
  */
-public class ObservationModel implements Serializable {
+public class ObservationModel implements Serializable, Comparable<ObservationModel> {
 
 	private static final long serialVersionUID = -3076629390459562137L;
 
@@ -80,6 +80,11 @@ public class ObservationModel implements Serializable {
 	 */
 	public String getValue() {
 		return value;
+	}
+
+	@Override
+	public int compareTo(ObservationModel o) {
+		return getDescription().compareTo(o.getDescription());
 	}
 
 }
