@@ -126,11 +126,12 @@ public class MainController {
 		PatientModel patientModel = new PatientModel(fhirPatient);
 
 		model.put("patient", patientModel);
+		model.put("includeHpoSummaryJs", true);
+		return "phenotypes";
 		// Epic's browser can't handle js and data tables, so we'll do a raw table for testing
-		//model.put("includeHpoSummaryJs", true);
-		List<PhenotypeModel> phenotypes = phenotypeSummaryService.summarizePhenotypes(fhirService.findObservationsForPatient(token, id));
-		model.put("phenotypes", phenotypes);
-		return "phenotypes-epic";
+		//List<PhenotypeModel> phenotypes = phenotypeSummaryService.summarizePhenotypes(fhirService.findObservationsForPatient(token, id));
+		//model.put("phenotypes", phenotypes);
+		//return "phenotypes-epic";
 	}
 
 	/**
