@@ -164,10 +164,12 @@ public class MainController {
 			for (LoincId loinc : loincs) {
 				LoincConversionResult result = conversionResult.getLoincConversionResults().stream().filter(res -> res.getLoincId().equals(loinc))
 					.findFirst().get();
-				String termNames = "No phenotype found";
+				String termNames = "No methods successful";
 				if (result.hasSuccess()) {
 					Set<HpoTermWithNegation> terms = result.getHpoTerms();
-					termNames = terms.stream().map(term -> term.isNegated() ? "NOT " : "" + hpoService.getTermForTermId(term.getHpoTermId()).getName()).collect(Collectors.joining(","));
+					termNames = terms.stream().map(term -> (term.isNegated() ? "NOT " : "") + hpoService.getTermForTermId(term.getHpoTermId()).getName()).collect(Collectors.joining(","));
+				} else if (result.hasException()) {
+					termNames = result.getException().getMessage();
 				}
 				
 				ObservationPhenotypeModel observationModel = new ObservationPhenotypeModel(loinc.getCode(), new ObservationLoincInfo(loinc, o), termNames);
