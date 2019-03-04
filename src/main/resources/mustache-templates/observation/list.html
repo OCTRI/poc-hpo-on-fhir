@@ -11,6 +11,31 @@
 		<li>Id: <span id="patient_id">{{id}}</span></li> 
 		{{/patient}}
 	</ul>
+	<h3>Phenotype Conversion Summary</h3>
+    <table class='table table-striped table-bordered'>
+    	<thead>
+    	<tr>    		
+    		<th>Observation Count</th>
+    		<th>Num With LOINC</th>
+    		<th>Num Annotated</th>
+    		<th>Num Successful</th>
+    		<th>% Annotated</th>
+    		<th>% Successful if Annotated</th>
+    	</tr>
+    	</thead>
+    	<tbody>
+    		<tr>
+    			{{#summary}}
+    			<td>{{observationCount}}</td>
+    			<td>{{numWithLoinc}}</td>
+    			<td>{{numAnnotated}}</td>
+    			<td>{{numSuccessful}}</td>
+    			<td>{{percentAnnotated}}</td>
+    			<td>{{percentSuccessAnnotated}}</td>
+    			{{/summary}}
+    		</tr>
+		</tbody>
+	</table>	
     <h3>Observation List</h3>
     <table class='table table-striped table-bordered'>
     	<thead>
@@ -20,6 +45,7 @@
     		<th>Description</th>
     		<th>Start</th>
     		<th>End</th>
+    		<th>Phenotypes</th>
     	</tr>
     	</thead>
     	<tbody>
@@ -30,6 +56,7 @@
     			<td>{{description}}</td>
     			<td>{{startDate}}</td>
     			<td>{{endDate}}</td>
+    			<td>{{termNames}}</td>
     		</tr>
 	    {{/observations}}
     	</tbody>

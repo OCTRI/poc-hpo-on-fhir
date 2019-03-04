@@ -13,16 +13,21 @@ import org.hl7.fhir.dstu3.model.Observation;
 import org.hl7.fhir.dstu3.model.Patient;
 import org.monarchinitiative.fhir2hpo.fhir.util.ObservationLoincInfo;
 import org.monarchinitiative.fhir2hpo.fhir.util.ObservationUtil;
+import org.monarchinitiative.fhir2hpo.hpo.HpoTermWithNegation;
 import org.monarchinitiative.fhir2hpo.hpo.LoincConversionResult;
+import org.monarchinitiative.fhir2hpo.hpo.ObservationConversionResult;
 import org.monarchinitiative.fhir2hpo.loinc.LoincId;
 import org.monarchinitiative.fhir2hpo.loinc.exception.MismatchedLoincIdException;
+import org.monarchinitiative.fhir2hpo.service.HpoService;
 import org.monarchinitiative.fhir2hpo.service.ObservationAnalysisService;
 import org.octri.hpoonfhir.domain.FhirSessionInfo;
 import org.octri.hpoonfhir.service.FhirService;
 import org.octri.hpoonfhir.service.PhenotypeSummaryService;
 import org.octri.hpoonfhir.view.ObservationModel;
+import org.octri.hpoonfhir.view.ObservationPhenotypeModel;
 import org.octri.hpoonfhir.view.PatientModel;
 import org.octri.hpoonfhir.view.PhenotypeModel;
+import org.octri.hpoonfhir.view.SummaryStatsModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -46,6 +51,9 @@ public class MainController {
 
 	@Autowired
 	private PhenotypeSummaryService phenotypeSummaryService;
+
+	@Autowired
+	private HpoService hpoService;
 
 	/**
 	 * Return to a clean search form with no results.
@@ -147,17 +155,30 @@ public class MainController {
 		Patient fhirPatient = fhirService.findPatientById(token, id);
 		PatientModel patientModel = new PatientModel(fhirPatient);
 		List<Observation> observations = fhirService.findObservationsForPatient(token, id);
-		List<ObservationModel> observationModels = new ArrayList<>();
+		List<ObservationPhenotypeModel> observationModels = new ArrayList<>();
+		List<ObservationConversionResult> conversionResults = new ArrayList<>();
 		for (Observation o : observations) {
+			ObservationConversionResult conversionResult =  observationAnalysisService.analyzeObservation(o);
+			conversionResults.add(conversionResult);
 			Set<LoincId> loincs = ObservationUtil.getAllLoincIdsOfObservation(o);
 			for (LoincId loinc : loincs) {
-				ObservationModel observationModel = new ObservationModel(loinc.getCode(), new ObservationLoincInfo(loinc, o));
+				LoincConversionResult result = conversionResult.getLoincConversionResults().stream().filter(res -> res.getLoincId().equals(loinc))
+					.findFirst().get();
+				String termNames = "No phenotype found";
+				if (result.hasSuccess()) {
+					Set<HpoTermWithNegation> terms = result.getHpoTerms();
+					termNames = terms.stream().map(term -> term.isNegated() ? "NOT " : "" + hpoService.getTermForTermId(term.getHpoTermId()).getName()).collect(Collectors.joining(","));
+				}
+				
+				ObservationPhenotypeModel observationModel = new ObservationPhenotypeModel(loinc.getCode(), new ObservationLoincInfo(loinc, o), termNames);
 				observationModels.add(observationModel);
 			}
 		}
+		
 		Collections.sort(observationModels);
 		model.put("patient", patientModel);
 		model.put("observations", observationModels);
+		model.put("summary", new SummaryStatsModel(conversionResults));
 		return "observation/list";
 	}
 
