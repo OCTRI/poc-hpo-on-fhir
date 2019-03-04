@@ -30,6 +30,12 @@
 		src="{{req.contextPath}}/webjars/datatables/js/dataTables.bootstrap4.min.js"></script>
 	<script src="{{req.contextPath}}/js/hposummary.js"></script>
 {{/includeHpoSummaryJs}}
-
+{{#includeObservationSummaryJs}}
+	<script type="text/javascript"
+		src="{{req.contextPath}}/webjars/datatables/js/jquery.dataTables.min.js"></script>
+	<script type="text/javascript"
+		src="{{req.contextPath}}/webjars/datatables/js/dataTables.bootstrap4.min.js"></script>
+	<script src="{{req.contextPath}}/js/observationsummary.js"></script>
+{{/includeObservationSummaryJs}}
  </body>
 </html>

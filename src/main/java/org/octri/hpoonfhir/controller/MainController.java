@@ -179,6 +179,7 @@ public class MainController {
 		
 		Collections.sort(observationModels);
 		model.put("patient", patientModel);
+		model.put("includeObservationSummaryJs", true);
 		model.put("observations", observationModels);
 		model.put("summary", new SummaryStatsModel(conversionResults));
 		return "observation/list";
