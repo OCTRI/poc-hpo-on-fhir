@@ -38,6 +38,8 @@ public class FhirConfig {
 		this.redirect = redirect;
 		this.clientId = clientId;
 		setClientSecret(clientSecret);
+		logger.warn("Application will authenticate with " + url);
+
 	}
 
 	public String getName() {

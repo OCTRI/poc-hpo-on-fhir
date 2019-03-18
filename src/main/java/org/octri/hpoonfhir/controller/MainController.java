@@ -9,6 +9,7 @@ import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.hl7.fhir.dstu3.model.Condition;
 import org.hl7.fhir.dstu3.model.Observation;
 import org.hl7.fhir.dstu3.model.Patient;
 import org.monarchinitiative.fhir2hpo.fhir.util.ObservationLoincInfo;
@@ -23,10 +24,9 @@ import org.monarchinitiative.fhir2hpo.service.ObservationAnalysisService;
 import org.octri.hpoonfhir.domain.FhirSessionInfo;
 import org.octri.hpoonfhir.service.FhirService;
 import org.octri.hpoonfhir.service.PhenotypeSummaryService;
-import org.octri.hpoonfhir.view.ObservationModel;
+import org.octri.hpoonfhir.view.ConditionModel;
 import org.octri.hpoonfhir.view.ObservationPhenotypeModel;
 import org.octri.hpoonfhir.view.PatientModel;
-import org.octri.hpoonfhir.view.PhenotypeModel;
 import org.octri.hpoonfhir.view.SummaryStatsModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

@@ -1,0 +1,50 @@
+{{>layout/header}}
+
+
+<div class="container vertical-space">
+	<div class="alert alert-warning" role="alert">
+		This application demonstrates the conversion of FHIR Observation resources to terms in the Human Phenotype Ontology. 
+	</div>
+	<h3>Patient Search</h3>
+	<p class="text-muted">Search the {{fhirServiceName}} EHR system for a condition. </p>
+	<form method="POST" action="{{req.contextPath}}/condition/search">
+		{{#conditionSearchForm}}
+		<div class="form-group row vertical-space">
+			<label for="code" class="col-sm-2 col-form-label">Code</label>
+			<div class="col-sm-4">
+				<input class="form-control" type="text" name="code" value="{{#code}}{{.}}{{/code}}" />
+			</div>
+			<div class="col-sm-6"></div>
+		</div>
+		{{/conditionSearchForm}}
+		<div class="form-group row vertical-space">
+			<div class="col-sm-6">
+				<button type="submit" class="btn btn-primary">Submit</button>
+				<a href="{{req.contextPath}}/" class="btn btn-link">Clear</a>
+			</div>
+			<div class="col-sm-6"></div>
+		</div>
+	</form>
+</div>
+
+<div class="container">
+	{{#results}}
+		<h3>Search Results {{#conditions}}{{#-first}}{{description}}{{/-first}}{{/conditions}}</h3>
+		<small class="text-muted">
+		Click on the patient to see their labs and HPO terms.</small>
+		<div class="vertical-space">
+			{{^conditions}}
+				<p>No Results Found</p>
+			{{/conditions}}
+			<ul>
+			{{#conditions}}
+			<li>
+				<a href="{{req.contextPath}}/patient/{{patient}}">Patient Ref: {{patient}}</a>
+			</li>
+			{{/conditions}}
+			</ul>
+		</div>
+	{{/results}}	
+</div>
+
+{{>layout/footer}}

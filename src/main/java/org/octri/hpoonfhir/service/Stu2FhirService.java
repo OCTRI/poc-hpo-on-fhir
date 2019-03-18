@@ -8,6 +8,7 @@ import org.apache.logging.log4j.Logger;
 import org.hl7.fhir.convertors.NullVersionConverterAdvisor30;
 import org.hl7.fhir.convertors.VersionConvertor_10_30;
 import org.hl7.fhir.dstu3.model.Bundle;
+import org.hl7.fhir.dstu3.model.Condition;
 import org.hl7.fhir.dstu3.model.Observation;
 import org.hl7.fhir.dstu3.model.Patient;
 import org.hl7.fhir.exceptions.FHIRException;
@@ -118,6 +119,65 @@ public class Stu2FhirService extends AbstractFhirService {
 		}
 		
 		return stu3Observations;		
+	}
+
+	private List<Condition> processConditionBundle(org.hl7.fhir.instance.model.Bundle observationBundle) throws FHIRException {
+		List<Condition> stu3Observations = new ArrayList<>();
+		if (!observationBundle.hasTotal() || observationBundle.getTotal() > 0) {
+			for (org.hl7.fhir.instance.model.Bundle.BundleEntryComponent bundleEntryComponent: observationBundle.getEntry()) {
+				org.hl7.fhir.instance.model.Condition stu2Observation = (org.hl7.fhir.instance.model.Condition) bundleEntryComponent.getResource();
+				Condition stu3Observation = (Condition) converter.convertCondition(stu2Observation);
+				stu3Observations.add(stu3Observation);
+			}
+		}
+		
+		return stu3Observations;		
+	}
+
+	@Override
+	public List<Condition> findConditionsForPatient(String token, String patientId) {
+		List<Condition> allConditions = new ArrayList<>();
+		org.hl7.fhir.instance.model.Bundle conditionBundle = getClient(token).search()
+				.byUrl("Condition?patient=" + patientId)
+				.returnBundle(org.hl7.fhir.instance.model.Bundle.class).execute();
+		
+		try {
+
+			while (conditionBundle != null) {
+				allConditions.addAll(processConditionBundle(conditionBundle));
+				conditionBundle = (conditionBundle.getLink(Bundle.LINK_NEXT) != null) ? getClient(token).loadPage().next(conditionBundle).execute() : null;
+			}
+			
+			return allConditions;
+
+		} catch (FHIRException e) {
+			logger.error("Error converting from DSTU2 to DSTU3");
+			throw new Stu3ConversionException();
+		}
+	}
+
+	@Override
+	public List<Condition> findConditionsByCode(String token, String code) {
+		//TODO: Not a sustainable search. Just grab the first bundle
+		List<Condition> allConditions = new ArrayList<>();
+		org.hl7.fhir.instance.model.Bundle conditionBundle = getClient(token).search()
+				.byUrl("Condition?code=" + code)
+				.returnBundle(org.hl7.fhir.instance.model.Bundle.class).execute();
+		
+		try {
+
+			while (conditionBundle != null) {
+				allConditions.addAll(processConditionBundle(conditionBundle));
+				//conditionBundle = (conditionBundle.getLink(Bundle.LINK_NEXT) != null) ? getClient(token).loadPage().next(conditionBundle).execute() : null;
+				conditionBundle = null;
+			}
+			
+			return allConditions;
+
+		} catch (FHIRException e) {
+			logger.error("Error converting from DSTU2 to DSTU3");
+			throw new Stu3ConversionException();
+		}
 	}
 
 }

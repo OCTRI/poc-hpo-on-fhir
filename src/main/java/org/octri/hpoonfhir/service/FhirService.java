@@ -2,6 +2,7 @@ package org.octri.hpoonfhir.service;
 
 import java.util.List;
 
+import org.hl7.fhir.dstu3.model.Condition;
 import org.hl7.fhir.dstu3.model.Observation;
 import org.hl7.fhir.dstu3.model.Patient;
 import org.hl7.fhir.exceptions.FHIRException;
@@ -86,5 +87,9 @@ public interface FhirService {
 	 * @throws FHIRException 
 	 */
 	public Observation findObservationById(String token, String id);
+	
+	public List<Condition> findConditionsForPatient(String token, String id);
+	
+	public List<Condition> findConditionsByCode(String token, String id);
 
 }

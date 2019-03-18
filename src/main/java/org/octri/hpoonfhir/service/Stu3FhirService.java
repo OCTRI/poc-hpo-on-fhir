@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.hl7.fhir.dstu3.model.Bundle;
+import org.hl7.fhir.dstu3.model.Condition;
 import org.hl7.fhir.dstu3.model.Observation;
 import org.hl7.fhir.dstu3.model.Patient;
 import org.octri.hpoonfhir.config.FhirConfig;
@@ -76,6 +77,18 @@ public class Stu3FhirService extends AbstractFhirService {
 		}
 		
 		return new ArrayList<>();
+	}
+
+	@Override
+	public List<Condition> findConditionsForPatient(String token, String id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Condition> findConditionsByCode(String token, String id) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
