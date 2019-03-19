@@ -1,8 +1,8 @@
-// Javascript for the observationsummary table on observation list view
+// Javascript for a summary table on list view
 
 $(document).ready(function() {
 	
-	$("#observationsummary").DataTable({
+	$("#summary").DataTable({
 		// Disable sorting on Column 0
 		"columnDefs": [ {
 		      "targets": [ 0 ],

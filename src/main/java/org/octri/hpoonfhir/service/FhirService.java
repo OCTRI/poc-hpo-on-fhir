@@ -92,4 +92,12 @@ public interface FhirService {
 	
 	public List<Condition> findConditionsByCode(String token, String id);
 
+	/**
+	 * Find the condition by an identifier.
+	 * @param id
+	 * @return the single condition or null if none exists
+	 * @throws FHIRException 
+	 */
+	public Condition findConditionById(String token, String id);
+
 }

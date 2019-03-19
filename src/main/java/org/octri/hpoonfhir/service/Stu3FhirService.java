@@ -91,4 +91,10 @@ public class Stu3FhirService extends AbstractFhirService {
 		return null;
 	}
 
+	@Override
+	public Condition findConditionById(String token, String id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

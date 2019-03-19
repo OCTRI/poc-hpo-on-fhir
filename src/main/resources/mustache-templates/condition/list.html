@@ -1,0 +1,37 @@
+{{>layout/header}}
+<div class='container'>
+
+    <div class="vertical-space">
+    	<a href="{{req.contextPath}}/patient/{{#patient}}{{id}}{{/patient}}">Back to Patient</a>
+    </div>
+	<h3>Patient Info</h3>
+	<ul class="list-unstyled">
+		{{#patient}}
+		<li>Name: <span>{{firstName}} {{lastName}}</span></li>
+		<li>Id: <span id="patient_id">{{id}}</span></li> 
+		{{/patient}}
+	</ul>
+    <h3>Condition List</h3>
+    <table id="summary" class='table table-striped table-bordered'>
+    	<thead>
+    	<tr>    		
+    		<th>Resource Id</th>
+    		<th>Code</th>
+    		<th>Description</th>
+    	</tr>
+    	</thead>
+    	<tbody>
+    	{{#conditions}}
+    		<tr>    			
+    			<td><a href="{{req.contextPath}}/patient/{{#patient}}{{id}}{{/patient}}/condition/{{fhirId}}">View</a></td>
+    			<td>{{code}}</td>
+    			<td>{{description}}</td>
+    		</tr>
+	    {{/conditions}}
+    	</tbody>
+    </table>
+    <div class="vertical-space">
+    	<a href="{{req.contextPath}}/patient/{{#patient}}{{id}}{{/patient}}">Back to Patient</a>
+    </div>
+</div>
+{{>layout/footer}}

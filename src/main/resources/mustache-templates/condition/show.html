@@ -1,0 +1,20 @@
+{{>layout/header}}
+<div class='container'>
+
+    <div class="vertical-space">
+    	<a href="{{req.contextPath}}/patient/{{#patient}}{{id}}{{/patient}}/condition">Back to Patient Conditions</a>
+    </div>
+	<h3>Patient Info</h3>
+	<ul class="list-unstyled">
+		{{#patient}}
+		<li>Name: <span>{{firstName}} {{lastName}}</span></li>
+		<li>Id: <span id="patient_id">{{id}}</span></li> 
+		{{/patient}}
+	</ul>
+    <h3>Condition Id: {{condition}}</h3>
+    <pre><code>{{json}}</code></pre>
+    <div class="vertical-space">
+    	<a href="{{req.contextPath}}/patient/{{#patient}}{{id}}{{/patient}}/condition">Back to Patient Conditions</a>
+	</div>
+</div>
+{{>layout/footer}}

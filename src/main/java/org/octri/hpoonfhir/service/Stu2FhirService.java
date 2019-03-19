@@ -180,4 +180,15 @@ public class Stu2FhirService extends AbstractFhirService {
 		}
 	}
 
+	@Override
+	public Condition findConditionById(String token, String id) {
+		org.hl7.fhir.instance.model.Condition stu2Condition = getClient(token).read().resource(org.hl7.fhir.instance.model.Condition.class).withId(id).execute();
+		try {
+			return (Condition) converter.convertCondition(stu2Condition);
+		} catch (FHIRException e) {
+			logger.error("Error converting from DSTU2 to DSTU3");
+			throw new Stu3ConversionException();
+		}
+	}
+
 }

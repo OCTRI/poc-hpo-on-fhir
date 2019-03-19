@@ -2,7 +2,6 @@ package org.octri.hpoonfhir.view;
 
 import org.hl7.fhir.dstu3.model.Condition;
 
-import ca.uhn.fhir.context.FhirContext;
 import ca.uhn.fhir.parser.IParser;
 
 /**
@@ -11,9 +10,9 @@ import ca.uhn.fhir.parser.IParser;
  * @author yateam
  *
  */
-public class ConditionModel {
+public class ConditionModel implements Comparable<ConditionModel> {
 
-	private String id;
+	private String fhirId;
 	private String code;
 	private String description;
 	private String json;
@@ -24,19 +23,19 @@ public class ConditionModel {
 	}
 
 	public ConditionModel(Condition fhirCondition, IParser parser) {
-		this.id = fhirCondition.getIdElement().getIdPart();
+		this.setFhirId(fhirCondition.getIdElement().getIdPart());
 		this.code = fhirCondition.getCode().getCoding().get(0).getCode();
 		this.description = fhirCondition.getCode().getCoding().get(0).getDisplay();
 		this.json = parser.encodeResourceToString(fhirCondition);
 		this.setPatient(fhirCondition.getSubject().getReference().split("/")[1]);
 	}
 	
-	public String getId() {
-		return id;
+	public String getFhirId() {
+		return fhirId;
 	}
 
-	public void setId(String id) {
-		this.id = id;
+	public void setFhirId(String fhirId) {
+		this.fhirId = fhirId;
 	}
 
 	public String getCode() {
@@ -69,6 +68,11 @@ public class ConditionModel {
 
 	public void setPatient(String patient) {
 		this.patient = patient;
+	}
+
+	@Override
+	public int compareTo(ConditionModel o) {
+		return this.getDescription().compareTo(o.getDescription());
 	}
 
 }
