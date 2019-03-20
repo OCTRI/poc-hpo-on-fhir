@@ -66,8 +66,9 @@ public class MainController {
 	 * @param request
 	 * @return
 	 */
-	@GetMapping("/")
+	@GetMapping("/search")
 	public String home(Map<String, Object> model, HttpServletRequest request) {
+		logger.info("Patient search page");
 		// Make sure token is present even though we won't use
 		fhirSessionInfo.assertToken();
 		// Load text describing caveats for the FHIR Service. This is
@@ -96,9 +97,9 @@ public class MainController {
 	 * @param form
 	 * @return
 	 */
-	@PostMapping("/")
+	@PostMapping("/search")
 	public String search(HttpServletRequest request, Map<String, Object> model, @ModelAttribute PatientModel form) {
-		logger.info("Patient search page");
+		logger.info("Performing Patient Search");
 		String token = fhirSessionInfo.assertToken();
 		model.put("fhirServiceName", fhirService.getServiceName());
 		model.put("patientSearchForm", form);

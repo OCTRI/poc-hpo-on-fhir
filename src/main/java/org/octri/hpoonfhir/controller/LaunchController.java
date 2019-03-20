@@ -132,12 +132,9 @@ public class LaunchController {
 			if (tokenResponse.getPatient() != null) {
 				// Ensure no HTML in patient id
 				String patient = StringEscapeUtils.escapeHtml4(tokenResponse.getPatient());
-				if (!patient.equals(tokenResponse.getPatient())) {
-					logger.info("HTML detected in patient id. Stripped to " + patient + " and redirecting.");
-				} else {
-					logger.info("Redirecting to patient " + patient);
-				}
-				response.sendRedirect(request.getContextPath() + "/patient/" + patient);
+				String redirect = request.getContextPath() + "/patient/" + patient;
+				logger.info("Patient detected in token response. Redirect to: " + redirect);
+				response.sendRedirect(redirect);
 			} else {
 				logger.info("No patient detected in token response. Redirecting to search.");
 				response.sendRedirect(request.getContextPath() + "/");
@@ -211,15 +208,10 @@ public class LaunchController {
 		}
 		in.close();
 		
-		logger.info("TOKEN RESPONSE: ");
-		logger.info(response.toString());
-
 		// Different servers may return additional parameters. Ignore them.
 		ObjectMapper om = new ObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 		try {
 			AccessTokenResponse token = om.readValue(response.toString(), AccessTokenResponse.class);
-			logger.info("Access Token: " + token.getAccessToken());
-			logger.info("Patient: " + token.getPatient());
 			return token;
 		} catch (Exception e) {
 			logger.error("Could not deserialize token response from FHIR server.");
