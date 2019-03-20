@@ -9,6 +9,8 @@ import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.hl7.fhir.dstu3.model.Condition;
 import org.hl7.fhir.dstu3.model.Observation;
 import org.hl7.fhir.dstu3.model.Patient;
@@ -40,6 +42,8 @@ import ca.uhn.fhir.context.FhirContext;
 @Controller
 public class MainController {
 	
+	private static final Logger logger = LogManager.getLogger();
+
 	@Autowired
 	private FhirService fhirService;
 	
@@ -94,6 +98,7 @@ public class MainController {
 	 */
 	@PostMapping("/")
 	public String search(HttpServletRequest request, Map<String, Object> model, @ModelAttribute PatientModel form) {
+		logger.info("Patient search page");
 		String token = fhirSessionInfo.assertToken();
 		model.put("fhirServiceName", fhirService.getServiceName());
 		model.put("patientSearchForm", form);
@@ -114,8 +119,10 @@ public class MainController {
 	 */
 	@GetMapping("/patient/{id:.+}")
 	public String patient(HttpServletRequest request, Map<String, Object> model, @PathVariable String id) {
+		logger.info("Getting patient by id.");
 		String token = fhirSessionInfo.assertToken();
 		Patient fhirPatient = fhirService.findPatientById(token, id);
+		logger.info("FHIR patient retrieved: " + (fhirPatient != null));
 		PatientModel patientModel = new PatientModel(fhirPatient);
 		model.put("patient", patientModel);
 		return "patient";

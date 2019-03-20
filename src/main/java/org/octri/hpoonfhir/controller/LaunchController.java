@@ -133,7 +133,9 @@ public class LaunchController {
 				// Ensure no HTML in patient id
 				String patient = StringEscapeUtils.escapeHtml4(tokenResponse.getPatient());
 				if (!patient.equals(tokenResponse.getPatient())) {
-					logger.info("HTML detected in patient id. Stripped to: " + patient);
+					logger.info("HTML detected in patient id. Stripped to " + patient + " and redirecting.");
+				} else {
+					logger.info("Redirecting to patient " + patient);
 				}
 				response.sendRedirect(request.getContextPath() + "/patient/" + patient);
 			} else {
