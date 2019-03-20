@@ -204,6 +204,9 @@ public class LaunchController {
 			response.append(output);
 		}
 		in.close();
+		
+		logger.info("TOKEN RESPONSE: ");
+		logger.info(response.toString());
 
 		// Different servers may return additional parameters. Ignore them.
 		ObjectMapper om = new ObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
