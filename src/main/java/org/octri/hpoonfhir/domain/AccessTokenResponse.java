@@ -20,10 +20,12 @@ public class AccessTokenResponse {
 		this.accessToken = accessToken;
 	}
 
+	@JsonGetter("patient")
 	public String getPatient() {
 		return patient;
 	}
 
+	@JsonSetter("patient")
 	public void setPatient(String patient) {
 		this.patient = patient;
 	}
