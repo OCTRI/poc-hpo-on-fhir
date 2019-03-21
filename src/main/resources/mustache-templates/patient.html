@@ -8,7 +8,6 @@
 		<li>Id: <span id="patient_id">{{id}}</span></li> 
 		{{/patient}}
 	</ul>
-	{{#conditionJson}}{{.}}{{/conditionJson}}
 	<h5><a href="{{req.contextPath}}/patient/{{#patient}}{{id}}{{/patient}}/phenotype">Phenotypes</a></h5>
 	<h5><a href="{{req.contextPath}}/patient/{{#patient}}{{id}}{{/patient}}/observation">FHIR Observations</a></h5>
 	<h5><a href="{{req.contextPath}}/patient/{{#patient}}{{id}}{{/patient}}/condition">FHIR Conditions</a></h5>

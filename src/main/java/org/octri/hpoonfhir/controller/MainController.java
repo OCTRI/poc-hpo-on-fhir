@@ -11,7 +11,6 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.hl7.fhir.dstu3.model.Condition;
 import org.hl7.fhir.dstu3.model.Observation;
 import org.hl7.fhir.dstu3.model.Patient;
 import org.monarchinitiative.fhir2hpo.fhir.util.ObservationLoincInfo;
@@ -25,21 +24,15 @@ import org.monarchinitiative.fhir2hpo.service.HpoService;
 import org.monarchinitiative.fhir2hpo.service.ObservationAnalysisService;
 import org.octri.hpoonfhir.domain.FhirSessionInfo;
 import org.octri.hpoonfhir.service.FhirService;
-import org.octri.hpoonfhir.service.PhenotypeSummaryService;
-import org.octri.hpoonfhir.view.ConditionModel;
 import org.octri.hpoonfhir.view.ObservationPhenotypeModel;
 import org.octri.hpoonfhir.view.PatientModel;
 import org.octri.hpoonfhir.view.SummaryStatsModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping;
 
 import ca.uhn.fhir.context.FhirContext;
 
@@ -58,25 +51,9 @@ public class MainController {
 	private ObservationAnalysisService observationAnalysisService;
 
 	@Autowired
-	private PhenotypeSummaryService phenotypeSummaryService;
-
-	@Autowired
 	private HpoService hpoService;
 
-	private final RequestMappingHandlerMapping handlerMapping;
-
-	 @Autowired
-	 public MainController(RequestMappingHandlerMapping handlerMapping) {
-		 this.handlerMapping = handlerMapping;
-	 }
-
-	 @GetMapping("/")
-	 public String show(Model model) {
-		 model.addAttribute("handlerMethods", this.handlerMapping.getHandlerMethods().keySet());
-		 return "wtf";
-	 } 
-	 
-	 /**
+	/**
 	 * Return to a clean search form with no results.
 	 * 
 	 * @param model
@@ -85,7 +62,6 @@ public class MainController {
 	 */
 	@GetMapping("/search")
 	public String home(Map<String, Object> model, HttpServletRequest request) {
-		logger.info("Patient search page");
 		// Make sure token is present even though we won't use
 		fhirSessionInfo.assertToken();
 		// Load text describing caveats for the FHIR Service. This is
@@ -116,7 +92,6 @@ public class MainController {
 	 */
 	@PostMapping("/search")
 	public String search(HttpServletRequest request, Map<String, Object> model, @ModelAttribute PatientModel form) {
-		logger.info("Performing Patient Search");
 		String token = fhirSessionInfo.assertToken();
 		model.put("fhirServiceName", fhirService.getServiceName());
 		model.put("patientSearchForm", form);
@@ -137,10 +112,8 @@ public class MainController {
 	 */
 	@GetMapping("/patient/{id:.+}")
 	public String patient(HttpServletRequest request, Map<String, Object> model, @PathVariable String id) {
-		logger.info("Getting patient by id.");
 		String token = fhirSessionInfo.assertToken();
 		Patient fhirPatient = fhirService.findPatientById(token, id);
-		logger.info("FHIR patient retrieved: " + (fhirPatient != null));
 		PatientModel patientModel = new PatientModel(fhirPatient);
 		model.put("patient", patientModel);
 		return "patient";
@@ -161,10 +134,6 @@ public class MainController {
 		model.put("patient", patientModel);
 		model.put("includeHpoSummaryJs", true);
 		return "phenotypes";
-		// Epic's browser can't handle js and data tables, so we'll do a raw table for testing
-		//List<PhenotypeModel> phenotypes = phenotypeSummaryService.summarizePhenotypes(fhirService.findObservationsForPatient(token, id));
-		//model.put("phenotypes", phenotypes);
-		//return "phenotypes-epic";
 	}
 
 	/**

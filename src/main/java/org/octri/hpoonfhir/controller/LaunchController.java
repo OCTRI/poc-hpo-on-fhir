@@ -133,10 +133,10 @@ public class LaunchController {
 				// Ensure no HTML in patient id
 				String patient = StringEscapeUtils.escapeHtml4(tokenResponse.getPatient());
 				String redirect = request.getContextPath() + "/patient/" + patient;
-				logger.info("Patient detected in token response. Redirect to: " + redirect);
+				logger.debug("Patient detected in token response. Redirect to: " + redirect);
 				response.sendRedirect(redirect);
 			} else {
-				logger.info("No patient detected in token response. Redirecting to search.");
+				logger.debug("No patient detected in token response. Redirecting to search.");
 				response.sendRedirect(request.getContextPath() + "/");
 			}
 		} catch (AuthorizationFailedException e) {
@@ -175,13 +175,13 @@ public class LaunchController {
 			+ "&grant_type=authorization_code&redirect_uri=" + fhirService.getRedirectUri();
 
 		if (fhirService.getClientSecret() != null) {
-			logger.info("Configuring with client secret: " + fhirService.getClientSecret());
+			logger.debug("Configuring with client secret: " + fhirService.getClientSecret());
 			// If there is a client secret, add an authorization
 			String authHeader = String.format("%s:%s", fhirService.getClientId(), fhirService.getClientSecret());
 			String encoded = new String(org.apache.commons.codec.binary.Base64.encodeBase64(authHeader.getBytes()));
 			con.setRequestProperty("Authorization", String.format("Basic %s", encoded));
 		} else {
-			logger.info("No client secret is configured");
+			logger.debug("No client secret is configured");
 			// If no client secret, pass the client id in the post
 			postData += "&client_id=" + fhirService.getClientId();
 		}
