@@ -26,3 +26,6 @@ logs/*
 /dist/
 /nbdist/
 /.nb-gradle/
+
+### Docker
+.env
