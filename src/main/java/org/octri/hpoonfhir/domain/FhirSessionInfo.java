@@ -40,7 +40,7 @@ public class FhirSessionInfo {
 	}
 
 	/**
-	 * Assert that the session has a token. Return the token or throw an AnauthorizedException if one doesn't exist.
+	 * Assert that the session has a token. Return the token or throw an UnauthorizedException if one doesn't exist.
 	 * @return
 	 */
 	public String assertToken() {

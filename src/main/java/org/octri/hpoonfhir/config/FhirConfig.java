@@ -24,12 +24,13 @@ public class FhirConfig {
 	private String clientId;
 	// While this class is not Serializable, declaring this transient will protect against accidental exposure if it becomes so.
 	private transient String clientSecret;
+	private Boolean enableLogging;
 
 	public FhirConfig() {
 
 	}
 
-	public FhirConfig(String name, String url, String version, String authorize, String token, String redirect, String clientId, String clientSecret) {
+	public FhirConfig(String name, String url, String version, String authorize, String token, String redirect, String clientId, String clientSecret, Boolean enableLogging) {
 		this.name = name;
 		this.url = url;
 		this.version = version;
@@ -38,6 +39,7 @@ public class FhirConfig {
 		this.redirect = redirect;
 		this.clientId = clientId;
 		setClientSecret(clientSecret);
+		this.setEnableLogging(enableLogging);
 		logger.warn("Application will authenticate with " + url);
 
 	}
@@ -119,6 +121,14 @@ public class FhirConfig {
 		} else {
 			this.clientSecret = clientSecret;
 		}
+	}
+	
+	public Boolean getEnableLogging() {
+		return enableLogging;
+	}
+
+	public void setEnableLogging(Boolean enableLogging) {
+		this.enableLogging = enableLogging;
 	}
 
 	/**

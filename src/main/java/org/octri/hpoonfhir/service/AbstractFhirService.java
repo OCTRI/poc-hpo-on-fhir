@@ -6,6 +6,7 @@ import org.octri.hpoonfhir.config.FhirConfig;
 import ca.uhn.fhir.context.FhirContext;
 import ca.uhn.fhir.rest.client.api.IGenericClient;
 import ca.uhn.fhir.rest.client.interceptor.BearerTokenAuthInterceptor;
+import ca.uhn.fhir.rest.client.interceptor.LoggingInterceptor;
 
 /**
  * The extending STU2 and STU3 services set their own context and implement interface methods, returning STU3 entities.
@@ -21,6 +22,7 @@ public abstract class AbstractFhirService implements FhirService {
 	private final String redirectUri;
 	private final String clientId;
 	private final String clientSecret;
+	private final Boolean enableLogging;
 
 	public abstract FhirContext getFhirContext();
 
@@ -32,6 +34,7 @@ public abstract class AbstractFhirService implements FhirService {
 		this.redirectUri = config.getRedirect();
 		this.clientId = config.getClientId();
 		this.clientSecret = config.getClientSecret();
+		this.enableLogging = config.getEnableLogging();
 		getFhirContext().getRestfulClientFactory().setSocketTimeout(30 * 1000); // Extend the timeout
 	}
 
@@ -81,6 +84,13 @@ public abstract class AbstractFhirService implements FhirService {
 		BearerTokenAuthInterceptor authInterceptor = new BearerTokenAuthInterceptor(token);
 		IGenericClient client = getFhirContext().newRestfulGenericClient(url);
 		client.registerInterceptor(authInterceptor);
+		
+		// For now, this is only logging the response bodies, so we can debug what comes back from Epic.
+		if (enableLogging) {
+			LoggingInterceptor loggingInterceptor = new LoggingInterceptor();
+			loggingInterceptor.setLogResponseBody(true);
+			client.registerInterceptor(loggingInterceptor);
+		}
 		return client;
 	}
 
