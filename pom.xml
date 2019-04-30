@@ -21,7 +21,7 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<java.version>1.8</java.version>
-		<fhir2hpo.version>1.0.2-SNAPSHOT</fhir2hpo.version>
+		<fhir2hpo.version>1.0.1</fhir2hpo.version>
 		<hapi.version>3.4.0</hapi.version>
 	</properties>
 
