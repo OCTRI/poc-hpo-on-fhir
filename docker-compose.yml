@@ -4,7 +4,9 @@
 version: "2"
 services:
   app:
-    image: octri.ohsu.edu/jarrunner:2018q4
+    image: octri.ohsu.edu/jarrunner:2019q2
+    ports:
+      - 8080:8080
     volumes:
       - ./target/hpoOnFhir.jar:/app.jar
     environment:
