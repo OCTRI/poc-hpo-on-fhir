@@ -4,7 +4,7 @@
 version: "2"
 services:
   app:
-    image: octri.ohsu.edu/jarrunner:11
+    image: octri.ohsu.edu/jarrunner:8
     ports:
       - 8080:8080
     volumes:
