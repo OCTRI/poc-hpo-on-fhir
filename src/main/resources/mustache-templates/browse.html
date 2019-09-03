@@ -1,0 +1,28 @@
+{{>layout/header}}
+
+
+<div class="container vertical-space">
+	<div class="vertical-space">
+		<p>This web application demonstrates the use of the <a href="https://github.com/OCTRI/fhir2hpo">fhir2hpo</a> Java library for converting FHIR-encoded laboratory results with LOINC information to terms in the <a href="https://hpo.jax.org/app/">Human Phenotype Ontology</a>. You can browse a few patients in the unauthenticated {{fhirServiceName}} FHIR sandbox and display the phenotypes derived from converting Observation LOINCs.</p>
+	</div>
+</div>
+
+<div class="container">
+		<h3>Patient List</h3>
+		<small class="text-muted">
+		Click on the patient to see the phenotypes found and the related labs for each.</small>
+		<div class="vertical-space">
+			{{^patients}}
+				<p>The expected patients were not found. The sandbox may be down for maintenance or the data may have been removed. If the problem persists, contact octrihlp@ohsu.edu.</p>
+			{{/patients}}
+			<ul>
+			{{#patients}}
+			<li>
+				<a href="{{req.contextPath}}/patient/{{id}}">{{firstName}} {{lastName}} ({{id}})</a>
+			</li>
+			{{/patients}}
+			</ul>
+		</div>
+</div>
+
+{{>layout/footer}}

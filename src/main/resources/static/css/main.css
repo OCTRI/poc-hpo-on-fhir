@@ -1,5 +1,5 @@
 body {
-	padding-top: 5rem;
+	padding-top: 0rem;
 }
 
 footer {
@@ -26,4 +26,12 @@ footer {
 
 .details-card {
 	margin-left: 2rem;
+}
+
+.alert-banner {
+	padding: 0.25rem;
+}
+
+.navbar {
+	margin-top: 1rem;
 }
