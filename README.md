@@ -1,6 +1,7 @@
 # Proof of Concept: HPO on FHIR
 
-This web application demonstrates the use of the [fhir2hpo](https://github.com/OCTRI/fhir2hpo) Java library for converting FHIR-encoded laboratory results with LOINC information to terms in the [Human Phenotype Ontology](https://hpo.jax.org/app/). Users can search for patients in an unauthenticated FHIR sandbox and display the phenotypes derived from converting Observation LOINCs.
+This is the source code for the web app currently deployed here: https://octri.ohsu.edu/hpo_on_fhir/
+It is a preliminary demonstration the use of the [fhir2hpo](https://github.com/OCTRI/fhir2hpo) Java library for converting FHIR-encoded laboratory results with LOINC information to terms in the [Human Phenotype Ontology](https://hpo.jax.org/app/). Users can search for synthetic patients in an unauthenticated FHIR sandbox and display the phenotypes derived from converting Observation LOINCs.
 
 This application can connect to STU2 and STU3 servers, and uses the HAPI Converter library to format responses as STU3 for use in the fhir2hpo library.
 
