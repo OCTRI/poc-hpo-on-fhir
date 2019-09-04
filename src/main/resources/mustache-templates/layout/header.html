@@ -12,7 +12,10 @@
 </head>
 <body>
 
-	<nav class="navbar navbar-expand-md fixed-top navbar-light">
+	<div class="alert-danger alert-banner">
+	  	<p class="text-center font-weight-bold">This is synthetic data. No real patient information is exposed.</p>
+	</div>
+	<nav class="navbar navbar-expand-md navbar-light">
 		<a class="navbar-brand" href="{{req.contextPath}}/">{{displayName}}</a>
 		<button class="navbar-toggler" type="button" data-toggle="collapse"
 			data-target="#collapsibleNavbar">
@@ -21,7 +24,7 @@
 		<div class="collapse navbar-collapse" id="collapsibleNavbar">
 			<ul class="navbar-nav mr-auto">
 				<li class="nav-item active"><a class="nav-link"
-					href="{{req.contextPath}}/">Search</a></li>
+					href="{{req.contextPath}}/">Browse Patients</a></li>
 			</ul>
 			<ul class="navbar-nav navbar-right">
 				<li><a class="nav-link" href="https://hpo.jax.org/app/"> <img
