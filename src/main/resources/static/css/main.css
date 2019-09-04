@@ -7,7 +7,7 @@ footer {
 }
 
 .vertical-space {
-	padding-top: .5rem;
+	padding-top: 8rem;
 	padding-bottom: .5rem;
 }
 
@@ -30,8 +30,4 @@ footer {
 
 .alert-banner {
 	padding: 0.25rem;
-}
-
-.navbar {
-	margin-top: 1rem;
 }
