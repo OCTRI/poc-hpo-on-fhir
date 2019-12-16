@@ -1,14 +1,10 @@
-spring:
-  profiles:
-    active: dev
-
 fhir-server-configuration:
   enable-logging: false
 
 ---
 
 spring:
-  profiles: dev
+  profiles: default
 fhir-server-configuration:
   name: SmartHealth IT
   url: http://launch.smarthealthit.org/v/r2/fhir
