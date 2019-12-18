@@ -1,0 +1,59 @@
+fhir-server-configuration:
+  enable-logging: false
+
+---
+
+spring:
+  profiles: default
+fhir-server-configuration:
+  name: SmartHealth IT
+  url: http://launch.smarthealthit.org/v/r2/fhir
+  version: STU2
+  authorize: https://launch.smarthealthit.org/v/r2/auth/authorize
+  token: https://launch.smarthealthit.org/v/r2/auth/token
+  redirect: http://localhost:8080/authorize
+  client_id: whatever
+  client-secret: whatever
+  enable-logging: true
+
+---
+
+spring:
+  profiles: hspc
+fhir-server-configuration:
+  name: HSPC
+  url: https://api-v5-dstu2.hspconsortium.org/OCTRI2/data
+  version: STU3
+  authorize: https://auth.hspconsortium.org/authorize
+  token: https://auth.hspconsortium.org/token
+  redirect: http://localhost:8080/authorize
+  client-id: d9d4b622-77bd-467b-b8f9-de5edad39e87
+  client-secret:
+
+---
+
+spring:
+  profiles: openepic
+fhir-server-configuration:
+  name: Open Epic
+  url: https://open-ic.epic.com/Argonaut/api/FHIR/Argonaut
+  version: STU2
+  authorize: https://open-ic.epic.com/Argonaut/oauth2/authorize
+  token: https://open-ic.epic.com/Argonaut/oauth2/token
+  redirect: http://localhost:8080/hpo_on_fhir/authorize
+  client_id: 6c5790e4-bc54-47a9-8c74-0a7b42e0ef91
+  client-secret: none
+
+---
+
+spring:
+  profiles: apporchard
+fhir-server-configuration:
+  name: Epic App Orchard
+  url: https://apporchard.epic.com/interconnect-aocurprd-oauth/api/FHIR/DSTU2
+  version: STU2
+  authorize: https://apporchard.epic.com/interconnect-aocurprd-oauth/oauth2/authorize
+  token: https://apporchard.epic.com/interconnect-aocurprd-oauth/oauth2/token
+  redirect: https://octridev.ohsu.edu/hpo_on_fhir/authorize
+  client-id:
+  client-secret: none
