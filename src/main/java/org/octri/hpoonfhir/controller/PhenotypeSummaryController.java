@@ -52,5 +52,4 @@ public class PhenotypeSummaryController {
 		return json;
 	}
 
-
 }

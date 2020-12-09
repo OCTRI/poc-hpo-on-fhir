@@ -1,6 +1,6 @@
 package org.octri.hpoonfhir.view;
 
-import org.hl7.fhir.dstu3.model.Patient;
+import org.hl7.fhir.r5.model.Patient;
 
 /**
  * The model representing the fields we care about when searching for and displaying a patient

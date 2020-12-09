@@ -25,7 +25,7 @@ $(document).ready(function() {
 		table += "</tbody></table></div>";
 		return table;
 	}
-
+	
 	let patientId = $("#patient_id").html();
 
 	// Set up table
@@ -39,17 +39,28 @@ $(document).ready(function() {
 		fnDrawCallback: function( settings ) {
 			$('td.details-control').html('<i class="fas fa-plus-square"></i>');
 	    },
-		columns : [ {
-			"className" : "details-control",
-			"orderable" : false,
-			"data" : null,
-			"defaultContent" : ''
+		columns : [ 
+			{
+				"className" : "details-control",
+				"orderable" : false,
+				"data" : null
 			}, 
 			{ "data" : "hpoTermName" }, 
 			{ "data" : "hpoTermId" },
 			{ "data" : "count"},
 			{ "data" : "first" },
-			{ "data" : "last"}
+			{ "data" : "last"},
+			{ 	
+				"targets": -1,
+				"data" : null,
+				"render": function ( data, type, row, meta ) {
+					if (data.needsUpdate) {
+					  return "<button class='btn btn-secondary'>Report</button>"
+					}
+      				return "<i class='far fa-check-square fa-lg text-success'></i>";
+    			}
+				//"defaultContent" : "<button class='btn btn-secondary'>Report</button>"
+			}
 		],
 		aaSorting : [] // Do not sort any columns initially
 	});
@@ -69,5 +80,18 @@ $(document).ready(function() {
 			$(this).html('<i class="fas fa-minus-square"></i>');
 		}
 	});
-
+	
+	$('#hposummary tbody').on( 'click', 'button', function () {
+ 		var tr = $(this).closest('tr');
+		var row = table.row(tr);
+        var data = row.data();
+        console.log(data);
+        $('#CommentsModal').modal("show");
+        $('#modal-title').text("Comments for " + data.hpoTermName);
+        $('#modal-termid').val(data.hpoTermId);
+        $('#modal-termname').val(data.hpoTermName);
+        $('#modal-observations').val(data.observations.map(o => o.fhirId).toString());
+        $('#modal-comments').val("");        
+    } );
+    
 });

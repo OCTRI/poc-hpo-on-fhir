@@ -9,7 +9,7 @@
 		{{/patient}}
 	</ul>
 	<h3>Phenotypes</h3>
-	<p>These phenotypes are derived from examining LOINC-encoded lab results. Click on the + symbol to see the related labs.</p>
+	<p>These phenotypes are automatically derived from examining lab results in the clinical record. Click on the + symbol to see the relevant lab results. To report the phenotype back to the clinical system, click "Report".</p>
 	<table id="hposummary" class="table table-bordered" style="width: 100%">
 		<thead class="thead-light">
 			<tr>
@@ -17,11 +17,35 @@
 				<th>HPO Term Name</th>
 				<th>HPO Term Id</th>
 				<th># Observations</th>
-				<th>First Date</th>
-				<th>Last Date</th>
+				<th>First Observed</th>
+				<th>Last Observed</th>
+				<th>HPO Report Status</th>
 			</tr>
 		</thead>
 	</table>
+</div>
+
+<div class="modal fade" id="CommentsModal" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="modal-title"></h3>
+            </div>
+            <form id="commentsForm" method="post" action="{{req.contextPath}}/reportHpo">
+	            <div class="modal-body">
+             		<input type="hidden" name="patientId" value="{{#patient}}{{id}}{{/patient}}"></input>
+            		<input type="hidden" id="modal-termid" name="hpoTermId"></input>
+            		<input type="hidden" id="modal-termname" name="hpoTermName"></input>
+            		<input type="hidden" id="modal-observations" name="observations"></input>
+            		<textarea id="modal-comments form-control" name="comments" rows="3" cols="50"></textarea>
+	            </div>
+	            <div class="modal-footer">
+	                <button class="btn btn-primary" type="submit">Submit</button>
+	                <button type="button" class="btn btn-link" data-dismiss="modal">Close</button>
+	            </div>
+            </form>
+        </div>
+    </div>
 </div>
 
 {{>layout/footer}}

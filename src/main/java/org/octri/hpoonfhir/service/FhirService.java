@@ -2,8 +2,8 @@ package org.octri.hpoonfhir.service;
 
 import java.util.List;
 
-import org.hl7.fhir.dstu3.model.Observation;
-import org.hl7.fhir.dstu3.model.Patient;
+import org.hl7.fhir.r5.model.Observation;
+import org.hl7.fhir.r5.model.Patient;
 import org.hl7.fhir.exceptions.FHIRException;
 
 /**
@@ -37,10 +37,33 @@ public interface FhirService {
 	public List<Patient> findPatientsByFullName(String firstName, String lastName) throws FHIRException;
 
 	/**
+	 * 
+	 * @param id
+	 * @return
+	 * @throws FHIRException
+	 */
+	Observation findObservationById(String id) throws FHIRException;
+
+	/**
 	 * Return the observations for the given patient id.
 	 * @param patientId
 	 * @return the list of observations
 	 */
 	public List<Observation> findObservationsForPatient(String patientId) throws FHIRException;
+
+	/**
+	 * Create or update a patient
+	 * @param patient
+	 * @return
+	 * @throws FHIRException
+	 */
+	public Patient createUpdatePatient(Patient patient) throws FHIRException;
+
+	/**
+	 * Create or update an observation
+	 * @param observation
+	 * @return
+	 */
+	public Observation createUpdateObservation(Observation observation) throws FHIRException;
 
 }

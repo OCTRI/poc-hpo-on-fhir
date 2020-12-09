@@ -3,18 +3,19 @@ package org.octri.hpoonfhir.service;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.hl7.fhir.convertors.NullVersionConverterAdvisor30;
-import org.hl7.fhir.convertors.VersionConvertor_10_30;
-import org.hl7.fhir.dstu3.model.Bundle;
-import org.hl7.fhir.dstu3.model.Observation;
-import org.hl7.fhir.dstu3.model.Patient;
+import org.apache.commons.lang3.NotImplementedException;
+import org.hl7.fhir.convertors.VersionConvertor_10_50;
 import org.hl7.fhir.exceptions.FHIRException;
+import org.hl7.fhir.r5.model.Bundle;
+import org.hl7.fhir.r5.model.Observation;
+import org.hl7.fhir.r5.model.Patient;
 
 import ca.uhn.fhir.context.FhirContext;
 
 
 /**
- * The implementation of the STU2 FHIR service. FHIR communication uses STU2 and results are converted to STU3.
+ * The implementation of the STU2 FHIR service. FHIR communication uses STU2 and results are converted to R4.
+ * TODO: AEY Need to test conversion at some point
  * 
  * @author yateam
  *
@@ -22,7 +23,6 @@ import ca.uhn.fhir.context.FhirContext;
 public class Stu2FhirService extends AbstractFhirService {
 	
 	private static final FhirContext ctx = FhirContext.forDstu2Hl7Org();
-	private final VersionConvertor_10_30 converter = new VersionConvertor_10_30(new NullVersionConverterAdvisor30());
 
 	public Stu2FhirService(String serviceName, String url) {
 		super(serviceName, url);
@@ -35,24 +35,29 @@ public class Stu2FhirService extends AbstractFhirService {
 	
 	@Override
 	public Patient findPatientById(String id) throws FHIRException {
-		org.hl7.fhir.instance.model.Patient stu2Patient = getClient().read().resource(org.hl7.fhir.instance.model.Patient.class).withId(id).execute();
-		return (Patient) converter.convertPatient(stu2Patient);
+		org.hl7.fhir.dstu2.model.Patient stu2Patient = getClient().read().resource(org.hl7.fhir.dstu2.model.Patient.class).withId(id).execute();		
+		return (Patient) VersionConvertor_10_50.convertResource(stu2Patient);
 	}
 
 	@Override
 	public List<Patient> findPatientsByFullName(String firstName, String lastName) throws FHIRException {
-		org.hl7.fhir.instance.model.Bundle patientBundle = getClient().search().forResource(org.hl7.fhir.instance.model.Patient.class).where(Patient.FAMILY.matches().value(lastName)).and(Patient.GIVEN.matches().value(firstName)).returnBundle(org.hl7.fhir.instance.model.Bundle.class).execute();
+		org.hl7.fhir.dstu2.model.Bundle patientBundle = getClient().search().forResource(org.hl7.fhir.dstu2.model.Patient.class).where(Patient.FAMILY.matches().value(lastName)).and(Patient.GIVEN.matches().value(firstName)).returnBundle(org.hl7.fhir.dstu2.model.Bundle.class).execute();
 		return processPatientBundle(patientBundle);
 		
 	}
 	
 	@Override
+	public Observation findObservationById(String id) throws FHIRException {
+		throw new NotImplementedException("Only available on R5 servers");
+	}
+
+	@Override
 	public List<Observation> findObservationsForPatient(String patientId) throws FHIRException {
 		List<Observation> allObservations = new ArrayList<>();
 		// Epic sandbox query will fail if category is not provided
-		org.hl7.fhir.instance.model.Bundle observationBundle = getClient().search()
+		org.hl7.fhir.dstu2.model.Bundle observationBundle = getClient().search()
 				.byUrl("Observation?patient=" + patientId + "&category=vital-signs,laboratory")
-				.returnBundle(org.hl7.fhir.instance.model.Bundle.class).execute();
+				.returnBundle(org.hl7.fhir.dstu2.model.Bundle.class).execute();
 		
 		while (observationBundle != null) {
 			allObservations.addAll(processObservationBundle(observationBundle));
@@ -62,31 +67,40 @@ public class Stu2FhirService extends AbstractFhirService {
 		return allObservations;
 	}
 
-	private List<Patient> processPatientBundle(org.hl7.fhir.instance.model.Bundle patientBundle) throws FHIRException {
-		List<Patient> stu3Patients = new ArrayList<>();
+	private List<Patient> processPatientBundle(org.hl7.fhir.dstu2.model.Bundle patientBundle) throws FHIRException {
+		List<Patient> upgradedPatients = new ArrayList<>();
 		if (!patientBundle.hasTotal() || patientBundle.getTotal() > 0) {
-			for (org.hl7.fhir.instance.model.Bundle.BundleEntryComponent bundleEntryComponent: patientBundle.getEntry()) {
-				org.hl7.fhir.instance.model.Patient stu2Patient = (org.hl7.fhir.instance.model.Patient) bundleEntryComponent.getResource();
-				Patient stu3Patient = (Patient) converter.convertPatient(stu2Patient);
-				stu3Patients.add(stu3Patient);
+			for (org.hl7.fhir.dstu2.model.Bundle.BundleEntryComponent bundleEntryComponent: patientBundle.getEntry()) {
+				org.hl7.fhir.dstu2.model.Patient stu2Patient = (org.hl7.fhir.dstu2.model.Patient) bundleEntryComponent.getResource();
+				Patient upgradedPatient = (Patient) VersionConvertor_10_50.convertResource(stu2Patient);
+				upgradedPatients.add(upgradedPatient);
 			}
 		}
 
-		return stu3Patients;		
+		return upgradedPatients;		
 	}
 
-	private List<Observation> processObservationBundle(org.hl7.fhir.instance.model.Bundle observationBundle) throws FHIRException {
-		List<Observation> stu3Observations = new ArrayList<>();
+	private List<Observation> processObservationBundle(org.hl7.fhir.dstu2.model.Bundle observationBundle) throws FHIRException {
+		List<Observation> upgradedObservations = new ArrayList<>();
 		if (!observationBundle.hasTotal() || observationBundle.getTotal() > 0) {
-			for (org.hl7.fhir.instance.model.Bundle.BundleEntryComponent bundleEntryComponent: observationBundle.getEntry()) {
-				org.hl7.fhir.instance.model.Observation stu2Observation = (org.hl7.fhir.instance.model.Observation) bundleEntryComponent.getResource();
-				Observation stu3Observation = (Observation) converter.convertObservation(stu2Observation);
-				stu3Observations.add(stu3Observation);
+			for (org.hl7.fhir.dstu2.model.Bundle.BundleEntryComponent bundleEntryComponent: observationBundle.getEntry()) {
+				org.hl7.fhir.dstu2.model.Observation stu2Observation = (org.hl7.fhir.dstu2.model.Observation) bundleEntryComponent.getResource();
+				Observation upgradedObservation = (Observation) VersionConvertor_10_50.convertResource(stu2Observation);
+				upgradedObservations.add(upgradedObservation);
 			}
 		}
 		
-		return stu3Observations;		
+		return upgradedObservations;		
 	}
 
+	@Override
+	public Patient createUpdatePatient(Patient patient) throws FHIRException {
+		throw new NotImplementedException("Only available on R5 servers");
+	}
+
+	@Override
+	public Observation createUpdateObservation(Observation observation) throws FHIRException {
+		throw new NotImplementedException("Only available on R5 servers");
+	}
 
 }

@@ -22,8 +22,9 @@ public class ObservationModel implements Serializable {
 	private final String startDate;
 	private final String endDate;
 	private final String value;
+	private final Boolean reported;
 
-	public ObservationModel(String loincId, ObservationLoincInfo observationLoincInfo) {
+	public ObservationModel(String loincId, ObservationLoincInfo observationLoincInfo, Boolean reported) {
 		DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
 		this.fhirId = observationLoincInfo.getFhirId();
 		this.loincId = loincId;
@@ -31,7 +32,7 @@ public class ObservationModel implements Serializable {
 		this.startDate = observationLoincInfo.getStartDate().map(d -> df.format(d)).orElse("");
 		this.endDate = observationLoincInfo.getEndDate().map(d -> df.format(d)).orElse("");
 		this.value = observationLoincInfo.getValueDescription();
-
+		this.reported = reported;
 	}
 
 	/**
@@ -80,6 +81,14 @@ public class ObservationModel implements Serializable {
 	 */
 	public String getValue() {
 		return value;
+	}
+
+	/**
+	 * Whether this specific Observation has had the HPO Term reported back to the server
+	 * @return
+	 */
+	public Boolean getReported() {
+		return reported;
 	}
 
 }

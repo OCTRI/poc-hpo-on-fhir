@@ -8,9 +8,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-import org.hl7.fhir.dstu3.model.Observation;
-import org.monarchinitiative.fhir2hpo.hpo.LoincConversionResult;
+import org.hl7.fhir.r5.model.Observation;
 import org.monarchinitiative.fhir2hpo.hpo.HpoTermWithNegation;
+import org.monarchinitiative.fhir2hpo.hpo.LoincConversionResult;
 import org.monarchinitiative.fhir2hpo.service.HpoService;
 import org.monarchinitiative.fhir2hpo.service.ObservationAnalysisService;
 import org.monarchinitiative.phenol.ontology.data.Term;
@@ -34,7 +34,18 @@ public class PhenotypeSummaryService {
 	HpoService hpoService;
 	
 	public List<PhenotypeModel> summarizePhenotypes(List<Observation> fhirObservations) {
-		// Try to convert all observations and gather successes
+		
+		// Go through the FHIR observations looking for any HPOs already identified
+		Map<String,Observation> hpoObservations = new HashMap<>();
+		for (Observation fhirObservation : fhirObservations) {
+			List<String> hpoCodings = fhirObservation.getCategory().stream().map(it -> it.getCode("http://hpo.jax.org")).collect(Collectors.toList());
+			if (hpoCodings.contains("hpo")) {
+				String hpoCode = fhirObservation.getCode().getCoding().get(0).getCode();
+				hpoObservations.put(hpoCode, fhirObservation);
+			}
+		}
+		
+		// Try to convert observations to HPO and gather successes
 		List<LoincConversionResult> results = fhirObservations.stream()
 				.flatMap(fhirObservation -> observationAnalysisService.analyzeObservation(fhirObservation).getLoincConversionResults().stream())
 				.filter(result -> result.hasSuccess())
@@ -43,15 +54,26 @@ public class PhenotypeSummaryService {
 		Map<HpoTermWithNegation, List<ObservationModel>> observationsByPhenotype = new HashMap<>();
 		for (LoincConversionResult result : results ) {
 			for (HpoTermWithNegation term : result.getHpoTerms()) {
-				ObservationModel observationModel = new ObservationModel(result.getLoincId().getCode(), result.getObservationLoincInfo());
-				List<ObservationModel> observations = observationsByPhenotype.get(term);
-				
-				if (observations == null) {
-					observations = new ArrayList<>(Arrays.asList(observationModel));					
-				} else {
-					observations.add(observationModel);
+				// Ignore negated terms - usually indicates the absence of a condition
+				if (!term.isNegated()) {
+					
+					// See if the term has already been reported
+					Boolean reported = false;
+					Observation hpoObservation = hpoObservations.get(term.getHpoTermId().getIdWithPrefix());
+					if (hpoObservation != null) {
+						reported = hpoObservation.getDerivedFrom().stream().map(it -> it.getResource().getIdElement().getIdPart()).anyMatch(id -> id.equals(result.getObservationLoincInfo().getFhirId()));
+					}
+					
+					ObservationModel observationModel = new ObservationModel(result.getLoincId().getCode(), result.getObservationLoincInfo(), reported);
+					List<ObservationModel> observations = observationsByPhenotype.get(term);
+					
+					if (observations == null) {
+						observations = new ArrayList<>(Arrays.asList(observationModel));					
+					} else {
+						observations.add(observationModel);
+					}
+					observationsByPhenotype.put(term, observations);
 				}
-				observationsByPhenotype.put(term, observations);
 			}			
 		}
 		
@@ -62,7 +84,7 @@ public class PhenotypeSummaryService {
 			Collections.sort(observations, (x, y) -> x.getStartDate().compareTo(y.getStartDate()));
 			// Get the term information from the HPO service
 			Term termInfo = hpoService.getTermForTermId(term.getHpoTermId());
-			phenotypes.add(new PhenotypeModel(term, termInfo, observations));
+			phenotypes.add(new PhenotypeModel(term, termInfo, observations, hpoObservations.get(term.getHpoTermId().getIdWithPrefix())));
 		}
 		
 		// Sort phenotypes by name
