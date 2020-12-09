@@ -43,7 +43,8 @@ $(document).ready(function() {
 			{
 				"className" : "details-control",
 				"orderable" : false,
-				"data" : null
+				"data" : null,
+				"defaultContent" : ''
 			}, 
 			{ "data" : "hpoTermName" }, 
 			{ "data" : "hpoTermId" },
@@ -59,7 +60,6 @@ $(document).ready(function() {
 					}
       				return "<i class='far fa-check-square fa-lg text-success'></i>";
     			}
-				//"defaultContent" : "<button class='btn btn-secondary'>Report</button>"
 			}
 		],
 		aaSorting : [] // Do not sort any columns initially
