@@ -14,7 +14,8 @@ import ca.uhn.fhir.context.FhirContext;
 
 
 /**
- * The implementation of the STU3 FHIR service. No conversions are necessary.
+ * The implementation of the STU3 FHIR service. FHIR communication uses STU3 and results are converted to the latest supported version.
+ * TODO: AEY Need to test conversion at some point
  * 
  * @author yateam
  *

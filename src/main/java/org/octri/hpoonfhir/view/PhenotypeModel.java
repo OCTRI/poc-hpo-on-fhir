@@ -31,8 +31,8 @@ public class PhenotypeModel implements Serializable {
 		this.hpoTermId = hpoTerm.getHpoTermId().getIdWithPrefix();
 		this.observations = observations;
 		// Get the earliest/latest start or end date
-		this.first = observations.stream().flatMap(o -> Stream.of(o.getStartDate(), o.getEndDate())).filter(s -> !s.isEmpty()).min(String::compareTo).get();
-		this.last = observations.stream().flatMap(o -> Stream.of(o.getStartDate(), o.getEndDate())).filter(s -> !s.isEmpty()).max(String::compareTo).get();
+		this.first = observations.stream().flatMap(o -> Stream.of(o.getStartDate(), o.getEndDate())).filter(s -> !s.isEmpty()).min(String::compareTo).orElse("");
+		this.last = observations.stream().flatMap(o -> Stream.of(o.getStartDate(), o.getEndDate())).filter(s -> !s.isEmpty()).max(String::compareTo).orElse("");
 		this.hpoObservationId = hpoObservation == null ? null : hpoObservation.getId();
 		this.needsUpdate = !observations.stream().map(ObservationModel::getReported).allMatch(reported -> reported);
 	}
