@@ -87,11 +87,11 @@ $(document).ready(function() {
         var data = row.data();
         console.log(data);
         $('#CommentsModal').modal("show");
-        $('#modal-title').text("Comments for " + data.hpoTermName);
-        $('#modal-termid').val(data.hpoTermId);
-        $('#modal-termname').val(data.hpoTermName);
-        $('#modal-observations').val(data.observations.map(o => o.fhirId).toString());
-        $('#modal-comments').val("");        
+        $('#CommentsModal-title').text("Comments for " + data.hpoTermName);
+        $('#CommentsModal-termid').val(data.hpoTermId);
+        $('#CommentsModal-termname').val(data.hpoTermName);
+        $('#CommentsModal-observations').val(data.observations.map(o => o.fhirId).toString());
+        $('#CommentsModal-comments').val("");        
     } );
     
 });

@@ -29,15 +29,15 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h3 id="modal-title"></h3>
+                <h3 id="CommentsModal-title"></h3>
             </div>
             <form id="commentsForm" method="post" action="{{req.contextPath}}/reportHpo">
 	            <div class="modal-body">
              		<input type="hidden" name="patientId" value="{{#patient}}{{id}}{{/patient}}"></input>
-            		<input type="hidden" id="modal-termid" name="hpoTermId"></input>
-            		<input type="hidden" id="modal-termname" name="hpoTermName"></input>
-            		<input type="hidden" id="modal-observations" name="observations"></input>
-            		<textarea id="modal-comments form-control" name="comments" rows="3" cols="50"></textarea>
+            		<input type="hidden" id="CommentsModal-termid" name="hpoTermId"></input>
+            		<input type="hidden" id="CommentsModal-termname" name="hpoTermName"></input>
+            		<input type="hidden" id="CommentsModal-observations" name="observations"></input>
+            		<textarea id="CommentsModal-comments form-control" name="comments" rows="3" cols="50"></textarea>
 	            </div>
 	            <div class="modal-footer">
 	                <button class="btn btn-primary" type="submit">Submit</button>
