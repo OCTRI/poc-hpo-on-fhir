@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.stream.Stream;
 
+import org.hl7.fhir.r5.model.Observation;
 import org.monarchinitiative.fhir2hpo.hpo.HpoTermWithNegation;
 import org.monarchinitiative.phenol.ontology.data.Term;
 
@@ -22,19 +23,23 @@ public class PhenotypeModel implements Serializable {
 	private final String first;
 	private final String last;
 	private final List<ObservationModel> observations;
+	private final String hpoObservationId;
+	private final Boolean needsUpdate;
 	
-	public PhenotypeModel(HpoTermWithNegation hpoTerm, Term termInfo, List<ObservationModel> observations) {
+	public PhenotypeModel(HpoTermWithNegation hpoTerm, Term termInfo, List<ObservationModel> observations, Observation hpoObservation) {
 		this.hpoTermName = constructTermName(hpoTerm, termInfo);
 		this.hpoTermId = hpoTerm.getHpoTermId().getIdWithPrefix();
 		this.observations = observations;
 		// Get the earliest/latest start or end date
 		this.first = observations.stream().flatMap(o -> Stream.of(o.getStartDate(), o.getEndDate())).filter(s -> !s.isEmpty()).min(String::compareTo).get();
 		this.last = observations.stream().flatMap(o -> Stream.of(o.getStartDate(), o.getEndDate())).filter(s -> !s.isEmpty()).max(String::compareTo).get();
+		this.hpoObservationId = hpoObservation == null ? null : hpoObservation.getId();
+		this.needsUpdate = !observations.stream().map(ObservationModel::getReported).allMatch(reported -> reported);
 	}
 
 	private String constructTermName(HpoTermWithNegation hpoTerm, Term termInfo) {
 		if (termInfo != null) {
-			return (hpoTerm.isNegated()?"NOT ":"") + termInfo.getName();
+			return (hpoTerm.isNegated()?"EXCLUDED ":"") + termInfo.getName();
 		}
 		
 		// Tests in the fhir2hpo library should prevent a null termInfo, but just in case
@@ -61,6 +66,14 @@ public class PhenotypeModel implements Serializable {
 		return observations;
 	}
 	
+	public String getHpoObservationId() {
+		return hpoObservationId;
+	}
+
+	public Boolean getNeedsUpdate() {
+		return needsUpdate;
+	}
+
 	public Integer getCount() {
 		return observations.size();
 	}
