@@ -67,7 +67,7 @@ public class R5FhirService extends AbstractFhirService {
 	@Override
 	public List<Observation> findObservationsForPatient(String patientId) throws FHIRException {
 		List<Observation> allObservations = new ArrayList<>();
-		// TODO: Temp solution for JHU - set the count to 20 to speed up retrievals
+		// TODO: Temp solution for JHU - set the count to 50 to speed up retrievals
 		Bundle observationBundle = getClient().search().forResource(Observation.class).where(new ReferenceClientParam("patient").hasId(patientId)).count(50).returnBundle(Bundle.class).execute();
 		
 		while (observationBundle != null) {
@@ -83,6 +83,26 @@ public class R5FhirService extends AbstractFhirService {
 		
 		return allObservations;
 	}
+	
+	@Override
+	public List<Observation> findObservationsForPatientAndCategory(String patientId, String categoryCode)
+			throws FHIRException {
+		List<Observation> allObservations = new ArrayList<>();
+		Bundle observationBundle = getClient().search().forResource(Observation.class).where(new ReferenceClientParam("patient").hasId(patientId)).and(Observation.CATEGORY.exactly().code(categoryCode)).count(50).returnBundle(Bundle.class).execute();
+		while (observationBundle != null) {
+			allObservations.addAll(processObservationBundle(observationBundle));
+			// TODO: Temp solution for JHU resources having incorrect URLs
+			BundleLinkComponent nextLink = observationBundle.getLink(Bundle.LINK_NEXT);
+			if (nextLink != null && nextLink.getUrl().contains("localhost:8080")) {
+				String url = nextLink.getUrl();
+				observationBundle.getLink(Bundle.LINK_NEXT).setUrl(url.replace("http://localhost:8080", "https://hapi.clinicalprofiles.org"));
+			}
+			observationBundle = (observationBundle.getLink(Bundle.LINK_NEXT) != null) ? getClient().loadPage().next(observationBundle).execute() : null;
+		}
+		
+		return allObservations;
+	}
+
 
 	private List<Patient> processPatientBundle(Bundle patientBundle) {
 		if (!patientBundle.hasTotal() || patientBundle.getTotal() > 0) {

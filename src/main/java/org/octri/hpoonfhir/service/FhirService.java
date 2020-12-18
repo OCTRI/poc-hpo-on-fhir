@@ -2,6 +2,7 @@ package org.octri.hpoonfhir.service;
 
 import java.util.List;
 
+import org.hl7.fhir.r5.model.IdType;
 import org.hl7.fhir.r5.model.Observation;
 import org.hl7.fhir.r5.model.Patient;
 import org.hl7.fhir.exceptions.FHIRException;
@@ -52,6 +53,14 @@ public interface FhirService {
 	public List<Observation> findObservationsForPatient(String patientId) throws FHIRException;
 
 	/**
+	 * Return the observations for the given patient id.
+	 * @param patientId
+	 * @param the code for the category
+	 * @return the list of observations
+	 */
+	public List<Observation> findObservationsForPatientAndCategory(String patientId, String categoryCode) throws FHIRException;
+
+	/**
 	 * Create or update a patient
 	 * @param patient
 	 * @return
@@ -65,5 +74,7 @@ public interface FhirService {
 	 * @return
 	 */
 	public Observation createUpdateObservation(Observation observation) throws FHIRException;
+	
+	public void deleteResourceById(IdType id);
 
 }
