@@ -103,4 +103,10 @@ public class Stu2FhirService extends AbstractFhirService {
 		throw new NotImplementedException("Only available on R5 servers");
 	}
 
+	@Override
+	public List<Observation> findObservationsForPatientAndCategory(String patientId, String category)
+			throws FHIRException {
+		throw new NotImplementedException("Only available on R5 servers");
+	}
+
 }

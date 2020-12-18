@@ -1,6 +1,7 @@
 package org.octri.hpoonfhir.service;
 
 import org.hl7.fhir.instance.model.api.IBaseResource;
+import org.hl7.fhir.r5.model.IdType;
 
 import ca.uhn.fhir.context.FhirContext;
 import ca.uhn.fhir.rest.client.api.IGenericClient;
@@ -41,4 +42,7 @@ public abstract class AbstractFhirService implements FhirService {
 		return client.getFhirContext().newJsonParser().encodeResourceToString(resource);
 	}
 	
+	public void deleteResourceById(IdType id) {
+		getClient().delete().resourceById(id).execute();
+	}
 }

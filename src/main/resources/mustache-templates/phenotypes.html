@@ -9,7 +9,7 @@
 		{{/patient}}
 	</ul>
 	<h3>Phenotypes</h3>
-	<p>These phenotypes are automatically derived from examining lab results in the clinical record. Click on the + symbol to see the relevant lab results. To report the phenotype back to the clinical system, click "Report".</p>
+	<p>These phenotypes are calculated automatically by examining lab results on the patient's clinical record. Click on the + symbol to see the original lab results. Based on your review, select the phenotypes that should be added to the clinical record.</p>
 	<table id="hposummary" class="table table-bordered" style="width: 100%">
 		<thead class="thead-light">
 			<tr>
@@ -19,7 +19,7 @@
 				<th># Observations</th>
 				<th>First Observed</th>
 				<th>Last Observed</th>
-				<th>HPO Report Status</th>
+				<th>Add to Clinical Record</th>
 			</tr>
 		</thead>
 	</table>
@@ -29,19 +29,48 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h3 id="CommentsModal-title"></h3>
+                <h3 id="CommentsModal-title">Add Phenotype</h3>
             </div>
-            <form id="commentsForm" method="post" action="{{req.contextPath}}/reportHpo">
+            <form id="CommentsModal-form" method="post" action="{{req.contextPath}}/reportHpo">
 	            <div class="modal-body">
-             		<input type="hidden" name="patientId" value="{{#patient}}{{id}}{{/patient}}"></input>
-            		<input type="hidden" id="CommentsModal-termid" name="hpoTermId"></input>
-            		<input type="hidden" id="CommentsModal-termname" name="hpoTermName"></input>
+	            	<input type="hidden" name="patientId" value="{{#patient}}{{id}}{{/patient}}"></input>
+	            	<div class="form-group">
+	            		<label>HPO Term Id: </label>
+	            		<span id="CommentsModal-termiddisplay" class="font-weight-bold"></span>
+            			<input type="hidden" id="CommentsModal-termid" name="hpoTermId"></input>
+	            	</div>
+	            	<div class="form-group">
+	            		<label>HPO Term Name: </label>
+	            		<span id="CommentsModal-termnamedisplay" class="font-weight-bold"></span>
+            			<input type="hidden" id="CommentsModal-termname" name="hpoTermName"></input>
+					</div>	            	
             		<input type="hidden" id="CommentsModal-observations" name="observations"></input>
-            		<textarea id="CommentsModal-comments form-control" name="comments" rows="3" cols="50"></textarea>
+	            	<div class="form-group">
+	            		<label>Optional Comments:</label>
+            			<textarea id="CommentsModal-comments form-control" name="comments" rows="3" cols="50"></textarea>
+					</div>
 	            </div>
 	            <div class="modal-footer">
-	                <button class="btn btn-primary" type="submit">Submit</button>
-	                <button type="button" class="btn btn-link" data-dismiss="modal">Close</button>
+	                <button class="btn btn-primary" type="submit">Add to Clinical Record</button>
+	                <button id="CommentsModal-cancel" type="button" class="btn btn-link" data-dismiss="modal">Cancel</button>
+	            </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="DeleteModal" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="DeleteModal-title"></h3>
+            </div>
+            <form id="DeleteModal-form" method="post" action="{{req.contextPath}}/deleteHpo">
+             	<input type="hidden" name="patientId" value="{{#patient}}{{id}}{{/patient}}"></input>
+            	<input type="hidden" id="DeleteModal-termid" name="hpoTermId"></input>
+	            <div class="modal-footer">
+	                <button class="btn btn-primary" type="submit">Delete from Clinical Record</button>
+	                <button id="DeleteModal-cancel" type="button" class="btn btn-link" data-dismiss="modal">Cancel</button>
 	            </div>
             </form>
         </div>

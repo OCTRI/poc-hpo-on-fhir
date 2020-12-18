@@ -24,6 +24,7 @@ public class PhenotypeModel implements Serializable {
 	private final String last;
 	private final List<ObservationModel> observations;
 	private final String hpoObservationId;
+	// TODO: This is not used yet but indicates the phenotype in the clinical record needs updating because the observations don't match
 	private final Boolean needsUpdate;
 	
 	public PhenotypeModel(HpoTermWithNegation hpoTerm, Term termInfo, List<ObservationModel> observations, Observation hpoObservation) {
