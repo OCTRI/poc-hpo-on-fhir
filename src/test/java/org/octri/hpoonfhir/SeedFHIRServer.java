@@ -2,6 +2,7 @@ package org.octri.hpoonfhir;
 
 import static org.junit.Assert.assertEquals;
 
+import org.hl7.fhir.instance.model.api.IIdType;
 import org.hl7.fhir.r5.model.Observation;
 import org.hl7.fhir.r5.model.Patient;
 import org.hl7.fhir.r5.model.Reference;
@@ -31,19 +32,19 @@ public class SeedFHIRServer {
 	@Test 
 	public void seedServer() {
     	Patient patient = FhirParseUtils.getPatient("fhir/patient/patient1.json");
-		Patient patientWithId = fhirService.createUpdatePatient(patient);
-		System.out.println("Patient ID: " + patientWithId.getIdElement().getIdPart());
+		IIdType patientId = fhirService.createUpdatePatient(patient);
+		System.out.println("Patient ID: " + patientId.getIdPart());
 		
 		Observation observation = FhirParseUtils.getObservation("fhir/observation/glucoseHigh.json");
-		Reference reference = new Reference(patientWithId);
+		Reference reference = new Reference(patientId);
 		observation.setSubject(reference);
-		Observation observationWithId = fhirService.createUpdateObservation(observation);
-		System.out.println("Observation ID: " + observationWithId.getIdElement().getIdPart());
+		IIdType observationId = fhirService.createUpdateObservation(observation);
+		System.out.println("Observation ID: " + observationId.getIdPart());
 
-//		observation = FhirParseUtils.getObservation("fhir/observation/bilirubinPositive.json");
-//		observation.setSubject(reference);
-//		observationWithId = fhirService.createUpdateObservation(observation);
-//		System.out.println("Observation ID: " + observationWithId.getIdElement().getIdPart());
+		observation = FhirParseUtils.getObservation("fhir/observation/bilirubinPositive.json");
+		observation.setSubject(reference);
+		observationId = fhirService.createUpdateObservation(observation);
+		System.out.println("Observation ID: " + observationId.getIdPart());
 	}
 
 }

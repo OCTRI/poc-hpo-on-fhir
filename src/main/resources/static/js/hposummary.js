@@ -64,7 +64,7 @@ $(document).ready(function() {
     			}
 			}
 		],
-		aaSorting : [] // Do not sort any columns initially
+		order: [[ 2, "asc" ]]
 	});
 	
 	// Add event listener for opening and closing details

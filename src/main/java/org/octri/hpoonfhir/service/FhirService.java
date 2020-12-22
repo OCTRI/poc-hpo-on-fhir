@@ -6,6 +6,7 @@ import org.hl7.fhir.r5.model.IdType;
 import org.hl7.fhir.r5.model.Observation;
 import org.hl7.fhir.r5.model.Patient;
 import org.hl7.fhir.exceptions.FHIRException;
+import org.hl7.fhir.instance.model.api.IIdType;
 
 /**
  * The service interface to query the FHIR server. While the underlying server may have a different FHIR version,
@@ -48,17 +49,10 @@ public interface FhirService {
 	/**
 	 * Return the observations for the given patient id.
 	 * @param patientId
+	 * @param optionalCategories comma-separated list of optional observation categories. If null, all are returned
 	 * @return the list of observations
 	 */
-	public List<Observation> findObservationsForPatient(String patientId) throws FHIRException;
-
-	/**
-	 * Return the observations for the given patient id.
-	 * @param patientId
-	 * @param the code for the category
-	 * @return the list of observations
-	 */
-	public List<Observation> findObservationsForPatientAndCategory(String patientId, String categoryCode) throws FHIRException;
+	public List<Observation> findObservationsForPatient(String patientId, String optionalCategories) throws FHIRException;
 
 	/**
 	 * Create or update a patient
@@ -66,15 +60,19 @@ public interface FhirService {
 	 * @return
 	 * @throws FHIRException
 	 */
-	public Patient createUpdatePatient(Patient patient) throws FHIRException;
+	public IIdType createUpdatePatient(Patient patient) throws FHIRException;
 
 	/**
 	 * Create or update an observation
 	 * @param observation
 	 * @return
 	 */
-	public Observation createUpdateObservation(Observation observation) throws FHIRException;
+	public IIdType createUpdateObservation(Observation observation) throws FHIRException;
 	
+	/**
+	 * Delete a resource given the id
+	 * @param id
+	 */
 	public void deleteResourceById(IdType id);
-
+	
 }
