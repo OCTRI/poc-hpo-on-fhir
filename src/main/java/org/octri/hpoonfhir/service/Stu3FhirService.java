@@ -6,11 +6,13 @@ import java.util.List;
 import org.apache.commons.lang3.NotImplementedException;
 import org.hl7.fhir.convertors.VersionConvertor_30_50;
 import org.hl7.fhir.exceptions.FHIRException;
+import org.hl7.fhir.instance.model.api.IIdType;
 import org.hl7.fhir.r5.model.Bundle;
 import org.hl7.fhir.r5.model.Observation;
 import org.hl7.fhir.r5.model.Patient;
 
 import ca.uhn.fhir.context.FhirContext;
+import io.micrometer.core.instrument.util.StringUtils;
 
 
 /**
@@ -42,8 +44,7 @@ public class Stu3FhirService extends AbstractFhirService {
 	@Override
 	public List<Patient> findPatientsByFullName(String firstName, String lastName) throws FHIRException {
 		org.hl7.fhir.dstu3.model.Bundle patientBundle = getClient().search().forResource(org.hl7.fhir.dstu3.model.Patient.class).where(Patient.FAMILY.matches().value(lastName)).and(Patient.GIVEN.matches().value(firstName)).returnBundle(org.hl7.fhir.dstu3.model.Bundle.class).execute();
-		return processPatientBundle(patientBundle);
-		
+		return processPatientBundle(patientBundle);		
 	}
 	
 	@Override
@@ -52,11 +53,12 @@ public class Stu3FhirService extends AbstractFhirService {
 	}
 
 	@Override
-	public List<Observation> findObservationsForPatient(String patientId) throws FHIRException {
+	public List<Observation> findObservationsForPatient(String patientId, String categoryCode) throws FHIRException {
 		List<Observation> allObservations = new ArrayList<>();
-		// Epic sandbox query will fail if category is not provided
+		// NOTE: Epic sandbox query will fail if category is not provided
+		String categoryParameter = StringUtils.isBlank(categoryCode) ? "" : "&category=" + categoryCode;
 		org.hl7.fhir.dstu3.model.Bundle observationBundle = getClient().search()
-				.byUrl("Observation?patient=" + patientId + "&category=vital-signs,laboratory")
+				.byUrl("Observation?patient=" + patientId + categoryParameter)
 				.returnBundle(org.hl7.fhir.dstu3.model.Bundle.class).execute();
 		
 		while (observationBundle != null) {
@@ -94,19 +96,13 @@ public class Stu3FhirService extends AbstractFhirService {
 	}
 
 	@Override
-	public Patient createUpdatePatient(Patient patient) throws FHIRException {
-		throw new NotImplementedException("Only available on R5 servers");
+	public IIdType createUpdatePatient(Patient patient) throws FHIRException {
+		throw new NotImplementedException("Not available on STU3 servers");
 	}
 
 	@Override
-	public Observation createUpdateObservation(Observation observation) throws FHIRException {
-		throw new NotImplementedException("Only available on R5 servers");
-	}
-
-	@Override
-	public List<Observation> findObservationsForPatientAndCategory(String patientId, String category)
-			throws FHIRException {
-		throw new NotImplementedException("Only available on R5 servers");
+	public IIdType createUpdateObservation(Observation observation) throws FHIRException {
+		throw new NotImplementedException("Not available on STU3 servers");
 	}
 
 }

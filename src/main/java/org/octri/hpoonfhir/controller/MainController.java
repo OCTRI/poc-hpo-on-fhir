@@ -29,6 +29,8 @@ public class MainController {
 
 	@Autowired
 	FhirService fhirService;
+	
+	private final static String[] PATIENT_IDS = {"9", "10", "250", "4667", "4978", "5025", "5064", "5267", "5395", "5488"};
 
 	/**
 	 * Display a hardcoded list of patients that can be browsed
@@ -44,11 +46,12 @@ public class MainController {
 		
 		try {
 			List<Patient> fhirPatients = fhirService.findPatientsByFullName("John", "McLean");
-			if (fhirPatients.size() > 1) {
+			if (fhirPatients.size() > 0) {
 				patientModels.add(new PatientModel(fhirPatients.get(0)));
 			}
-			//patientModels.add(new PatientModel(fhirService.findPatientById("7682")));
-			//patientModels.add(new PatientModel(fhirService.findPatientById("19421")));
+			for (String id: PATIENT_IDS) {
+				patientModels.add(new PatientModel(fhirService.findPatientById(id)));
+			}
 		} catch (FHIRException e) {
 			// Do nothing. Assume something's wrong with the sandbox and display a message indicating this.
 			e.printStackTrace();

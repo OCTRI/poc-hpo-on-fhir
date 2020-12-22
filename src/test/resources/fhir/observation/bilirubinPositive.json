@@ -1,6 +1,6 @@
 {
 	"resourceType": "Observation",
-	"id": "1654",
+	"id": "1720651",
 	"text": {
 		"status": "generated",
 		"div": "<div xmlns=\"http://www.w3.org/1999/xhtml\">2020-09-16: Bilirub Ur Ql Strip = Negative </div>"
@@ -23,7 +23,7 @@
 		"text": "Bilirub Ur Ql Strip"
 	},
 	"subject": {
-		"reference": "Patient/1652"
+		"reference": "Patient/1720649"
 	},
 	"effectiveDateTime": "2020-09-16",
 	"valueString": "Positive"
