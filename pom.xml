@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>org.octri</groupId>
-	<artifactId>hpoOnFhir</artifactId>
+	<artifactId>hpo-on-fhir</artifactId>
 	<version>1.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
