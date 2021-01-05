@@ -30,7 +30,7 @@ public class MainController {
 	@Autowired
 	FhirService fhirService;
 	
-	private final static String[] PATIENT_IDS = {"9", "10", "250", "4667", "4978", "5025", "5064", "5267", "5395", "5488"};
+	private final static String[] PATIENT_IDS = {"2", "107", "154", "193", "396", "532", "660", "753"};
 
 	/**
 	 * Display a hardcoded list of patients that can be browsed
