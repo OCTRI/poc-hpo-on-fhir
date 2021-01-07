@@ -34,6 +34,11 @@ public class R5FhirService extends AbstractFhirService {
 		return ctx;
 	}
 	
+	public Bundle searchByUrl(String url) {
+		//TODO: Clarify that only first Bundle is returned; not checking for next link
+		return getClient().search().byUrl(url).returnBundle(Bundle.class).execute();
+	}
+
 	@Override
 	public Patient findPatientById(String id) throws FHIRException {
 		return getResourceById(Patient.class, id);
@@ -65,15 +70,6 @@ public class R5FhirService extends AbstractFhirService {
 		}
 		
 		return allObservations;
-	}
-
-
-	private List<Patient> processPatientBundle(Bundle patientBundle) {
-		if (!patientBundle.hasTotal() || patientBundle.getTotal() > 0) {
-			return patientBundle.getEntry().stream().map(bundleEntryComponent -> (Patient) bundleEntryComponent.getResource()).collect(Collectors.toList());
-		}
-		
-		return new ArrayList<>();
 	}
 
 	private List<Observation> processObservationBundle(Bundle observationBundle) {

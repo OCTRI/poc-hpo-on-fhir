@@ -1,5 +1,6 @@
 package org.octri.hpoonfhir.controller;
 
+import java.text.ParseException;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -58,11 +59,12 @@ public class PhenotypeSummaryController {
 
 	@PostMapping("/reportHpo")
 	public String reportHpo(Map<String, Object> model, @RequestParam String patientId, 
-			@RequestParam String hpoTermId, @RequestParam String hpoTermName, 
-			@RequestParam String observations, @RequestParam String comments) {
+			@RequestParam String hpoTermId, @RequestParam String hpoTermName, @RequestParam Boolean negated,
+			@RequestParam String first, @RequestParam String last, @RequestParam String observations, 
+			@RequestParam String comments) throws ParseException {
 
-		Observation hpoObservation = PhenotypeSummaryService.buildPhenotypeObservation(patientId, hpoTermId, hpoTermName, observations,
-				comments);        
+		Observation hpoObservation = PhenotypeSummaryService.buildPhenotypeObservation(patientId, hpoTermId, 
+				hpoTermName, negated, first, last, observations, comments);        
         fhirService.createUpdateObservation(hpoObservation);
 
 		return "ok";
@@ -70,9 +72,9 @@ public class PhenotypeSummaryController {
 
 	@PostMapping("/deleteHpo")
 	public String deleteHpo(Map<String, Object> model, @RequestParam String patientId, 
-			@RequestParam String hpoTermId) {
+			@RequestParam String hpoTermId, @RequestParam Boolean negated) {
 		List<Observation> hpoObservations = fhirService.findObservationsForPatient(patientId, PhenotypeSummaryService.PHENOPACKETS_OBSERVATION_CATEGORY);
-		List<Observation> observationsForTermId = hpoObservations.stream().filter(o -> o.getCode().getCode(PhenotypeSummaryService.PHENOPACKETS_URL).equals(hpoTermId)).collect(Collectors.toList());
+		List<Observation> observationsForTermId = hpoObservations.stream().filter(o -> o.getCode().getCode(PhenotypeSummaryService.PHENOPACKETS_URL).equals(hpoTermId) && o.getValueBooleanType().getValue().equals(!negated)).collect(Collectors.toList());
 		for (Observation o : observationsForTermId) {
 			fhirService.deleteResourceById(o.getIdElement());
 		}

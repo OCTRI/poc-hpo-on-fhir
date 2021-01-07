@@ -94,6 +94,11 @@ $(document).ready(function() {
 	        $('#CommentsModal-termid').val(data.hpoTermId);
 	        $('#CommentsModal-termnamedisplay').text(data.hpoTermName);
 	        $('#CommentsModal-termname').val(data.hpoTermName);
+			$('#CommentsModal-negated').val(data.negated);
+			$('#CommentsModal-firstdisplay').text(data.first);
+			$('#CommentsModal-first').val(data.first);
+			$('#CommentsModal-lastdisplay').text(data.last);
+			$('#CommentsModal-last').val(data.last);
 	        $('#CommentsModal-observations').val(data.observations.map(o => o.fhirId).toString());
 	        $('#CommentsModal-comments').val("");
 	        $('#CommentsModal-cancel').click(function() {checkbox.checked = false});
@@ -101,6 +106,7 @@ $(document).ready(function() {
 	        $('#DeleteModal').modal("show");
 	        $('#DeleteModal-title').text("Delete " + data.hpoTermName);
 	        $('#DeleteModal-termid').val(data.hpoTermId);
+	        $('#DeleteModal-negated').val(data.negated);
 	        $('#DeleteModal-cancel').click(function() {checkbox.checked = true});
 	    }       
     } );

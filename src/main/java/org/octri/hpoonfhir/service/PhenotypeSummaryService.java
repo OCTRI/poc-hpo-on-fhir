@@ -1,5 +1,6 @@
 package org.octri.hpoonfhir.service;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -12,8 +13,10 @@ import java.util.stream.Collectors;
 import org.hl7.fhir.r5.model.Annotation;
 import org.hl7.fhir.r5.model.BooleanType;
 import org.hl7.fhir.r5.model.CodeableConcept;
+import org.hl7.fhir.r5.model.DateTimeType;
 import org.hl7.fhir.r5.model.Identifier;
 import org.hl7.fhir.r5.model.Observation;
+import org.hl7.fhir.r5.model.Period;
 import org.hl7.fhir.r5.model.Reference;
 import org.monarchinitiative.fhir2hpo.hpo.HpoTermWithNegation;
 import org.monarchinitiative.fhir2hpo.hpo.LoincConversionResult;
@@ -51,7 +54,8 @@ public class PhenotypeSummaryService {
 			List<String> hpoCodings = fhirObservation.getCategory().stream().map(it -> it.getCode(PHENOPACKETS_URL)).collect(Collectors.toList());
 			if (hpoCodings.contains(PHENOPACKETS_OBSERVATION_CATEGORY)) {
 				String hpoCode = fhirObservation.getCode().getCoding().get(0).getCode();
-				hpoObservations.put(hpoCode, fhirObservation);
+				BooleanType hpoValue = fhirObservation.getValueBooleanType();
+				hpoObservations.put(getMapKey(hpoCode, hpoValue.getValue()), fhirObservation);
 			}
 		}
 		
@@ -64,12 +68,10 @@ public class PhenotypeSummaryService {
 		Map<HpoTermWithNegation, List<ObservationModel>> observationsByPhenotype = new HashMap<>();
 		for (LoincConversionResult result : results ) {
 			for (HpoTermWithNegation term : result.getHpoTerms()) {
-				// Ignore negated terms - usually indicates the absence of a condition
-				//if (!term.isNegated()) {
 					
 					// See if the term has already been reported
 					Boolean reported = false;
-					Observation hpoObservation = hpoObservations.get(term.getHpoTermId().getIdWithPrefix());
+					Observation hpoObservation = hpoObservations.get(getMapKey(term.getHpoTermId().getIdWithPrefix(), !term.isNegated()));
 					if (hpoObservation != null) {
 						reported = hpoObservation.getDerivedFrom().stream().map(it -> it.getReferenceElement().getIdPart()).anyMatch(id -> id.equals(result.getObservationLoincInfo().getFhirId()));
 					}
@@ -83,7 +85,6 @@ public class PhenotypeSummaryService {
 						observations.add(observationModel);
 					}
 					observationsByPhenotype.put(term, observations);
-				//}
 			}			
 		}
 		
@@ -94,13 +95,17 @@ public class PhenotypeSummaryService {
 			Collections.sort(observations, (x, y) -> x.getStartDate().compareTo(y.getStartDate()));
 			// Get the term information from the HPO service
 			Term termInfo = hpoService.getTermForTermId(term.getHpoTermId());
-			phenotypes.add(new PhenotypeModel(term, termInfo, observations, hpoObservations.get(term.getHpoTermId().getIdWithPrefix())));
+			phenotypes.add(new PhenotypeModel(term, termInfo, observations, hpoObservations.get(getMapKey(term.getHpoTermId().getIdWithPrefix(), !term.isNegated()))));
 		}
 		
 		// Sort phenotypes by name
 		Collections.sort(phenotypes, (x, y) -> x.getHpoTermName().compareTo(y.getHpoTermName()));
 		return phenotypes;
 		
+	}
+	
+	private String getMapKey(String termId, Boolean phenotypePresent) {
+		return termId + "|" + (phenotypePresent?"T":"F");
 	}
 	
 	/**
@@ -111,9 +116,11 @@ public class PhenotypeSummaryService {
 	 * @param observations
 	 * @param comments
 	 * @return the unpersisted observation
+	 * @throws ParseException 
 	 */
-	public static Observation buildPhenotypeObservation(String patientId, String hpoTermId, String hpoTermName,
-			String observations, String comments) {
+	public static Observation buildPhenotypeObservation(String patientId, String hpoTermId, String hpoTermName, 
+			Boolean negated, String first, String last, String observations, String comments) throws ParseException {
+		Boolean phenotypePresent = !negated;
 		Observation hpoObservation = new Observation();
 		hpoObservation.setId(String.valueOf(new Random().nextLong()));
 		
@@ -127,11 +134,20 @@ public class PhenotypeSummaryService {
 			.setSystem(PhenotypeSummaryService.PHENOPACKETS_URL)
 			.setCode(hpoTermId)
 			.setDisplay(hpoTermName);
-        BooleanType btype = new BooleanType(true);
+        BooleanType btype = new BooleanType(phenotypePresent);
         hpoObservation.setValue(btype);
         
         Reference patientReference = new Reference("Patient/" + patientId);
         hpoObservation.setSubject(patientReference);
+        
+        // If first and last observation are the same, set effective dateTime; otherwise set Period
+        if (first.equals(last)) {
+        	DateTimeType dateTime = new DateTimeType(ObservationModel.df.parse(first));
+        	hpoObservation.setEffective(dateTime);
+        } else {
+        	Period period = new Period().setStart(ObservationModel.df.parse(first)).setEnd(ObservationModel.df.parse(last));
+        	hpoObservation.setEffective(period);
+        }
 
         // Parse the observation ids, and get the corresponding observations from FHIR server
 		List<String> observationIds = Arrays.asList(observations.split(","));

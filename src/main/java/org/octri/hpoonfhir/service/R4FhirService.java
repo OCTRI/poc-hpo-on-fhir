@@ -27,6 +27,11 @@ public class R4FhirService extends AbstractFhirService {
 		return ctx;
 	}
 	
+	public Bundle searchByUrl(String url) {
+		org.hl7.fhir.r4.model.Bundle bundle = getClient().search().byUrl(url).returnBundle(org.hl7.fhir.r4.model.Bundle.class).execute();
+		return (Bundle) VersionConvertor_40_50.convertResource(bundle);
+	}
+
 	@Override
 	public Patient findPatientById(String id) throws FHIRException {
 		org.hl7.fhir.r4.model.Patient patient = getResourceById(org.hl7.fhir.r4.model.Patient.class, id);

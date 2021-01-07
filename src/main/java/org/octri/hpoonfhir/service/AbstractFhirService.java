@@ -1,8 +1,14 @@
 package org.octri.hpoonfhir.service;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+
 import org.hl7.fhir.instance.model.api.IAnyResource;
 import org.hl7.fhir.instance.model.api.IBaseResource;
+import org.hl7.fhir.r5.model.Bundle;
 import org.hl7.fhir.r5.model.IdType;
+import org.hl7.fhir.r5.model.Patient;
 
 import ca.uhn.fhir.context.FhirContext;
 import ca.uhn.fhir.rest.client.api.IGenericClient;
@@ -60,5 +66,15 @@ public abstract class AbstractFhirService implements FhirService {
 	public void deleteResourceById(IdType id) {
 		client.delete().resourceById(id).execute();
 	}
+	
+	@Override
+	public List<Patient> processPatientBundle(Bundle patientBundle) {
+		if (!patientBundle.hasTotal() || patientBundle.getTotal() > 0) {
+			return patientBundle.getEntry().stream().map(bundleEntryComponent -> (Patient) bundleEntryComponent.getResource()).collect(Collectors.toList());
+		}
+		
+		return new ArrayList<>();
+	}
+
 	
 }

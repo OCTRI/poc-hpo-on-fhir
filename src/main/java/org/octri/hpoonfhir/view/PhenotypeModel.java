@@ -20,6 +20,7 @@ public class PhenotypeModel implements Serializable {
 
 	private final String hpoTermName;
 	private final String hpoTermId;
+	private final Boolean negated;
 	private final String first;
 	private final String last;
 	private final List<ObservationModel> observations;
@@ -30,6 +31,7 @@ public class PhenotypeModel implements Serializable {
 	public PhenotypeModel(HpoTermWithNegation hpoTerm, Term termInfo, List<ObservationModel> observations, Observation hpoObservation) {
 		this.hpoTermName = constructTermName(hpoTerm, termInfo);
 		this.hpoTermId = hpoTerm.getHpoTermId().getIdWithPrefix();
+		this.negated = hpoTerm.isNegated();
 		this.observations = observations;
 		// Get the earliest/latest start or end date
 		this.first = observations.stream().flatMap(o -> Stream.of(o.getStartDate(), o.getEndDate())).filter(s -> !s.isEmpty()).min(String::compareTo).orElse("");
@@ -53,6 +55,10 @@ public class PhenotypeModel implements Serializable {
 	
 	public String getHpoTermId() {
 		return hpoTermId;
+	}
+
+	public Boolean getNegated() {
+		return negated;
 	}
 
 	public String getFirst() {

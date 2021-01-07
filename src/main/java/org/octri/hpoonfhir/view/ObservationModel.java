@@ -15,6 +15,7 @@ import org.monarchinitiative.fhir2hpo.fhir.util.ObservationLoincInfo;
 public class ObservationModel implements Serializable {
 
 	private static final long serialVersionUID = -3076629390459562137L;
+	public static final DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
 
 	private final String fhirId;
 	private final String loincId;
@@ -25,7 +26,6 @@ public class ObservationModel implements Serializable {
 	private final Boolean reported;
 
 	public ObservationModel(String loincId, ObservationLoincInfo observationLoincInfo, Boolean reported) {
-		DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
 		this.fhirId = observationLoincInfo.getFhirId();
 		this.loincId = loincId;
 		this.description = observationLoincInfo.getDescription();

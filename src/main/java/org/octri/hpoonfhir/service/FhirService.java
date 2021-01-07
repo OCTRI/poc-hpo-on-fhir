@@ -2,11 +2,12 @@ package org.octri.hpoonfhir.service;
 
 import java.util.List;
 
+import org.hl7.fhir.exceptions.FHIRException;
+import org.hl7.fhir.instance.model.api.IIdType;
+import org.hl7.fhir.r5.model.Bundle;
 import org.hl7.fhir.r5.model.IdType;
 import org.hl7.fhir.r5.model.Observation;
 import org.hl7.fhir.r5.model.Patient;
-import org.hl7.fhir.exceptions.FHIRException;
-import org.hl7.fhir.instance.model.api.IIdType;
 
 /**
  * The service interface to query the FHIR server. While the underlying server may have a different FHIR version,
@@ -21,6 +22,12 @@ public interface FhirService {
 	 * @return
 	 */
 	public String getServiceName();
+	
+	/**
+	 * Generic method allowing a restful url to be constructed for retrieving whatever 
+	 * @param url
+	 */
+	public Bundle searchByUrl(String url);
 	
 	/**
 	 * Find the patient by an identifier.
@@ -74,5 +81,11 @@ public interface FhirService {
 	 * @param id
 	 */
 	public void deleteResourceById(IdType id);
+	
+	/**
+	 * Convenience method for processing a bundle known to be a patient
+	 */
+	public List<Patient> processPatientBundle(Bundle patientBundle);
+
 	
 }

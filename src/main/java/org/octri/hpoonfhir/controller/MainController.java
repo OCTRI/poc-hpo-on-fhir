@@ -8,6 +8,7 @@ import java.util.stream.Collectors;
 import javax.servlet.http.HttpServletRequest;
 
 import org.hl7.fhir.exceptions.FHIRException;
+import org.hl7.fhir.r5.model.Bundle;
 import org.hl7.fhir.r5.model.Patient;
 import org.monarchinitiative.fhir2hpo.loinc.DefaultLoinc2HpoAnnotation;
 import org.monarchinitiative.fhir2hpo.loinc.Loinc2HpoAnnotation;
@@ -45,12 +46,10 @@ public class MainController {
 		List<PatientModel> patientModels = new ArrayList<>();
 		
 		try {
-			List<Patient> fhirPatients = fhirService.findPatientsByFullName("John", "McLean");
-			if (fhirPatients.size() > 0) {
-				patientModels.add(new PatientModel(fhirPatients.get(0)));
-			}
-			for (String id: PATIENT_IDS) {
-				patientModels.add(new PatientModel(fhirService.findPatientById(id)));
+			Bundle patientBundle = fhirService.searchByUrl("Patient");			
+			List<Patient> fhirPatients = fhirService.processPatientBundle(patientBundle);
+			for (Patient p : fhirPatients) {
+				patientModels.add(new PatientModel(p));
 			}
 		} catch (FHIRException e) {
 			// Do nothing. Assume something's wrong with the sandbox and display a message indicating this.
@@ -101,5 +100,7 @@ public class MainController {
 
 		return "hpo";
 	}
+	
+
 	
 }

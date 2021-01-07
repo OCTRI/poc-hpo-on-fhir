@@ -35,6 +35,10 @@ public class Stu3FhirService extends AbstractFhirService {
 		return ctx;
 	}
 	
+	public Bundle searchByUrl(String url) {
+		throw new NotImplementedException("Not available on STU3 servers");
+	}
+	
 	@Override
 	public Patient findPatientById(String id) throws FHIRException {
 		org.hl7.fhir.dstu3.model.Patient stu3Patient = getClient().read().resource(org.hl7.fhir.dstu3.model.Patient.class).withId(id).execute();		
@@ -49,7 +53,7 @@ public class Stu3FhirService extends AbstractFhirService {
 	
 	@Override
 	public Observation findObservationById(String id) throws FHIRException {
-		throw new NotImplementedException("Only available on R5 servers");
+		throw new NotImplementedException("Not available on STU3 servers");
 	}
 
 	@Override
