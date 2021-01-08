@@ -4,6 +4,7 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -18,6 +19,7 @@ import org.hl7.fhir.r5.model.Identifier;
 import org.hl7.fhir.r5.model.Observation;
 import org.hl7.fhir.r5.model.Period;
 import org.hl7.fhir.r5.model.Reference;
+import org.hl7.fhir.r5.model.StringType;
 import org.monarchinitiative.fhir2hpo.hpo.HpoTermWithNegation;
 import org.monarchinitiative.fhir2hpo.hpo.LoincConversionResult;
 import org.monarchinitiative.fhir2hpo.service.HpoService;
@@ -119,7 +121,7 @@ public class PhenotypeSummaryService {
 	 * @throws ParseException 
 	 */
 	public static Observation buildPhenotypeObservation(String patientId, String hpoTermId, String hpoTermName, 
-			Boolean negated, String first, String last, String observations, String comments) throws ParseException {
+			Boolean negated, String first, String last, String observations, String curator, String comments) throws ParseException {
 		Boolean phenotypePresent = !negated;
 		Observation hpoObservation = new Observation();
 		hpoObservation.setId(String.valueOf(new Random().nextLong()));
@@ -159,6 +161,9 @@ public class PhenotypeSummaryService {
         // Add the comment as a note
 		Annotation annotation = new Annotation();
         annotation.setText(comments);
+        StringType author = new StringType(curator);
+        annotation.setAuthor(author);
+        annotation.setTime(new Date());
         hpoObservation.getNote().add(annotation);
         
         // Add a custom category - may be able to query with this

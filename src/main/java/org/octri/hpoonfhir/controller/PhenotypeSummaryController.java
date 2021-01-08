@@ -61,10 +61,10 @@ public class PhenotypeSummaryController {
 	public String reportHpo(Map<String, Object> model, @RequestParam String patientId, 
 			@RequestParam String hpoTermId, @RequestParam String hpoTermName, @RequestParam Boolean negated,
 			@RequestParam String first, @RequestParam String last, @RequestParam String observations, 
-			@RequestParam String comments) throws ParseException {
+			@RequestParam String curator, @RequestParam String comments) throws ParseException {
 
 		Observation hpoObservation = PhenotypeSummaryService.buildPhenotypeObservation(patientId, hpoTermId, 
-				hpoTermName, negated, first, last, observations, comments);        
+				hpoTermName, negated, first, last, observations, curator, comments);        
         fhirService.createUpdateObservation(hpoObservation);
 
 		return "ok";

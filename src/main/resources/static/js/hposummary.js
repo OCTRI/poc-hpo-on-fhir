@@ -100,6 +100,7 @@ $(document).ready(function() {
 			$('#CommentsModal-lastdisplay').text(data.last);
 			$('#CommentsModal-last').val(data.last);
 	        $('#CommentsModal-observations').val(data.observations.map(o => o.fhirId).toString());
+	        $('#CommentsModal-curator').val("");
 	        $('#CommentsModal-comments').val("");
 	        $('#CommentsModal-cancel').click(function() {checkbox.checked = false});
 	    } else {
