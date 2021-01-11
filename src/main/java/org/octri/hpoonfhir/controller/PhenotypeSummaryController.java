@@ -6,6 +6,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 import org.hl7.fhir.exceptions.FHIRException;
+import org.hl7.fhir.instance.model.api.IIdType;
 import org.hl7.fhir.r5.model.Observation;
 import org.octri.hpoonfhir.service.FhirService;
 import org.octri.hpoonfhir.service.PhenotypeSummaryService;
@@ -65,9 +66,9 @@ public class PhenotypeSummaryController {
 
 		Observation hpoObservation = PhenotypeSummaryService.buildPhenotypeObservation(patientId, hpoTermId, 
 				hpoTermName, negated, first, last, observations, curator, comments);        
-        fhirService.createUpdateObservation(hpoObservation);
+        IIdType id = fhirService.createUpdateObservation(hpoObservation);
 
-		return "ok";
+		return id.getIdPart();
 	}
 
 	@PostMapping("/deleteHpo")

@@ -123,10 +123,14 @@ $(document).ready(function() {
 	           type: "POST",
 	           url: url,
 	           data: form.serialize(),
-	           success: function(data)
+	           success: function(response)
 	           {
 				   // NOTE: Even after success, the new record may not be queryable in the FHIR server for a few minutes
 	               $('#CommentsModal').modal("hide");
+
+		           $('#ConfirmationModal').modal("show");
+	        	   $('#ConfirmationModal-title').text("Created New Observation " + response);
+		           $('#ConfirmationModal-cancel').click();
 	           }
 	    });
 	    
