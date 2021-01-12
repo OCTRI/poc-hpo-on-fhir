@@ -25,7 +25,7 @@ $(document).ready(function() {
 		table += "</tbody></table></div>";
 		return table;
 	}
-
+	
 	let patientId = $("#patient_id").html();
 
 	// Set up table
@@ -39,19 +39,32 @@ $(document).ready(function() {
 		fnDrawCallback: function( settings ) {
 			$('td.details-control').html('<i class="fas fa-plus-square"></i>');
 	    },
-		columns : [ {
-			"className" : "details-control",
-			"orderable" : false,
-			"data" : null,
-			"defaultContent" : ''
+		columns : [ 
+			{
+				"className" : "details-control",
+				"orderable" : false,
+				"data" : null,
+				"defaultContent" : ''
 			}, 
 			{ "data" : "hpoTermName" }, 
 			{ "data" : "hpoTermId" },
 			{ "data" : "count"},
 			{ "data" : "first" },
-			{ "data" : "last"}
+			{ "data" : "last"},
+			{ 	
+				"targets": -1,
+				"data" : null,
+				"render": function ( data, type, row, meta ) {
+				    let checked = (data.hpoObservationId !== null);
+				    if (checked) {
+				    	return "<input type='checkbox' checked>";
+				    } else {
+				    	return "<input type='checkbox'>";
+				    }
+    			}
+			}
 		],
-		aaSorting : [] // Do not sort any columns initially
+		order: [[ 2, "asc" ]]
 	});
 	
 	// Add event listener for opening and closing details
@@ -69,5 +82,77 @@ $(document).ready(function() {
 			$(this).html('<i class="fas fa-minus-square"></i>');
 		}
 	});
+	
+	$('#hposummary tbody').on( 'click', 'input[type=checkbox]', function () {
+ 		var tr = $(this).closest('tr');
+		var row = table.row(tr);
+        var data = row.data();
+        var checkbox = this;
+        if (checkbox.checked === true) {
+	        $('#CommentsModal').modal("show");
+	        $('#CommentsModal-termiddisplay').text(data.hpoTermId);
+	        $('#CommentsModal-termid').val(data.hpoTermId);
+	        $('#CommentsModal-termnamedisplay').text(data.hpoTermName);
+	        $('#CommentsModal-termname').val(data.hpoTermName);
+			$('#CommentsModal-negated').val(data.negated);
+			$('#CommentsModal-firstdisplay').text(data.first);
+			$('#CommentsModal-first').val(data.first);
+			$('#CommentsModal-lastdisplay').text(data.last);
+			$('#CommentsModal-last').val(data.last);
+	        $('#CommentsModal-observations').val(data.observations.map(o => o.fhirId).toString());
+	        $('#CommentsModal-curator').val("");
+	        $('#CommentsModal-comments').val("");
+	        $('#CommentsModal-cancel').click(function() {checkbox.checked = false});
+	    } else {
+	        $('#DeleteModal').modal("show");
+	        $('#DeleteModal-title').text("Delete " + data.hpoTermName);
+	        $('#DeleteModal-termid').val(data.hpoTermId);
+	        $('#DeleteModal-negated').val(data.negated);
+	        $('#DeleteModal-cancel').click(function() {checkbox.checked = true});
+	    }       
+    } );
 
+	$("#CommentsModal-form").submit(function(e) {
+
+	    e.preventDefault();
+	
+	    var form = $(this);
+	    var url = form.attr('action');
+	    
+	    $.ajax({
+	           type: "POST",
+	           url: url,
+	           data: form.serialize(),
+	           success: function(response)
+	           {
+				   // NOTE: Even after success, the new record may not be queryable in the FHIR server for a few minutes
+	               $('#CommentsModal').modal("hide");
+
+		           $('#ConfirmationModal').modal("show");
+	        	   $('#ConfirmationModal-title').text("Created New Observation " + response);
+		           $('#ConfirmationModal-cancel').click();
+	           }
+	    });
+	    
+	});
+
+	$("#DeleteModal-form").submit(function(e) {
+
+	    e.preventDefault();
+	
+	    var form = $(this);
+	    var url = form.attr('action');
+	    
+	    $.ajax({
+	           type: "POST",
+	           url: url,
+	           data: form.serialize(),
+	           success: function(data)
+	           {
+	               $('#DeleteModal').modal("hide");
+	           }
+	    });
+	    
+	});
+    
 });

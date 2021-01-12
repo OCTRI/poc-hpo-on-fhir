@@ -1,15 +1,21 @@
 package org.octri.hpoonfhir.controller;
 
+import java.text.ParseException;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import org.hl7.fhir.exceptions.FHIRException;
+import org.hl7.fhir.instance.model.api.IIdType;
+import org.hl7.fhir.r5.model.Observation;
 import org.octri.hpoonfhir.service.FhirService;
 import org.octri.hpoonfhir.service.PhenotypeSummaryService;
 import org.octri.hpoonfhir.view.PhenotypeModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -40,7 +46,7 @@ public class PhenotypeSummaryController {
 	public String labs(Map<String, Object> model, @PathVariable String id) {
 		String json = "";
 		try {
-			List<PhenotypeModel> phenotypes = phenotypeSummaryService.summarizePhenotypes(fhirService.findObservationsForPatient(id));
+			List<PhenotypeModel> phenotypes = phenotypeSummaryService.summarizePhenotypes(fhirService.findObservationsForPatient(id, null));
 			model.put("data", phenotypes);
 			ObjectMapper objectMapper = new ObjectMapper();
 			json = objectMapper.writeValueAsString(model);
@@ -52,5 +58,30 @@ public class PhenotypeSummaryController {
 		return json;
 	}
 
+	@PostMapping("/reportHpo")
+	public String reportHpo(Map<String, Object> model, @RequestParam String patientId, 
+			@RequestParam String hpoTermId, @RequestParam String hpoTermName, @RequestParam Boolean negated,
+			@RequestParam String first, @RequestParam String last, @RequestParam String observations, 
+			@RequestParam String curator, @RequestParam String comments) throws ParseException {
+
+		Observation hpoObservation = PhenotypeSummaryService.buildPhenotypeObservation(patientId, hpoTermId, 
+				hpoTermName, negated, first, last, observations, curator, comments);        
+        IIdType id = fhirService.createUpdateObservation(hpoObservation);
+
+		return id.getIdPart();
+	}
+
+	@PostMapping("/deleteHpo")
+	public String deleteHpo(Map<String, Object> model, @RequestParam String patientId, 
+			@RequestParam String hpoTermId, @RequestParam Boolean negated) {
+		List<Observation> hpoObservations = fhirService.findObservationsForPatient(patientId, PhenotypeSummaryService.PHENOPACKETS_OBSERVATION_CATEGORY);
+		List<Observation> observationsForTermId = hpoObservations.stream().filter(o -> o.getCode().getCode(PhenotypeSummaryService.PHENOPACKETS_URL).equals(hpoTermId) && o.getValueBooleanType().getValue().equals(!negated)).collect(Collectors.toList());
+		for (Observation o : observationsForTermId) {
+			fhirService.deleteResourceById(o.getIdElement());
+		}
+		return "ok";
+	}
+
+	
 
 }

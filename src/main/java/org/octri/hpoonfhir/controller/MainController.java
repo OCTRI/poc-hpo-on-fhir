@@ -7,8 +7,9 @@ import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.hl7.fhir.dstu3.model.Patient;
 import org.hl7.fhir.exceptions.FHIRException;
+import org.hl7.fhir.r5.model.Bundle;
+import org.hl7.fhir.r5.model.Patient;
 import org.monarchinitiative.fhir2hpo.loinc.DefaultLoinc2HpoAnnotation;
 import org.monarchinitiative.fhir2hpo.loinc.Loinc2HpoAnnotation;
 import org.monarchinitiative.fhir2hpo.loinc.LoincId;
@@ -29,6 +30,8 @@ public class MainController {
 
 	@Autowired
 	FhirService fhirService;
+	
+	private final static String[] PATIENT_IDS = {"2", "107", "154", "193", "396", "532", "660", "753"};
 
 	/**
 	 * Display a hardcoded list of patients that can be browsed
@@ -43,9 +46,11 @@ public class MainController {
 		List<PatientModel> patientModels = new ArrayList<>();
 		
 		try {
-			patientModels.add(new PatientModel(fhirService.findPatientById("smart-1627321")));
-			patientModels.add(new PatientModel(fhirService.findPatientById("smart-1134281")));
-			patientModels.add(new PatientModel(fhirService.findPatientById("smart-8888803")));
+			Bundle patientBundle = fhirService.searchByUrl("Patient");			
+			List<Patient> fhirPatients = fhirService.processPatientBundle(patientBundle);
+			for (Patient p : fhirPatients) {
+				patientModels.add(new PatientModel(p));
+			}
 		} catch (FHIRException e) {
 			// Do nothing. Assume something's wrong with the sandbox and display a message indicating this.
 			e.printStackTrace();
@@ -95,5 +100,7 @@ public class MainController {
 
 		return "hpo";
 	}
+	
 
+	
 }

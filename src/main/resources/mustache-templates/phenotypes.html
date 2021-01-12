@@ -9,7 +9,7 @@
 		{{/patient}}
 	</ul>
 	<h3>Phenotypes</h3>
-	<p>These phenotypes are derived from examining LOINC-encoded lab results. Click on the + symbol to see the related labs.</p>
+	<p>These phenotypes are calculated automatically by examining lab results on the patient's clinical record. Click on the + symbol to see the original lab results. Based on your review, select the phenotypes that should be added to the clinical record.</p>
 	<table id="hposummary" class="table table-bordered" style="width: 100%">
 		<thead class="thead-light">
 			<tr>
@@ -17,11 +17,94 @@
 				<th>HPO Term Name</th>
 				<th>HPO Term Id</th>
 				<th># Observations</th>
-				<th>First Date</th>
-				<th>Last Date</th>
+				<th>First Observed</th>
+				<th>Last Observed</th>
+				<th>Add to Clinical Record</th>
 			</tr>
 		</thead>
 	</table>
 </div>
+
+<div class="modal fade" id="CommentsModal" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="CommentsModal-title">Add Phenotype</h3>
+            </div>
+            <form id="CommentsModal-form" method="post" action="{{req.contextPath}}/reportHpo">
+	            <div class="modal-body">
+	            	<input type="hidden" name="patientId" value="{{#patient}}{{id}}{{/patient}}"></input>
+	            	<div class="form-group">
+	            		<label>HPO Term Id: </label>
+	            		<span id="CommentsModal-termiddisplay" class="font-weight-bold"></span>
+            			<input type="hidden" id="CommentsModal-termid" name="hpoTermId"></input>
+	            	</div>
+	            	<div class="form-group">
+	            		<label>HPO Term Name: </label>
+	            		<span id="CommentsModal-termnamedisplay" class="font-weight-bold"></span>
+            			<input type="hidden" id="CommentsModal-termname" name="hpoTermName"></input>
+					</div>	            	
+	            	<div class="form-group">
+	            		<label>Effective Start: </label>
+	            		<span id="CommentsModal-firstdisplay" class="font-weight-bold"></span>
+            			<input type="hidden" id="CommentsModal-first" name="first"></input>
+					</div>	            	
+	            	<div class="form-group">
+	            		<label>Effective End: </label>
+	            		<span id="CommentsModal-lastdisplay" class="font-weight-bold"></span>
+            			<input type="hidden" id="CommentsModal-last" name="last"></input>
+					</div>	            	
+             		<input type="hidden" id="CommentsModal-negated" name="negated"></input>            		
+            		<input type="hidden" id="CommentsModal-observations" name="observations"></input>
+	            	<div class="form-group">
+	            		<label>Curator:</label>
+            			<input id="CommentsModal-curator" name="curator"></input>
+					</div>
+	            	<div class="form-group">
+	            		<label>Optional Comments:</label>
+            			<textarea id="CommentsModal-comments" name="comments" rows="3" cols="50"></textarea>
+					</div>
+	            </div>
+	            <div class="modal-footer">
+	                <button class="btn btn-primary" type="submit">Add to Clinical Record</button>
+	                <button id="CommentsModal-cancel" type="button" class="btn btn-link" data-dismiss="modal">Cancel</button>
+	            </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="DeleteModal" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="DeleteModal-title"></h3>
+            </div>
+            <form id="DeleteModal-form" method="post" action="{{req.contextPath}}/deleteHpo">
+             	<input type="hidden" name="patientId" value="{{#patient}}{{id}}{{/patient}}"></input>
+            	<input type="hidden" id="DeleteModal-termid" name="hpoTermId"></input>
+           		<input type="hidden" id="DeleteModal-negated" name="negated"></input>
+	            <div class="modal-footer">
+	                <button class="btn btn-primary" type="submit">Delete from Clinical Record</button>
+	                <button id="DeleteModal-cancel" type="button" class="btn btn-link" data-dismiss="modal">Cancel</button>
+	            </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="ConfirmationModal" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="ConfirmationModal-title"></h3>
+            </div>
+	        <div class="modal-footer">
+	        	<button id="ConfirmationModal-confirm" type="button" class="btn btn-primary" data-dismiss="modal">OK</button>
+        	</div>
+        </div>
+    </div>
+</div>
+
 
 {{>layout/footer}}

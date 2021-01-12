@@ -1,0 +1,13 @@
+{
+  "resourceType": "Patient",
+  "id": "1",
+  "active": true,
+  "name": [ {
+    "use": "official",
+    "family": "McLean",
+    "given": [ "John" ]
+  }],
+  "gender": "male",
+  "birthDate": "1980-12-25",
+  "deceasedBoolean": false
+}

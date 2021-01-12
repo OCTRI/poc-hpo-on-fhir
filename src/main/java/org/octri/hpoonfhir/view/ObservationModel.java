@@ -15,6 +15,7 @@ import org.monarchinitiative.fhir2hpo.fhir.util.ObservationLoincInfo;
 public class ObservationModel implements Serializable {
 
 	private static final long serialVersionUID = -3076629390459562137L;
+	public static final DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
 
 	private final String fhirId;
 	private final String loincId;
@@ -22,16 +23,16 @@ public class ObservationModel implements Serializable {
 	private final String startDate;
 	private final String endDate;
 	private final String value;
+	private final Boolean reported;
 
-	public ObservationModel(String loincId, ObservationLoincInfo observationLoincInfo) {
-		DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+	public ObservationModel(String loincId, ObservationLoincInfo observationLoincInfo, Boolean reported) {
 		this.fhirId = observationLoincInfo.getFhirId();
 		this.loincId = loincId;
 		this.description = observationLoincInfo.getDescription();
 		this.startDate = observationLoincInfo.getStartDate().map(d -> df.format(d)).orElse("");
 		this.endDate = observationLoincInfo.getEndDate().map(d -> df.format(d)).orElse("");
 		this.value = observationLoincInfo.getValueDescription();
-
+		this.reported = reported;
 	}
 
 	/**
@@ -80,6 +81,14 @@ public class ObservationModel implements Serializable {
 	 */
 	public String getValue() {
 		return value;
+	}
+
+	/**
+	 * Whether this specific Observation has had the HPO Term reported back to the server
+	 * @return
+	 */
+	public Boolean getReported() {
+		return reported;
 	}
 
 }
